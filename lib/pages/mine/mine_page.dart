@@ -11,10 +11,11 @@ class MinePage extends BasePage{
   final controller = Get.put(MineLogic());
   @override
   Widget buildWidget() {
-    return Container();
+    return Container(
+      child: Text(
+          "WODE"
+      ),
+    );
   }
-
-  @override
-  BaseController init() => controller;
 
 }

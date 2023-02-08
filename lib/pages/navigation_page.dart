@@ -1,50 +1,53 @@
-import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/navigation_logic.dart';
-import 'package:classes/states/navigation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NavigationPage extends BasePage{
+class NavigationPage extends BasePage {
   NavigationPage({super.key});
 
-  final controller = Get.put(NavigationLogic());
-
-  @override
-  init() => controller;
+  final logic = Get.put(NavigationLogic());
 
   @override
   Widget buildWidget() {
-    return Scaffold(
-      appBar: AppBar(title: Text(controller.labelList[controller.currentIndex])),
-      bottomNavigationBar: _bottomBar(),
-      body: PageView(
-        controller: controller.pageController,
-        onPageChanged: (value){
-          controller.setIndex(value);
-        },
-        children: controller.pageList,
-      ),
+    return GetBuilder<NavigationLogic>(
+      builder: (logic) {
+        return Scaffold(
+          appBar: AppBar(
+              title: Text(logic.labelList[logic.currentIndex])),
+          bottomNavigationBar: _bottomBar(),
+          body: PageView(
+            controller: logic.pageController,
+            onPageChanged: (value) {
+              logic.setIndex(value);
+            },
+            children: logic.pageList,
+          ),
+        );
+      },
     );
   }
 
-  Widget _bottomBar(){
+  Widget _bottomBar() {
     return BottomNavigationBar(
-      currentIndex: controller.currentIndex,
-      onTap: (value){
-        controller.pageController.jumpToPage(value);
-      },
+        currentIndex: logic.currentIndex,
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.blue,
+        backgroundColor: Colors.amber,
+        onTap: (value) {
+          logic.pageController.jumpToPage(value);
+        },
         items: List.generate(
-          controller.labelList.length,
-          (index) => BottomNavigationBarItem(
-            icon: Icon(controller.icon[index]),
-            label: controller.labelList[index],
-            tooltip: ''
-          )
+            logic.labelList.length,
+                (index) =>
+                BottomNavigationBarItem(
+                    icon: Icon(logic.icon[index]),
+                    label: logic.labelList[index],
+                    tooltip: ''
+                )
         )
     );
   }
-
 
 
 }

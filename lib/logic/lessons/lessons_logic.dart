@@ -1,5 +1,5 @@
 import 'package:classes/base/base_controller.dart';
 
-class LessonsLogic extends BaseController{
+class LessonsLogic extends BaseLogic{
 
 }

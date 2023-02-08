@@ -1,5 +1,5 @@
 import 'package:classes/base/base_controller.dart';
 
-class HomeLogic extends BaseController{
+class HomeLogic extends BaseLogic{
 
 }

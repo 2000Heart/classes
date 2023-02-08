@@ -5,7 +5,7 @@ import '../pages/home/home_page.dart';
 import '../pages/lessons/lessons_page.dart';
 import '../pages/mine/mine_page.dart';
 
-class NavigationLogic extends BaseController{
+class NavigationLogic extends BaseLogic{
 
   PageController get pageController => _pageController;
   int get currentIndex => _currentIndex;
@@ -21,7 +21,7 @@ class NavigationLogic extends BaseController{
   final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.accessibility];
   final List<String> labelList = ["首页","课程","我的"];
 
-  setIndex(value){
+  void setIndex(value){
     _currentIndex = value;
     update();
   }

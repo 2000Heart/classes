@@ -8,14 +8,15 @@ import 'package:get/get.dart';
 class LessonsPage extends BasePage{
   LessonsPage({super.key});
 
-  final controller = Get.put(LessonsLogic());
+  final logic = Get.put(LessonsLogic());
 
   @override
   Widget buildWidget() {
-    return Container();
+    return Container(
+      child: Text(
+        "KECHENG"
+      ),
+    );
   }
-
-  @override
-  BaseController init() => controller;
 
 }

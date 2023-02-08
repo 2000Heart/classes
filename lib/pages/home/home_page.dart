@@ -8,14 +8,15 @@ import 'package:get/get.dart';
 class HomePage extends BasePage{
   HomePage({super.key});
 
-  final controller = Get.put(HomeLogic());
+  final logic = Get.put(HomeLogic());
   @override
   Widget buildWidget() {
-    return Scaffold();
+    return Container(
+      child: Text(
+          "ZHUYE"
+      ),
+    );
   }
-
-  @override
-  BaseController init() => controller;
 
 }
 
