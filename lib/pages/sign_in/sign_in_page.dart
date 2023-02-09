@@ -46,7 +46,7 @@ class SignInPage extends BasePage{
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
                 onPressed: () {
-                  Get.toNamed(Routes.navigation);
+                  Get.offAndToNamed(Routes.navigation);
                 },
                 child: const Text("登录"),
               )

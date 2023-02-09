@@ -17,6 +17,7 @@ class NavigationPage extends BasePage {
               title: Text(logic.labelList[logic.currentIndex])),
           bottomNavigationBar: _bottomBar(),
           body: PageView(
+            physics: const ClampingScrollPhysics(),
             controller: logic.pageController,
             onPageChanged: (value) {
               logic.setIndex(value);
@@ -33,6 +34,7 @@ class NavigationPage extends BasePage {
         currentIndex: logic.currentIndex,
         type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.amber,
         backgroundColor: Colors.amber,
         onTap: (value) {
           logic.pageController.jumpToPage(value);
