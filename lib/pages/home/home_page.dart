@@ -1,5 +1,6 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_logic.dart';
+import 'package:classes/model/home/home_class_single_day_entity.dart';
 import 'package:classes/widgets/grid_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,15 +18,15 @@ class HomePage extends BasePage{
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(width: 20,child: const Text("12月")),
-              const GridUnit(child: Text("一")),
-              const GridUnit(child: Text("二")),
-              const GridUnit(child: Text("三")),
-              const GridUnit(child: Text("四")),
-              const GridUnit(child: Text("五")),
-              const GridUnit(child: Text("六")),
-              const GridUnit(child: Text("日")),
+            children: const [
+              SizedBox(width: 20,child: Text("12月")),
+              GridUnit(child: Text("一")),
+              GridUnit(child: Text("二")),
+              GridUnit(child: Text("三")),
+              GridUnit(child: Text("四")),
+              GridUnit(child: Text("五")),
+              GridUnit(child: Text("六")),
+              GridUnit(child: Text("日")),
             ],
           ),
           Expanded(
@@ -34,18 +35,14 @@ class HomePage extends BasePage{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 20,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: List.generate(11, (index) => GridUnit(child: Text("${index + 1}")))
                     ),
                   ),
-                  Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"),color: Colors.pink,num: 4)
-                    ],
-                  ),
+                  ClassSingleDay(classes: [HomeClassSingeDayEntity(className: "英语课",start: 3,end: 9)]),
                   Column(
                     children: const [
                       GridUnit(child: Text("英语课"),color: Colors.green,num: 4)
