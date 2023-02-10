@@ -1,6 +1,7 @@
 class HomeClassSingeDayEntity {
   int? classId;
   String? className;
+  String? weeks;
   int? start;
   int? end;
   String? teacher;

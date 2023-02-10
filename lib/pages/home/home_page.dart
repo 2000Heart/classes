@@ -42,10 +42,10 @@ class HomePage extends BasePage{
                       children: List.generate(11, (index) => GridUnit(child: Text("${index + 1}")))
                     ),
                   ),
-                  ClassSingleDay(classes: [HomeClassSingeDayEntity(className: "英语课",start: 3,end: 9)]),
+                  ClassSingleDay(classes: [HomeClassSingeDayEntity(className: "形势与政策",start: 3,end: 9)]),
                   Column(
                     children: const [
-                      GridUnit(child: Text("英语课"),color: Colors.green,num: 4)
+                      GridUnit(child: Text("面向对象编程"),color: Colors.green,num: 4)
                     ],
                   ),
                   Column(
@@ -78,7 +78,7 @@ class HomePage extends BasePage{
             ),
           )
         ],
-      )
+      ),
     );
   }
 

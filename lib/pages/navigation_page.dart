@@ -13,16 +13,16 @@ class NavigationPage extends BasePage {
     return GetBuilder<NavigationLogic>(
       builder: (logic) {
         return Scaffold(
-          appBar: AppBar(
-              title: Text(logic.labelList[logic.currentIndex])),
           bottomNavigationBar: _bottomBar(),
-          body: PageView(
-            physics: const ClampingScrollPhysics(),
-            controller: logic.pageController,
-            onPageChanged: (value) {
-              logic.setIndex(value);
-            },
-            children: logic.pageList,
+          body: SafeArea(
+            child: PageView(
+              physics: const ClampingScrollPhysics(),
+              controller: logic.pageController,
+              onPageChanged: (value) {
+                logic.setIndex(value);
+              },
+              children: logic.pageList,
+            ),
           ),
         );
       },
