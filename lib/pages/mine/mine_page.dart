@@ -1,4 +1,3 @@
-import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,10 @@ class MinePage extends BasePage{
   final controller = Get.put(MineLogic());
   @override
   Widget buildWidget(BuildContext context) {
-    return Container(
-      child: Text(
-          "WODE"
-      ),
+    return Column(
+      children: [
+
+      ],
     );
   }
 

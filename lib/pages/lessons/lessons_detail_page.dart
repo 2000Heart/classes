@@ -44,9 +44,42 @@ class LessonsDetailPage extends BasePage {
           },
           body: Column(
             children: [
-              Container(child: const Text("签到"))
+              Container(child: const Text("签到")),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      group(5, 2),
+                      group(4, 4),
+                      group(3, 3)
+                    ],
+                  ),
+                ),
+              )
             ],
           )
+      ),
+    );
+  }
+
+  Widget group(int column,int row){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(column, (index) => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(
+          row, (index) => Container(
+            width: 50,
+            height: 50,
+            alignment: Alignment.center,
+            child: Text("张三"),
+          )
+        ),
+      )
       ),
     );
   }
