@@ -12,36 +12,42 @@ class LessonsDetailPage extends BasePage {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return ExtendedNestedScrollView(
-        onlyOneScrollInBody: true,
-        floatHeaderSlivers: true,
-        physics: const NeverScrollableScrollPhysics(),
-        controller: logic.scrollController,
-        pinnedHeaderSliverHeightBuilder: () => kToolbarHeight + MediaQuery.of(context).padding.top,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              pinned: true,
-              toolbarHeight: kToolbarHeight,
-              collapsedHeight: kToolbarHeight,
-              expandedHeight: 60,
-              titleSpacing: 0.0,
-              iconTheme: const IconThemeData(color: Colors.white),
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                collapseMode: CollapseMode.pin,
-                background: Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                  height: 80,
-                  width: Get.width,
-                  color: Colors.red,
-                  alignment: Alignment.center,
+    return Scaffold(
+      body: ExtendedNestedScrollView(
+          onlyOneScrollInBody: true,
+          floatHeaderSlivers: true,
+          physics: const NeverScrollableScrollPhysics(),
+          controller: logic.scrollController,
+          pinnedHeaderSliverHeightBuilder: () => kToolbarHeight + MediaQuery.of(context).padding.top,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                pinned: true,
+                toolbarHeight: kToolbarHeight,
+                collapsedHeight: kToolbarHeight,
+                expandedHeight: 120,
+                titleSpacing: 0.0,
+                iconTheme: const IconThemeData(color: Colors.white),
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  collapseMode: CollapseMode.pin,
+                  background: Container(
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    height: 120,
+                    width: Get.width,
+                    color: Colors.red,
+                    alignment: Alignment.center,
+                  ),
                 ),
               ),
-            ),
-          ];
-        },
-        body: Container()
+            ];
+          },
+          body: Column(
+            children: [
+              Container(child: const Text("签到"))
+            ],
+          )
+      ),
     );
   }
 }
