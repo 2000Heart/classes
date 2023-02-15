@@ -12,17 +12,32 @@ class HomePage extends BasePage {
   final logic = Get.put(HomeLogic());
 
   @override
-  Widget buildWidget() {
+  Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeLogic>(builder: (logic) {
       return Scaffold(
           appBar: AppBar(title: Text("${logic.currentIndex}")),
-          body: PageView(
-            controller: logic.pageController,
-            onPageChanged: (index) {
-              logic.setIndex(index);
-            },
-            children: List.generate(15, (index) {
-              return weekLessons();}),
+          body: Column(
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                color: Colors.lightBlue,
+                child: PageView(
+                  controller: logic.pageController,
+                  children: List.generate(15, (index) => Text("$index")),
+                ),
+              ),
+              Expanded(
+                child: PageView(
+                  controller: logic.pageController,
+                  onPageChanged: (index) {
+                    logic.setIndex(index);
+                  },
+                  children: List.generate(15, (index) {
+                    return weekLessons();}),
+                ),
+              ),
+            ],
           )
       );
     });

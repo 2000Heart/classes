@@ -41,7 +41,8 @@ dependencies:
   dio: ^4.0.6
   flutter_inappwebview: ^5.7.2+2
   webview_flutter: ^2.8.0
-
+  cached_network_image: ^3.2.3
+  extended_nested_scroll_view: ^6.0.0
 
 dev_dependencies:
   flutter_test:

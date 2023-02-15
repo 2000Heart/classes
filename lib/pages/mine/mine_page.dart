@@ -10,7 +10,7 @@ class MinePage extends BasePage{
 
   final controller = Get.put(MineLogic());
   @override
-  Widget buildWidget() {
+  Widget buildWidget(BuildContext context) {
     return Container(
       child: Text(
           "WODE"

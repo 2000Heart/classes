@@ -11,7 +11,7 @@ class SignInPage extends BasePage{
   final controller = Get.put(SignInLogic());
 
   @override
-  Widget buildWidget() {
+  Widget buildWidget(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(

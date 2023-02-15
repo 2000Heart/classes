@@ -9,7 +9,7 @@ abstract class BasePage extends StatelessWidget{
 
   // BaseLogic init();
   // String? get tag => null;
-  Widget buildWidget();
+  Widget buildWidget(BuildContext context);
   // void initState(){return;}
   // void didUpdateWidget(){return;}
   // void didChangeDependencies(){return;}
@@ -29,7 +29,7 @@ abstract class BasePage extends StatelessWidget{
     //   },
     //
     //   builder: (logic){
-        return buildWidget();
+        return buildWidget(context);
     //   }
     // );
   }

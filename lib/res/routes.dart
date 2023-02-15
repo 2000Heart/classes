@@ -1,5 +1,6 @@
 import 'package:classes/pages/home/home_detail_page.dart';
 import 'package:classes/pages/home/home_page.dart';
+import 'package:classes/pages/lessons/lessons_detail_page.dart';
 import 'package:classes/pages/lessons/lessons_page.dart';
 import 'package:classes/pages/mine/mine_page.dart';
 import 'package:classes/pages/navigation_page.dart';
@@ -13,6 +14,7 @@ class Routes {
   static const lessons = "/lessons";
   static const mine = "/mine";
   static const homeDetail = "/home/homeDetail";
+  static const lessonsDetail = "/lessons/lessonsDetail";
 
   static final List<GetPage> getPages = [
     GetPage(name: sign, page: () => SignInPage()),
@@ -23,6 +25,7 @@ class Routes {
     GetPage(
       name: homeDetail, page: () => HomeDetailPage(),
       opaque: false,
-    )
+    ),
+    GetPage(name: lessonsDetail, page: () => LessonsDetailPage())
   ];
 }

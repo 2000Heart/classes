@@ -9,7 +9,7 @@ class NavigationPage extends BasePage {
   final logic = Get.put(NavigationLogic());
 
   @override
-  Widget buildWidget() {
+  Widget buildWidget(BuildContext context) {
     return GetBuilder<NavigationLogic>(
       builder: (logic) {
         return Scaffold(

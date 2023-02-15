@@ -9,7 +9,7 @@ class HomeDetailPage extends BasePage {
   final logic = Get.put(HomeDetailLogic());
 
   @override
-  Widget buildWidget() {
+  Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeDetailLogic>(builder: (logic) {
       return Dialog(
         backgroundColor: Colors.transparent,
