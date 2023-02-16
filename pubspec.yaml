@@ -43,6 +43,7 @@ dependencies:
   webview_flutter: ^2.8.0
   cached_network_image: ^3.2.3
   extended_nested_scroll_view: ^6.0.0
+  liquid_swipe: ^3.0.0
 
 dev_dependencies:
   flutter_test:

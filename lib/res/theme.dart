@@ -15,7 +15,7 @@ class ThemeConfig{
       elevation: 0,
       toolbarHeight: 44,
       titleTextStyle: TextStyle(
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: FontWeight.w500,
       )
     );

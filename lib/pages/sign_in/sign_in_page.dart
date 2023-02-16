@@ -1,60 +1,64 @@
-import 'dart:ui';
-import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
-import 'package:classes/logic/sign_in/sign_in_logic.dart';
-import 'package:classes/res/routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-class SignInPage extends BasePage{
-  SignInPage({super.key});
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 
-  final controller = Get.put(SignInLogic());
+class SignInPage extends BasePage{
+
+  var data = ["aaaaa","cajnfoa","hhokgo"];
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: MediaQueryData.fromWindow(window).padding.top + 60,
-          horizontal: 40,
-        ),
-        child: Form(
-          key: controller.formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "学号",
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue))),
-              ),
-              Container(height: 60),
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "密码",
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue))),
-              ),
-              Container(height: 30),
-              RawMaterialButton(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                shape: const RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue),
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
-                onPressed: () {
-                  Get.offAndToNamed(Routes.navigation);
-                },
-                child: const Text("登录"),
-              )
-            ],
-          ),
-        ),
+    return LiquidSwipe(
+      pages: [],
+    );
+  }
+
+  Widget chooseIdentity(){
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          Text("你是"),
+          Text("教师"),
+          Text("or"),
+          Text("学生")
+        ],
       ),
     );
   }
 
+  Widget chooseSchool(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("你来自哪所学校？"),
+        Autocomplete(
+          optionsBuilder: (TextEditingValue value) async{
+            if(value.text.isEmpty){
+              return const Iterable<String>.empty();
+            }else{
+              return data.where((element) => element.contains(value.text));
+            }
+          },
+          fieldViewBuilder: (context,textEditingController, focusNode, onFieldSubmitted){
+            return SizedBox(
+              height: 34,
+              child: TextFormField(
+                controller: textEditingController,
+                onFieldSubmitted: (value) => onFieldSubmitted,
+              ),
+            );
+          },
+          // optionsViewBuilder: (context, onSelected, options) => null,
+          onSelected: (selection) => print(selection),
+        ),
+      ],
+    );
+  }
+
+  Widget completeAccount(){
+    return Container();
+  }
 }
