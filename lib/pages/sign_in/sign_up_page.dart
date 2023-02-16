@@ -1,7 +1,8 @@
 import 'dart:ui';
-import 'package:classes/base/base_controller.dart';
+
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
+import 'package:classes/pages/sign_in/sign_in_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,17 @@ class SignUpPage extends BasePage{
                   Get.offAndToNamed(Routes.navigation);
                 },
                 child: const Text("登录"),
+              ),
+              RawMaterialButton(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+                onPressed: () {
+                  Get.to(() => SignInPage());
+                },
+                child: const Text("注册"),
               )
             ],
           ),
