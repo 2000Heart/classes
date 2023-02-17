@@ -1,4 +1,5 @@
 import 'package:classes/base/base_controller.dart';
+import 'package:classes/pages/messages/messages_page.dart';
 import 'package:flutter/material.dart';
 import '../pages/home/home_page.dart';
 import '../pages/lessons/lessons_page.dart';
@@ -15,10 +16,11 @@ class NavigationLogic extends BaseLogic{
   final List<Widget> _pageList = [
     HomePage(),
     LessonsPage(),
+    MessagesPage(),
     MinePage()
   ];
-  final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.accessibility];
-  final List<String> labelList = ["首页","课程","我的"];
+  final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.message,Icons.accessibility];
+  final List<String> labelList = ["首页","课程","消息","我的"];
 
   void setIndex(value){
     _currentIndex = value;

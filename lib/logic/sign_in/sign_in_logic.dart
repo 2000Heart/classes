@@ -1,11 +1,14 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 
 class SignInLogic extends BaseLogic{
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
   get textEditingController => _textEditingController;
-  var i = 0;
+  late TextEditingController textController;
+  final data = ["aaaaa", "cajnfoa", "hhokgo"];
+  final LiquidController liquidController = LiquidController();
   get formKey => _formKey;
 
   validateID(value) {

@@ -4,8 +4,9 @@ import 'package:classes/pages/lessons/lessons_detail_page.dart';
 import 'package:classes/pages/lessons/lessons_page.dart';
 import 'package:classes/pages/mine/mine_page.dart';
 import 'package:classes/pages/navigation_page.dart';
-import 'package:classes/pages/sign_in/sign_up_page.dart';
 import 'package:get/get.dart';
+
+import '../pages/sign_in/sign_in_page.dart';
 
 class Routes {
   static const sign = "/sign";
@@ -17,7 +18,7 @@ class Routes {
   static const lessonsDetail = "/lessons/lessonsDetail";
 
   static final List<GetPage> getPages = [
-    GetPage(name: sign, page: () => SignUpPage()),
+    GetPage(name: sign, page: () => SignInPage()),
     GetPage(name: navigation, page: () => NavigationPage()),
     GetPage(name: home, page: () => HomePage()),
     GetPage(name: lessons, page: () => LessonsPage()),
