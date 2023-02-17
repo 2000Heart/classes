@@ -5,7 +5,7 @@ class HomeLogic extends BaseLogic{
   final PageController pageController = PageController();
 
   int _currentIndex = 0;
-  int _weekIndex = 0;
+  int _weekIndex = 1;
   int _tableIndex = 0;
 
   int get tableIndex => _tableIndex;

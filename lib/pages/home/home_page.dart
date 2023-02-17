@@ -3,7 +3,6 @@ import 'package:classes/logic/home/home_logic.dart';
 import 'package:classes/model/home/home_class_single_day_entity.dart';
 import 'package:classes/res/utils.dart';
 import 'package:classes/widgets/grid_unit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,7 +67,7 @@ class HomePage extends BasePage {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: List.generate(
-                          11, (index) => GridUnit(child: Text("${index + 1}")))
+                          12, (index) => GridUnit(child: Text("${index + 1}")))
                   ),
                 ),
                 ClassSingleDay(classes: [
@@ -160,6 +159,7 @@ class HomePage extends BasePage {
                   ),
                   ExpansionTile(
                     title: Text("切换课表"),
+                    collapsedBackgroundColor: Colors.red,
                     // shape: RoundedRectangleBorder(
                     //     side: BorderSide(color: Colors.black,width: 1),
                     //     borderRadius: BorderRadius.circular(8)
@@ -186,12 +186,19 @@ class HomePage extends BasePage {
                       alignment: Alignment.centerLeft,
                         child: ListTile(
                           title: Text("大三下"),
+                          selectedColor: Colors.white,
+                          selectedTileColor: Colors.blue,
                           selected: logic.tableIndex == index,
                           onTap: () => logic.tableIndex = index,
                         ),
                     )),
                   ),
+                  Row(
+                    children: [
+                      Text("选择节数"),
 
+                    ],
+                  )
                 ],
               ),
             );
