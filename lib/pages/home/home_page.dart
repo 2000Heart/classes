@@ -1,7 +1,9 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_logic.dart';
 import 'package:classes/model/home/home_class_single_day_entity.dart';
+import 'package:classes/res/utils.dart';
 import 'package:classes/widgets/grid_unit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,25 +17,21 @@ class HomePage extends BasePage {
   Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeLogic>(builder: (logic) {
       return Scaffold(
-          appBar: AppBar(title: Text("${logic.currentIndex}")),
           body: Column(
             children: [
-              Container(
-                width: 80,
-                height: 80,
-                color: Colors.lightBlue,
-                child: PageView(
-                  controller: logic.pageController,
-                  children: List.generate(15, (index) => Text("$index")),
-                ),
+              Row(
+                children: [
+                  Text("第${logic.currentIndex + 1}周"),
+                  Icon(Icons.more_vert_rounded).tap(() => bottomSheet(context))
+                ],
               ),
               Expanded(
                 child: PageView(
                   controller: logic.pageController,
                   onPageChanged: (index) {
-                    logic.setIndex(index);
+                    logic.currentIndex = index;
                   },
-                  children: List.generate(15, (index) {
+                  children: List.generate(14, (index) {
                     return weekLessons();}),
                 ),
               ),
@@ -113,5 +111,110 @@ class HomePage extends BasePage {
       ],
     );
   }
+
+  bottomSheet(context){
+    return showModalBottomSheet(
+      context: context,
+      barrierColor: Colors.transparent,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),topRight: Radius.circular(10))
+      ),
+      constraints: BoxConstraints(
+        maxWidth: Get.width, maxHeight: Get.height * 0.8),
+      builder: (context) =>
+        GetBuilder<HomeLogic>(
+          builder: (logic) {
+            return Container(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("设置当前周"),
+                      Row(
+                        children: [
+                          Text("${logic.weekIndex}"),
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              trackHeight: 10,
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius: 10
+                              ),
+                              trackShape: RoundedRectSliderTrackShape(),
+                            ),
+                            child: Slider(
+                              value: logic.weekIndex.toDouble(),
+                              min: 1,
+                              max: 14,
+                              divisions: 13,
+                              onChanged: (value) => logic.weekIndex = value.toInt(),
+                              onChangeEnd: (value) => logic.pageController.animateToPage(value.toInt() - 1,duration: Duration(milliseconds: 200),curve: Curves.linear),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text("切换课表"),
+                    // shape: RoundedRectangleBorder(
+                    //     side: BorderSide(color: Colors.black,width: 1),
+                    //     borderRadius: BorderRadius.circular(8)
+                    // ),
+                    // collapsedShape: RoundedRectangleBorder(
+                    //     side: BorderSide(color: Colors.black,width: 1),
+                    //     borderRadius: BorderRadius.circular(8)
+                    // ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("大三下"),
+                        Icon(Icons.keyboard_arrow_down_rounded)
+                      ],
+                    ),
+                    childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+                    children: List.generate(5, (index) => Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                          border: Border(top: BorderSide(color: Colors.black,width: 1))
+                      ),
+                      alignment: Alignment.centerLeft,
+                        child: ListTile(
+                          title: Text("大三下"),
+                          selected: logic.tableIndex == index,
+                          onTap: () => logic.tableIndex = index,
+                        ),
+                    )),
+                  ),
+
+                ],
+              ),
+            );
+          }
+        )
+    );
+  }
 }
 
+class FullWidthTrackShape extends RoundedRectSliderTrackShape {
+  @override
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double? trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop = offset.dy + (parentBox.size.height - (trackHeight ?? 0)) / 2;
+    // 让轨道宽度等于 Slider 宽度
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight ?? 0);
+  }
+}
