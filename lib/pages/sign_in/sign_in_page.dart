@@ -1,5 +1,7 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
+import 'package:classes/res/colours.dart';
+import 'package:classes/widgets/form_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -18,7 +20,7 @@ class SignInPage extends BasePage {
         builder: (logic) {
           return LiquidSwipe(
             enableLoop: false,
-            disableUserGesture: true,
+            disableUserGesture: false,
             liquidController: logic.liquidController,
             waveType: WaveType.circularReveal,
             pages: [
@@ -35,17 +37,18 @@ class SignInPage extends BasePage {
 
   Widget chooseToSign(){
     return Container(
-      color: Colors.blue,
+      color: Colours.grey5,
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
+          NormalButton(
             onTap: () => logic.liquidController.jumpToPage(page: 3),
             child: Text("登录",style: TextStyle(fontSize: 40))),
-          GestureDetector(
-            onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
-            child: Text("注册",style: TextStyle(fontSize: 40)))
+          Container(height: 40),
+          NormalButton(
+              onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
+              child: Text("注册",style: TextStyle(fontSize: 40))),
         ],
       ),
     );
@@ -53,21 +56,20 @@ class SignInPage extends BasePage {
 
   Widget chooseIdentity() {
     return Container(
-      color: Colors.white,
+      color: Colours.grey1,
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("你是", style: TextStyle(fontSize: 20)),
+          Text("你是", style: TextStyle(fontSize: 25)),
+          Container(height: 40),
+          NormalButton(
+              onTap: () => logic.liquidController.animateToPage(page: 2, duration: 700),
+              child: Text("教师",style: TextStyle(fontSize: 40))),
           Container(height: 10),
-          GestureDetector(
-              onTap: () =>
-                  logic.liquidController.animateToPage(page: 2, duration: 700),
-              child: Text("教师", style: TextStyle(fontSize: 40))),
+          Text("or", style: TextStyle(fontSize: 30)),
           Container(height: 10),
-          Text("or", style: TextStyle(fontSize: 25)),
-          Container(height: 10),
-          GestureDetector(
+          NormalButton(
               onTap: () => logic.liquidController.animateToPage(page: 2,duration: 700),
               child: Text("学生", style: TextStyle(fontSize: 40)))
         ],
@@ -78,12 +80,11 @@ class SignInPage extends BasePage {
   Widget chooseSchool() {
     return GetBuilder<SignInLogic>(builder: (logic) {
       return Container(
-        color: Colors.white,
+        color: Colours.grey2,
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("你来自哪所学校？"),
             Autocomplete(
               optionsBuilder: (TextEditingValue value) async {
                 if (value.text.isEmpty) {
@@ -95,16 +96,21 @@ class SignInPage extends BasePage {
               fieldViewBuilder: (context, textEditingController, focusNode,
                   onFieldSubmitted) {
                 logic.textController = textEditingController;
-                return Container(
-                  height: 34,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: TextFormField(
-                    key: Key("22"),
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    onFieldSubmitted: (value) => onFieldSubmitted(),
+                return TextFormField(
+                  key: Key("22"),
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    labelText: "你来自哪所学校？",
+                    labelStyle: TextStyle(color: Colors.black),
+
                   ),
-                );
+                  controller: textEditingController,
+                  focusNode: focusNode,
+                  onFieldSubmitted: (value) => onFieldSubmitted(),
+                ).paddingSymmetric(horizontal: 40);
               },
               optionsViewBuilder: (context, onSelected, options) =>
                   Align(
@@ -149,6 +155,7 @@ class SignInPage extends BasePage {
     return GetBuilder<SignInLogic>(
       builder: (logic) {
         return Container(
+          color: Colours.cyan1,
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 32),
           child: Form(
@@ -158,31 +165,32 @@ class SignInPage extends BasePage {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "学号",
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue))),
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    labelText: "学号",
+                    labelStyle: TextStyle(color: Colors.black),
+
+                  ),
                 ),
                 Container(height: 60),
                 TextFormField(
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "密码",
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue))),
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    labelText: "密码",
+                    labelStyle: TextStyle(color: Colors.black),
+
+                  ),
                 ),
                 Container(height: 30),
-                RawMaterialButton(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  onPressed: () {
-                    Get.offAndToNamed(Routes.navigation);
-                  },
-                  child: const Text("确定"),
+                NormalButton(
+                  onTap: () => Get.offAndToNamed(Routes.navigation),
+                  child: const Text("确定",style: TextStyle(fontSize: 24),),
                 )
               ],
             ),
