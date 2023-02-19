@@ -11,9 +11,12 @@ class HomeDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeDetailLogic>(builder: (logic) {
-      return Dialog(
-        backgroundColor: Colors.transparent,
-        alignment: Alignment.topCenter,
+      return Container(
+        margin: EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all()
+        ),
         child: SingleChildScrollView(
           child: Column(
                 mainAxisSize: MainAxisSize.min,

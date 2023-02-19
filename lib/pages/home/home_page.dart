@@ -21,7 +21,7 @@ class HomePage extends BasePage {
               Row(
                 children: [
                   Text("第${logic.currentIndex + 1}周"),
-                  Icon(Icons.more_vert_rounded).tap(() => bottomSheet(context))
+                  Icon(Icons.more_vert_rounded).tap(() => showMore(context))
                 ],
               ),
               Expanded(
@@ -122,7 +122,7 @@ class HomePage extends BasePage {
     );
   }
 
-  bottomSheet(context){
+  showMore(context){
     return showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,

@@ -29,13 +29,13 @@ class ClassSingleDay extends StatelessWidget{
   final List<HomeClassSingeDayEntity> classes;
   final Color color;
 
-  List<Widget> formClasses(){
+  List<Widget> formClasses(context){
     List<Widget> list = [];
     for(var i = 0;i < classes.length;i++){
       if(!classes[i].isUseless) {
         list.add(
             GestureDetector(
-              onTap: () => Get.dialog(HomeDetailPage(),arguments: classes[i].classId),
+              onTap: () => showDetail(context),
               child: Container(
                 color: color,
                 width: 50,
@@ -73,8 +73,22 @@ class ClassSingleDay extends StatelessWidget{
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: formClasses(),
+      children: formClasses(context),
     );
   }
 
+  showDetail(context){
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        barrierColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        constraints: BoxConstraints(maxWidth: Get.width/1.2),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),topRight: Radius.circular(10))
+        ),
+        builder: (context) => HomeDetailPage()
+    );
+  }
 }
