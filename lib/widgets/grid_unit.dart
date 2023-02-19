@@ -15,7 +15,6 @@ class GridUnit extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       color: color,
-      width: 50,
       height: 50.0*num,
       alignment: Alignment.center,
       child: child,

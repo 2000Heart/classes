@@ -47,19 +47,18 @@ class HomePage extends BasePage {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
             SizedBox(width: 20, child: Text("12月")),
-            GridUnit(child: Text("一")),
-            GridUnit(child: Text("二")),
-            GridUnit(child: Text("三")),
-            GridUnit(child: Text("四")),
-            GridUnit(child: Text("五")),
-            GridUnit(child: Text("六")),
-            GridUnit(child: Text("日")),
+            Expanded(child: GridUnit(child: Text("一"))),
+            Expanded(child: GridUnit(child: Text("二"))),
+            Expanded(child: GridUnit(child: Text("三"))),
+            Expanded(child: GridUnit(child: Text("四"))),
+            Expanded(child: GridUnit(child: Text("五"))),
+            Expanded(child: GridUnit(child: Text("六"))),
+            Expanded(child: GridUnit(child: Text("日"))),
           ],
         ),
         Expanded(
           child: SingleChildScrollView(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
@@ -73,35 +72,47 @@ class HomePage extends BasePage {
                 ClassSingleDay(classes: [
                   HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 9)
                 ]),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("面向对象编程"), color: Colors.green, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("面向对象编程"), color: Colors.green, num: 4)
+                    ],
+                  ),
                 ),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("英语课"), color: Colors.yellow, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("英语课"), color: Colors.yellow, num: 4)
+                    ],
+                  ),
                 ),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("英语课"), color: Colors.blue, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("英语课"), color: Colors.blue, num: 4)
+                    ],
+                  ),
                 ),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("英语课"), color: Colors.red, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("英语课"), color: Colors.red, num: 4)
+                    ],
+                  ),
                 ),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("英语课"), color: Colors.purple, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("英语课"), color: Colors.purple, num: 4)
+                    ],
+                  ),
                 ),
-                Column(
-                  children: const [
-                    GridUnit(child: Text("英语课"), color: Colors.grey, num: 4)
-                  ],
+                Expanded(
+                  child: Column(
+                    children: const [
+                      GridUnit(child: Text("英语课"), color: Colors.grey, num: 4)
+                    ],
+                  ),
                 )
               ],
             ),
