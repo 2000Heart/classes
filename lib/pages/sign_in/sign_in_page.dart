@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
@@ -42,6 +43,8 @@ class SignInPage extends BasePage {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text("简之",style: TextStyle(fontSize: 40)),
+          Container(height: 300),
           NormalButton(
             onTap: () => logic.liquidController.jumpToPage(page: 3),
             child: Text("登录",style: TextStyle(fontSize: 40))),
