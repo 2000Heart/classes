@@ -100,7 +100,6 @@ class SignInPage extends BasePage {
                   onFieldSubmitted) {
                 logic.textController = textEditingController;
                 return TextFormField(
-                  key: Key("22"),
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
@@ -162,7 +161,6 @@ class SignInPage extends BasePage {
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 32),
           child: Form(
-            key: logic.formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,9 +172,9 @@ class SignInPage extends BasePage {
                     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                     labelText: "学号",
-                    labelStyle: TextStyle(color: Colors.black),
-
-                  ),
+                    labelStyle: TextStyle(color: Colors.black)),
+                  onChanged: (text) => logic.username = text,
+                  onFieldSubmitted: (text) => logic.username = text,
                 ),
                 Container(height: 60),
                 TextFormField(
@@ -186,15 +184,16 @@ class SignInPage extends BasePage {
                     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                     labelText: "密码",
-                    labelStyle: TextStyle(color: Colors.black),
-
-                  ),
+                    labelStyle: TextStyle(color: Colors.black)),
+                  onChanged: (text) => logic.password = text,
+                  onFieldSubmitted: (text) => logic.password = text,
                 ),
                 Container(height: 30),
                 NormalButton(
-                  onTap: () => Get.offAndToNamed(Routes.navigation),
+                  onTap: () => logic.checkLogin(),
                   child: const Text("确定",style: TextStyle(fontSize: 24),),
-                )
+                ),
+                Text(logic.user.toString())
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:classes/pages/sign_in/sign_in_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
       title: '课程管理',
       getPages: Routes.getPages,
       theme: ThemeConfig.theme(),
+      onInit: () => EasyLoading.instance.userInteractions = false,
+      builder: EasyLoading.init(),
       home: Scaffold(body: SignInPage()),
     );
   }
