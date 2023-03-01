@@ -1,7 +1,10 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+
+import '../../res/routes.dart';
 
 class SignInLogic extends BaseLogic{
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

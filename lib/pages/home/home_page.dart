@@ -1,6 +1,7 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_logic.dart';
 import 'package:classes/model/home/home_class_single_day_entity.dart';
+import 'package:classes/res/routes.dart';
 import 'package:classes/res/utils.dart';
 import 'package:classes/widgets/grid_unit.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class HomePage extends BasePage {
               Row(
                 children: [
                   Text("第${logic.currentIndex + 1}周"),
+                  Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
                   Icon(Icons.more_vert_rounded).tap(() => showMore(context))
                 ],
               ),

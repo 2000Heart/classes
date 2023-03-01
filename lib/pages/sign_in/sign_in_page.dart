@@ -159,7 +159,7 @@ class SignInPage extends BasePage {
         return Container(
           color: Colours.cyan1,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +190,7 @@ class SignInPage extends BasePage {
                 ),
                 Container(height: 30),
                 NormalButton(
-                  onTap: () => logic.checkLogin(),
+                  onTap: () => Get.toNamed(Routes.navigation), //logic.checkLogin(),
                   child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),
                 Text(logic.user.toString())
