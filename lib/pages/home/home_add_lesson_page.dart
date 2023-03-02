@@ -81,8 +81,9 @@ class HomeAddLessonPage extends BasePage{
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("时间段${index}"),
+              Text("时间段${index+1}"),
               Text("删除本时段").tap(() {
                 if(logic.timeCount > 1) {
                   logic.timeCount -= 1;
