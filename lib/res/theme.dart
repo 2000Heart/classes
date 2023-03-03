@@ -5,7 +5,14 @@ class ThemeConfig{
     return ThemeData(
       primarySwatch: Colors.blue,
       appBarTheme: _appBarTheme(),
-      splashColor: Colors.transparent
+      splashColor: Colors.transparent,
+      iconTheme: IconThemeData(size: 20),
+      scaffoldBackgroundColor: Colors.white,
+      highlightColor: Colors.transparent,
+      textButtonTheme: TextButtonThemeData(style: ButtonStyle(
+      overlayColor: MaterialStateProperty.resolveWith((states) {
+        return Colors.transparent;
+      })))
     );
   }
 

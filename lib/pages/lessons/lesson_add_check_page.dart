@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:classes/logic/lessons/lesson_add_%20check_logic.dart';
 import 'package:classes/res/utils.dart';
+import 'package:classes/widgets/date_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +21,6 @@ class LessonAddCheckPage extends BasePage{
     return GetBuilder<LessonAddCheckLogic>(
       initState: (state){
         logic.focus = FocusNode();
-        Future.delayed(const Duration(milliseconds: 600)).then((value) => FocusScope.of(context).requestFocus(logic.focus));
       },
       builder: (logic) {
         return Scaffold(
@@ -27,6 +29,14 @@ class LessonAddCheckPage extends BasePage{
             controller: logic.controller,
             slivers: [
               SliverToBoxAdapter(child: checkInfo()),
+              if(logic.choice)SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    Text("教室名"),
+                    Container(width: 60,child: Text("2308"))
+                  ],
+                ),
+              ),
               logic.choice?SliverToBoxAdapter(child: chooseList(context)):SliverAnimatedList(
                 key: _listKey,
                 initialItemCount: logic.timeCount,
@@ -54,8 +64,15 @@ class LessonAddCheckPage extends BasePage{
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("选择时间"),
-            Text("13:44开始 持续10分钟").tap(() => Get.bottomSheet(datePicker(),barrierColor: Colors.transparent))
+            Text("开始时间"),
+            Text("13:44开始").tap(() => Get.bottomSheet(DatePicker(needSheet: true),barrierColor: Colors.transparent))
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("结束时间"),
+            Text("13:44结束").tap(() => Get.bottomSheet(DatePicker(needSheet: true),barrierColor: Colors.transparent))
           ],
         ),
         Text("选择教室"),
@@ -78,10 +95,9 @@ class LessonAddCheckPage extends BasePage{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("第${index+1}组"),
-              Text(logic.timeCount > index?"删除":"添加").tap(() {
-                if(logic.timeCount > index) {
+              Text(logic.timeCount -1  > index && logic.timeCount != 1?"删除":"添加").tap(() {
+                if(logic.timeCount - 1 == index) {
                   logic.timeCount += 1;
-                  logic.timeCount +=1;
                   logic.data.add(HomeClassSingeDayEntity());
                   _listKey.currentState?.insertItem(logic.timeCount - 1);
                 }else {
@@ -98,9 +114,11 @@ class LessonAddCheckPage extends BasePage{
           ),
           Row(
             children: [
-              TextFormField(),
+              Container(width: 60,child: TextField(
+                onChanged: (str){},
+              )),
               Text("列"),
-              TextFormField(),
+              Container(width: 60,child: TextField()),
               Text("行")
             ],
           )
@@ -174,35 +192,6 @@ class LessonAddCheckPage extends BasePage{
       children: [
         Text("一号楼2308"),
         Text("浙江万里学院")
-      ],
-    );
-  }
-
-  Widget datePicker(){
-    return Column(
-      children: [
-        Expanded(
-            child: CupertinoDatePicker(
-              use24hFormat: true,
-              initialDateTime: DateTime.now(),
-              onDateTimeChanged: (date){
-                // time = date.toIso8601String();
-              },
-              mode: CupertinoDatePickerMode.dateAndTime,
-            )
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("持续时间"),
-            Row(
-              children: [
-                Container(width: 40,child: TextFormField()),
-                Text("分钟")
-              ],
-            )
-          ],
-        )
       ],
     );
   }

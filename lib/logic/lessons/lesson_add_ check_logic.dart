@@ -21,6 +21,7 @@ class LessonAddCheckLogic extends BaseLogic{
 
   set choice(bool value) {
     _choice = value;
+    update();
   }
 
 

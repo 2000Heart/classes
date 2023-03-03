@@ -8,7 +8,8 @@ class LessonAddLogic extends BaseLogic{
   ScrollController _controller = ScrollController();
   List<HomeClassSingeDayEntity> _data = [HomeClassSingeDayEntity()];
   final TextEditingController _editingController = TextEditingController();
-  List<String> classList = [];
+  List<String> roomList = [];
+  List<int> classList = [];
   bool _choice = true;
   late FocusNode focus;
   String _input = '';
@@ -22,6 +23,7 @@ class LessonAddLogic extends BaseLogic{
 
   set choice(bool value) {
     _choice = value;
+    update();
   }
 
 

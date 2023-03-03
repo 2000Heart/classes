@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       onInit: () => EasyLoading.instance.userInteractions = false,
       builder: EasyLoading.init(),
       locale: const Locale("zh","CN"),
-      home: Scaffold(body: SignInPage()),
+      home: SignInPage(),
     );
   }
 }

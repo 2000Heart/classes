@@ -1,5 +1,6 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lesson_add_logic.dart';
+import 'package:classes/widgets/week_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,54 +18,72 @@ class LessonAddPage extends BasePage{
 
   @override
   Widget buildWidget(BuildContext context) {
-    return GetBuilder(
-      builder: (controller) {
-        return CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Text("课程名称"),
-                  TextFormField(),
-                ],
+    return GetBuilder<LessonAddLogic>(
+      initState: (state){
+        logic.focus = FocusNode();
+      },
+      builder: (logic) {
+        return Scaffold(
+          appBar: AppBar(title: Text("添加课程")),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("课程名称"),
+                    Container(width: 60,child: TextField()),
+                  ],
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Text("课程时间"),
-                  Text("选择")
-                ],
+              SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("课程时间"),
+                    Text("选择").tap(() { Get.bottomSheet(WeekPicker(length: 20));})
+                  ],
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Text("上课班级"),
-                  Text("选择")
-                ],
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Text("选择教室"),
-                  Row(
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(child: Text("选择已有教室")).tap(() {logic.choice = true;}),
-                        Container(child: Text("新增教室")).tap(() {logic.choice = false;})
-                      ]),
-                ],
+                        Text("上课班级"),
+                        Text("选择")
+                      ],
+                    ),
+                    Wrap(
+                      children: List.generate(9, (index) => Text("物联网19${index + 1}")),
+                    )
+                  ],
+                ),
               ),
-            ),
-            logic.choice?SliverToBoxAdapter(child: chooseList(context)):SliverAnimatedList(
-                key: _listKey,
-                initialItemCount: logic.timeCount,
-                itemBuilder: (BuildContext context, int index, Animation<double> animation){
-                  return groupList(index,animation);
-                }
-            )
-          ],
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("选择教室"),
+                    Row(
+                        children: [
+                          Container(child: Text("选择已有教室")).tap(() {logic.choice = true;}),
+                          Container(child: Text("新增教室")).tap(() {logic.choice = false;})
+                        ]),
+                  ],
+                ),
+              ),
+              logic.choice?SliverToBoxAdapter(child: chooseList(context)):SliverAnimatedList(
+                  key: _listKey,
+                  initialItemCount: logic.timeCount,
+                  itemBuilder: (BuildContext context, int index, Animation<double> animation){
+                    return groupList(index,animation);
+                  }
+              )
+            ],
+          ),
         );
       }
     );
@@ -79,10 +98,9 @@ class LessonAddPage extends BasePage{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("第${index+1}组"),
-              Text(logic.timeCount > index?"删除":"添加").tap(() {
-                if(logic.timeCount > index) {
+              Text(logic.timeCount -1  > index && logic.timeCount != 1?"删除":"添加").tap(() {
+                if(logic.timeCount - 1 == index) {
                   logic.timeCount += 1;
-                  logic.timeCount +=1;
                   logic.data.add(HomeClassSingeDayEntity());
                   _listKey.currentState?.insertItem(logic.timeCount - 1);
                 }else {
@@ -99,9 +117,11 @@ class LessonAddPage extends BasePage{
           ),
           Row(
             children: [
-              TextFormField(),
+              Container(width: 60,child: TextField(
+                onChanged: (str){},
+              )),
               Text("列"),
-              TextFormField(),
+              Container(width: 60,child: TextField()),
               Text("行")
             ],
           )
@@ -116,7 +136,7 @@ class LessonAddPage extends BasePage{
         _searchBar(context),
         Column(
           children: List.generate(
-              logic.classList.length,
+              logic.roomList.length,
                   (index) => _searchItem(index)),
         )
       ],
@@ -129,9 +149,6 @@ class LessonAddPage extends BasePage{
       padding: const EdgeInsets.only(top: 8, bottom: 8,right: 16),
       child: Row(
         children: [
-          GestureDetector(
-              onTap: Get.back,
-              child: Image.asset(Utils.getImgPath('arrow_back.png'))),
           Expanded(
             child: Container(
                 height: 34,

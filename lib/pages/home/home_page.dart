@@ -17,26 +17,28 @@ class HomePage extends BasePage {
   Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeLogic>(builder: (logic) {
       return Scaffold(
-          body: Column(
-            children: [
-              Row(
-                children: [
-                  Text("第${logic.currentIndex + 1}周"),
-                  Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
-                  Icon(Icons.more_vert_rounded).tap(() => showMore(context))
-                ],
-              ),
-              Expanded(
-                child: PageView(
-                  controller: logic.pageController,
-                  onPageChanged: (index) {
-                    logic.currentIndex = index;
-                  },
-                  children: List.generate(14, (index) {
-                    return weekLessons();}),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text("第${logic.currentIndex + 1}周"),
+                    Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
+                    Icon(Icons.more_vert_rounded).tap(() => showMore(context))
+                  ],
                 ),
-              ),
-            ],
+                Expanded(
+                  child: PageView(
+                    controller: logic.pageController,
+                    onPageChanged: (index) {
+                      logic.currentIndex = index;
+                    },
+                    children: List.generate(14, (index) {
+                      return weekLessons();}),
+                  ),
+                ),
+              ],
+            ),
           )
       );
     });

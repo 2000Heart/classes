@@ -13,18 +13,21 @@ class MinePage extends BasePage{
   final controller = Get.put(MineLogic());
   @override
   Widget buildWidget(BuildContext context) {
-    return Column(
-      children: [
-        CachedNetworkImage(
-          errorWidget: (context,url,error) => Icon(Icons.ac_unit),
-          imageUrl: ''),
-        Text("张三"),
-        Text("浙江万里学院"),
-        option(Icons.add, "我的作业"),
-        option(Icons.access_alarm, "签到记录"),
-        option(Icons.add, "用户设置"),
-        option(Icons.add, "应用设置"),
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            errorWidget: (context,url,error) => Icon(Icons.ac_unit),
+            imageUrl: ''),
+          Text("张三"),
+          Text("浙江万里学院"),
+          option(Icons.add, "我的班级"),
+          option(Icons.add, "我的作业"),
+          option(Icons.access_alarm, "签到记录"),
+          option(Icons.add, "用户设置"),
+          option(Icons.add, "应用设置"),
+        ],
+      ),
     );
   }
   Widget option(IconData icon, String title, {void Function()? onTap}) {

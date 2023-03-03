@@ -4,6 +4,7 @@ import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
 import 'package:classes/widgets/form_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
@@ -18,6 +19,10 @@ class SignInPage extends BasePage {
   Widget buildWidget(BuildContext context) {
     return Material(
       child: GetBuilder<SignInLogic>(
+        initState: (state){
+          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+              overlays: SystemUiOverlay.values);
+        },
         builder: (logic) {
           return LiquidSwipe(
             enableLoop: false,

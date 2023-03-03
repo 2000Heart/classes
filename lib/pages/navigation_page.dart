@@ -14,15 +14,13 @@ class NavigationPage extends BasePage {
       builder: (logic) {
         return Scaffold(
           bottomNavigationBar: _bottomBar(),
-          body: SafeArea(
-            child: PageView(
-              physics: const ClampingScrollPhysics(),
-              controller: logic.pageController,
-              onPageChanged: (value) {
-                logic.setIndex(value);
-              },
-              children: logic.pageList,
-            ),
+          body: PageView(
+            physics: const ClampingScrollPhysics(),
+            controller: logic.pageController,
+            onPageChanged: (value) {
+              logic.setIndex(value);
+            },
+            children: logic.pageList,
           ),
         );
       },
