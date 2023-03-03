@@ -9,9 +9,11 @@ import '../../model/home/home_class_single_day_entity.dart';
 import '../../res/utils.dart';
 
 class LessonAddPage extends BasePage{
+  LessonAddPage({super.key});
 
   final LessonAddLogic logic = Get.put(LessonAddLogic());
   final GlobalKey<SliverAnimatedListState> _listKey = GlobalKey<SliverAnimatedListState>();
+
 
   @override
   Widget buildWidget(BuildContext context) {

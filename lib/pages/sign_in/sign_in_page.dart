@@ -190,7 +190,7 @@ class SignInPage extends BasePage {
                 ),
                 Container(height: 30),
                 NormalButton(
-                  onTap: () => Get.toNamed(Routes.navigation), //logic.checkLogin(),
+                  onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
                   child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),
                 Text(logic.user.toString())

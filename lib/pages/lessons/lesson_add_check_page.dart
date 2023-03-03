@@ -55,7 +55,7 @@ class LessonAddCheckPage extends BasePage{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("选择时间"),
-            Text("13:44开始 持续10分钟")
+            Text("13:44开始 持续10分钟").tap(() => Get.bottomSheet(datePicker(),barrierColor: Colors.transparent))
           ],
         ),
         Text("选择教室"),
@@ -128,9 +128,6 @@ class LessonAddCheckPage extends BasePage{
       padding: const EdgeInsets.only(top: 8, bottom: 8,right: 16),
       child: Row(
         children: [
-          GestureDetector(
-              onTap: Get.back,
-              child: Image.asset(Utils.getImgPath('arrow_back.png'))),
           Expanded(
             child: Container(
                 height: 34,
@@ -181,15 +178,15 @@ class LessonAddCheckPage extends BasePage{
     );
   }
 
-  Widget datePicker(String time){
+  Widget datePicker(){
     return Column(
       children: [
         Expanded(
             child: CupertinoDatePicker(
               use24hFormat: true,
-              initialDateTime: DateTime.parse("12:00"),
+              initialDateTime: DateTime.now(),
               onDateTimeChanged: (date){
-                time = date.toIso8601String();
+                // time = date.toIso8601String();
               },
               mode: CupertinoDatePickerMode.dateAndTime,
             )
@@ -200,7 +197,7 @@ class LessonAddCheckPage extends BasePage{
             Text("持续时间"),
             Row(
               children: [
-                TextFormField(),
+                Container(width: 40,child: TextFormField()),
                 Text("分钟")
               ],
             )

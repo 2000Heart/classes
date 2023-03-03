@@ -3,6 +3,7 @@ import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lessons_logic.dart';
 import 'package:classes/res/routes.dart';
+import 'package:classes/res/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +15,22 @@ class LessonsPage extends BasePage{
 
   @override
   Widget buildWidget(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: List.generate(10, (index) => lessonsListItem()),
-      ),
+    return GetBuilder<LessonsLogic>(
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            actions: [
+              Icon((Icons.add)).tap(() => Get.toNamed(Routes.lessonAdd)),
+              Icon(Icons.schedule).tap(() => Get.toNamed(Routes.lessonCheck))
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: List.generate(10, (index) => lessonsListItem()),
+            ),
+          ),
+        );
+      }
     );
   }
 

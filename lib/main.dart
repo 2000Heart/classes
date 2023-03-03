@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeConfig.theme(),
       onInit: () => EasyLoading.instance.userInteractions = false,
       builder: EasyLoading.init(),
+      locale: const Locale("zh","CN"),
       home: Scaffold(body: SignInPage()),
     );
   }
