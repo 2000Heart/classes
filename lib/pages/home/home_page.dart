@@ -7,6 +7,8 @@ import 'package:classes/widgets/grid_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../res/colours.dart';
+
 //"https://pass.zwu.edu.cn/cas/login?service=https://jw.zwu.edu.cn/sso/drvfivelogin"
 class HomePage extends BasePage {
   HomePage({super.key});
@@ -34,7 +36,8 @@ class HomePage extends BasePage {
                       logic.currentIndex = index;
                     },
                     children: List.generate(14, (index) {
-                      return weekLessons();}),
+                      return weekLessons();
+                    }),
                   ),
                 ),
               ],
@@ -79,7 +82,8 @@ class HomePage extends BasePage {
                 Expanded(
                   child: Column(
                     children: const [
-                      GridUnit(child: Text("面向对象编程"), color: Colors.green, num: 4)
+                      GridUnit(
+                          child: Text("面向对象编程"), color: Colors.green, num: 4)
                     ],
                   ),
                 ),
@@ -126,121 +130,127 @@ class HomePage extends BasePage {
     );
   }
 
-  showMore(context){
+  showMore(context) {
     return showModalBottomSheet(
-      context: context,
-      barrierColor: Colors.transparent,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),topRight: Radius.circular(10))
-      ),
-      constraints: BoxConstraints(
-        maxWidth: Get.width, maxHeight: Get.height * 0.3),
-      builder: (context) =>
-        GetBuilder<HomeLogic>(
-          builder: (logic) {
-            return Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  Container(
-                    height: 50,
+        context: context,
+        barrierColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))
+        ),
+        constraints: BoxConstraints(
+            maxWidth: Get.width, maxHeight: Get.height * 0.3),
+        builder: (context) =>
+            GetBuilder<HomeLogic>(
+                builder: (logic) {
+                  return Container(
+                    color: Colors.white,
                     alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
                       children: [
-                        Text("设置当前周"),
-                        Row(
-                          children: [
-                            Text("${logic.weekIndex}"),
-                            SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                trackHeight: 10,
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 10
-                                ),
-                                trackShape: RoundedRectSliderTrackShape(),
-                              ),
-                              child: Slider(
-                                value: logic.weekIndex.toDouble(),
-                                min: 1,
-                                max: 14,
-                                divisions: 13,
-                                onChanged: (value) => logic.weekIndex = value.toInt(),
-                                onChangeEnd: (value) => logic.pageController.animateToPage(value.toInt() - 1,duration: Duration(milliseconds: 200),curve: Curves.linear),
-                              ),
-                            ),
-                          ],
-                        )
+                        Container(
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("设置当前周"),
+                              Row(
+                                children: [
+                                  Text("${logic.weekIndex}"),
+                                  SliderTheme(
+                                    data: SliderTheme.of(context).copyWith(
+                                      trackHeight: 10,
+                                      thumbShape: RoundSliderThumbShape(
+                                          enabledThumbRadius: 10
+                                      ),
+                                      trackShape: RoundedRectSliderTrackShape(),
+                                    ),
+                                    child: Slider(
+                                      value: logic.weekIndex.toDouble(),
+                                      min: 1,
+                                      max: 14,
+                                      divisions: 13,
+                                      onChanged: (value) =>
+                                      logic.weekIndex = value.toInt(),
+                                      onChangeEnd: (value) =>
+                                          logic.pageController.animateToPage(
+                                              value.toInt() - 1,
+                                              duration: Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.linear),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("设置节数"),
+                              Icon(size: 20, Icons.arrow_forward_ios)
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("切换课表"),
+                              Icon(size: 20, Icons.arrow_forward_ios)
+                            ],
+                          ),
+                        ),
+                        // ExpansionTile(
+                        //   title: Text("切换课表",style: TextStyle(fontSize: 12)),
+                        //   collapsedBackgroundColor: Colors.red,
+                        //
+                        //   // shape: RoundedRectangleBorder(
+                        //   //     side: BorderSide(color: Colors.black,width: 1),
+                        //   //     borderRadius: BorderRadius.circular(8)
+                        //   // ),
+                        //   // collapsedShape: RoundedRectangleBorder(
+                        //   //     side: BorderSide(color: Colors.black,width: 1),
+                        //   //     borderRadius: BorderRadius.circular(8)
+                        //   // ),
+                        //   trailing: Row(
+                        //       mainAxisSize: MainAxisSize.min,
+                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                        //     children: [
+                        //       Text("大三下"),
+                        //       Icon(Icons.keyboard_arrow_down_rounded)
+                        //     ],
+                        //   ),
+                        //   childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+                        //   children: List.generate(5, (index) => Container(
+                        //     height: 40,
+                        //     width: Get.width,
+                        //     decoration: BoxDecoration(
+                        //         border: Border(top: BorderSide(color: Colors.black,width: 1))
+                        //     ),
+                        //     alignment: Alignment.centerLeft,
+                        //       child: ListTile(
+                        //         title: Text("大三下"),
+                        //         selectedColor: Colors.white,
+                        //         selectedTileColor: Colors.red,
+                        //         selected: logic.tableIndex == index,
+                        //         onTap: () => logic.tableIndex = index,
+                        //       ),
+                        //   )),
+                        // ),
                       ],
                     ),
-                  ),
-                  Container(
-                    height: 50,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("设置节数"),
-                        Icon(size: 20, Icons.arrow_forward_ios)
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 50,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("切换课表"),
-                        Icon(size: 20, Icons.arrow_forward_ios)
-                      ],
-                    ),
-                  ),
-                  // ExpansionTile(
-                  //   title: Text("切换课表",style: TextStyle(fontSize: 12)),
-                  //   collapsedBackgroundColor: Colors.red,
-                  //
-                  //   // shape: RoundedRectangleBorder(
-                  //   //     side: BorderSide(color: Colors.black,width: 1),
-                  //   //     borderRadius: BorderRadius.circular(8)
-                  //   // ),
-                  //   // collapsedShape: RoundedRectangleBorder(
-                  //   //     side: BorderSide(color: Colors.black,width: 1),
-                  //   //     borderRadius: BorderRadius.circular(8)
-                  //   // ),
-                  //   trailing: Row(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //     crossAxisAlignment: CrossAxisAlignment.center,
-                  //     children: [
-                  //       Text("大三下"),
-                  //       Icon(Icons.keyboard_arrow_down_rounded)
-                  //     ],
-                  //   ),
-                  //   childrenPadding: EdgeInsets.symmetric(horizontal: 10),
-                  //   children: List.generate(5, (index) => Container(
-                  //     height: 40,
-                  //     width: Get.width,
-                  //     decoration: BoxDecoration(
-                  //         border: Border(top: BorderSide(color: Colors.black,width: 1))
-                  //     ),
-                  //     alignment: Alignment.centerLeft,
-                  //       child: ListTile(
-                  //         title: Text("大三下"),
-                  //         selectedColor: Colors.white,
-                  //         selectedTileColor: Colors.red,
-                  //         selected: logic.tableIndex == index,
-                  //         onTap: () => logic.tableIndex = index,
-                  //       ),
-                  //   )),
-                  // ),
-                ],
-              ),
-            );
-          }
-        )
+                  );
+                }
+            )
     );
   }
 }

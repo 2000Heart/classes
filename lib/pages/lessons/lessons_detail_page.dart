@@ -1,5 +1,4 @@
 import 'package:classes/base/base_page.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +12,11 @@ class LessonsDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      body: ExtendedNestedScrollView(
-          onlyOneScrollInBody: true,
+      body: NestedScrollView(
+          // onlyOneScrollInBody: true,
           floatHeaderSlivers: true,
           controller: logic.scrollController,
-          pinnedHeaderSliverHeightBuilder: () => kToolbarHeight + MediaQuery.of(context).padding.top,
+          // pinnedHeaderSliverHeightBuilder: () => kToolbarHeight + MediaQuery.of(context).padding.top,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(

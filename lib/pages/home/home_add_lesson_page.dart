@@ -6,7 +6,6 @@ import 'package:classes/model/home/home_class_single_day_entity.dart';
 import 'package:classes/res/utils.dart';
 import 'package:classes/widgets/unit_picker.dart';
 import 'package:classes/widgets/week_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -2,13 +2,13 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
-import 'package:classes/widgets/form_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import '../../res/routes.dart';
+import '../../widgets/button.dart';
 
 class SignInPage extends BasePage {
   SignInPage({super.key});
@@ -45,18 +45,27 @@ class SignInPage extends BasePage {
     return Container(
       color: Colours.grey5,
       alignment: Alignment.center,
+      // decoration: BoxDecoration(
+      //   gradient:
+      // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("简之",style: TextStyle(fontSize: 40)),
           Container(height: 300),
           NormalButton(
+            width: 200,
+            height: 70,
             onTap: () => logic.liquidController.jumpToPage(page: 3),
-            child: Text("登录",style: TextStyle(fontSize: 40))),
+            text: "登录",
+            textStyle: const TextStyle(fontSize: 25)),
           Container(height: 40),
           NormalButton(
+              width: 200,
+              height: 70,
               onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
-              child: Text("注册",style: TextStyle(fontSize: 40))),
+              text: "注册",
+              textStyle: const TextStyle(fontSize: 25)),
         ],
       ),
     );
@@ -73,13 +82,15 @@ class SignInPage extends BasePage {
           Container(height: 40),
           NormalButton(
               onTap: () => logic.liquidController.animateToPage(page: 2, duration: 700),
-              child: Text("教师",style: TextStyle(fontSize: 40))),
+              text: "教师",
+              textStyle: TextStyle(fontSize: 40)),
           Container(height: 10),
           Text("or", style: TextStyle(fontSize: 30)),
           Container(height: 10),
           NormalButton(
               onTap: () => logic.liquidController.animateToPage(page: 2,duration: 700),
-              child: Text("学生", style: TextStyle(fontSize: 40)))
+              text: "学生",
+              textStyle: TextStyle(fontSize: 40))
         ],
       ),
     );
@@ -170,33 +181,37 @@ class SignInPage extends BasePage {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextFormField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    labelText: "学号",
-                    labelStyle: TextStyle(color: Colors.black)),
-                  onChanged: (text) => logic.username = text,
-                  onFieldSubmitted: (text) => logic.username = text,
-                ),
+                fieldColorBox("学号", logic.username),
                 Container(height: 60),
-                TextFormField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    labelText: "密码",
-                    labelStyle: TextStyle(color: Colors.black)),
-                  onChanged: (text) => logic.password = text,
-                  onFieldSubmitted: (text) => logic.password = text,
-                ),
+                fieldColorBox("密码", logic.password),
+                // TextFormField(
+                //   cursorColor: Colors.black,
+                //   decoration: InputDecoration(
+                //     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     labelText: "学号",
+                //     labelStyle: TextStyle(color: Colors.black)),
+                //   onChanged: (text) => logic.username = text,
+                //   onFieldSubmitted: (text) => logic.username = text,
+                // ),
+                // Container(height: 60),
+                // TextFormField(
+                //   cursorColor: Colors.black,
+                //   decoration: InputDecoration(
+                //     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                //     labelText: "密码",
+                //     labelStyle: TextStyle(color: Colors.black)),
+                //   onChanged: (text) => logic.password = text,
+                //   onFieldSubmitted: (text) => logic.password = text,
+                // ),
                 Container(height: 30),
-                NormalButton(
+                nexButton(
+                  "确定",
                   onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
-                  child: const Text("确定",style: TextStyle(fontSize: 24),),
+                  // child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),
                 Text(logic.user.toString())
               ],
@@ -228,4 +243,81 @@ class SignInPage extends BasePage {
     return TextSpan(children: span);
   }
 
+  Widget fieldColorBox(String title, String input) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+            begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.9, 0.7),
+            stops: [0.1, 0.9], colors: [Colours.YELLOW, Colours.BLUE]),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black38,
+            blurRadius: 30,
+            offset: Offset(1.0, 9.0),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 30,
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Wrap(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                          fontSize: 12, color: Colors.black)),
+                  onChanged: (text) => input = text,
+                  onFieldSubmitted: (text) => input = text,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget nexButton(String text, {Function()? onTap}) {
+    return InkWell(
+      child: Container(
+        alignment: Alignment.center,
+        height: 45,
+        width: 120,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            tileMode: TileMode.clamp,
+            begin: FractionalOffset.centerLeft,
+            end: FractionalOffset.centerRight,
+            stops: [0.4, 1],
+            colors: [Colors.black, Colors.black54],
+          ),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colours.YELLOW,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
+      ),
+      onTap: onTap,
+    );
+  }
 }
