@@ -28,7 +28,7 @@ class SignInPage extends BasePage {
             enableLoop: false,
             disableUserGesture: false,
             liquidController: logic.liquidController,
-            waveType: WaveType.circularReveal,
+            waveType: WaveType.liquidReveal,
             pages: [
               chooseToSign(),
               chooseIdentity(),
@@ -43,25 +43,31 @@ class SignInPage extends BasePage {
 
   Widget chooseToSign(){
     return Container(
-      color: Colours.grey5,
+      color: Color(0xfffbe8e8),
       alignment: Alignment.center,
-      // decoration: BoxDecoration(
-      //   gradient:
-      // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("简之",style: TextStyle(fontSize: 40)),
+          AnimatedTextKit(
+            animatedTexts: [
+              ColorizeAnimatedText(
+                "简之", textStyle: const TextStyle(fontSize: 80),
+                speed: const Duration(seconds: 2),
+                colors: [Colours.PURPLE,Colours.RED_LIGHT,Colours.PURPLE,Colours.RED_LIGHT,Colours.PURPLE],
+              )],
+            repeatForever: true,
+            pause: const Duration(),
+          ),
           Container(height: 300),
-          NormalButton(
-            width: 200,
+          NormalButton.rect(
+            width: 300,
             height: 70,
             onTap: () => logic.liquidController.jumpToPage(page: 3),
             text: "登录",
             textStyle: const TextStyle(fontSize: 25)),
           Container(height: 40),
-          NormalButton(
-              width: 200,
+          NormalButton.rect(
+              width: 300,
               height: 70,
               onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
               text: "注册",
@@ -73,25 +79,43 @@ class SignInPage extends BasePage {
 
   Widget chooseIdentity() {
     return Container(
-      color: Colours.grey1,
+      color: Color(0xA7D3F4FF),
       alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("你是", style: TextStyle(fontSize: 25)),
-          Container(height: 40),
-          NormalButton(
-              onTap: () => logic.liquidController.animateToPage(page: 2, duration: 700),
-              text: "教师",
-              textStyle: TextStyle(fontSize: 40)),
-          Container(height: 10),
-          Text("or", style: TextStyle(fontSize: 30)),
-          Container(height: 10),
-          NormalButton(
-              onTap: () => logic.liquidController.animateToPage(page: 2,duration: 700),
-              text: "学生",
-              textStyle: TextStyle(fontSize: 40))
-        ],
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 66),
+        margin: EdgeInsets.symmetric(horizontal: 30),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.BLUE_LIGHT]),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [BoxShadow(
+            color: Colors.black38,
+            blurRadius: 10,
+            offset: Offset(1.0, 9.0),
+          ),]
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("你是", style: TextStyle(fontSize: 40)),
+            Container(height: 40),
+            NormalButton.rect(
+                onTap: () => logic.liquidController.animateToPage(page: 2, duration: 700),
+                text: "教师",
+                width: 160,
+                height: 50,
+                textStyle: TextStyle(fontSize: 28)),
+            Container(height: 10),
+            Text("or", style: TextStyle(fontSize: 30)),
+            Container(height: 10),
+            NormalButton.rect(
+                onTap: () => logic.liquidController.animateToPage(page: 2,duration: 700),
+                text: "学生",
+                width: 160,
+                height: 50,
+                textStyle: TextStyle(fontSize: 28))
+          ],
+        ),
       ),
     );
   }
@@ -173,7 +197,7 @@ class SignInPage extends BasePage {
     return GetBuilder<SignInLogic>(
       builder: (logic) {
         return Container(
-          color: Colours.cyan1,
+          color: Color(0xffccf7e2),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Form(
@@ -208,8 +232,8 @@ class SignInPage extends BasePage {
                 //   onFieldSubmitted: (text) => logic.password = text,
                 // ),
                 Container(height: 30),
-                nexButton(
-                  "确定",
+                NormalButton(
+                  text: "确定",
                   onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
                   // child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),

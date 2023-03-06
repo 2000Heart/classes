@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 class Colours{
+  static const Color white = Color(0xFFFFFFFF);
   static const Color blue1 = Color(0xFFc0c9d5);
   static const Color green1 = Color(0xFFb3c2af);
 
@@ -31,6 +32,10 @@ class Colours{
   static const TEXT_BLACK_LIGHT = Color(0xFF34323D);
 
   static const List<Color> colorList = [
-    blue1,green1,grey2,yellow1,cyan1,red1
+    YELLOW,BLUE_DEEP,BLUE_LIGHT,BLUE,PURPLE,SIGNUP_LIGHT_RED,SIGNUP_RED,RED,RED_LIGHT
+  ];
+
+  static const List<List<Color>> navigationColors = [
+    [RED_LIGHT,GREEN],[YELLOW,RED],[PURPLE,BLUE_LIGHT],[SIGNUP_LIGHT_RED,BLUE_DEEP]
   ];
 }

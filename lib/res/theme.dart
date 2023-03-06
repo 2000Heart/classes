@@ -19,8 +19,10 @@ class ThemeConfig{
   static AppBarTheme _appBarTheme(){
     return const AppBarTheme(
       centerTitle: true,
-      elevation: 0,
+      elevation: 5,
       toolbarHeight: 44,
+      backgroundColor: Colors.white,
+      actionsIconTheme: IconThemeData(size: 30,color: Colors.white),
       titleTextStyle: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,

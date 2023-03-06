@@ -1,7 +1,10 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/navigation_logic.dart';
+import 'package:classes/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../res/colours.dart';
 
 class NavigationPage extends BasePage {
   NavigationPage({super.key});
@@ -28,24 +31,21 @@ class NavigationPage extends BasePage {
   }
 
   Widget _bottomBar() {
-    return BottomNavigationBar(
+    return BottomBar(
         currentIndex: logic.currentIndex,
-        type: BottomNavigationBarType.shifting,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.amber,
-        backgroundColor: Colors.amber,
         onTap: (value) {
           logic.pageController.jumpToPage(value);
         },
         items: List.generate(
             logic.labelList.length,
                 (index) =>
-                BottomNavigationBarItem(
-                    icon: Icon(logic.icon[index]),
-                    label: logic.labelList[index],
-                    tooltip: ''
+                BottomBarItemData(
+                  icon: logic.icon[index],
+                  title: logic.labelList[index],
+                  width: 120,
+                  selectedColor: Colours.navigationColors[index],
                 )
-        )
+        ),
     );
   }
 

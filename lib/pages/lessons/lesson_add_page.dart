@@ -151,7 +151,6 @@ class LessonAddPage extends BasePage{
         children: [
           Expanded(
             child: Container(
-                height: 34,
                 padding: const EdgeInsets.only(right: 10),
                 child: Hero(
                   tag: "search",
@@ -169,6 +168,8 @@ class LessonAddPage extends BasePage{
                     },
                     decoration: InputDecoration(
                         filled: true,
+                        constraints: BoxConstraints(maxHeight: 34),
+                        contentPadding: EdgeInsets.all(3),
                         fillColor: Colors.grey,
                         prefixIcon: Icon(Icons.search_rounded,color: Colors.white24,size: 16),
                         border: const UnderlineInputBorder(

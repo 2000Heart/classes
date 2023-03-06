@@ -3,6 +3,7 @@ import 'package:classes/logic/home/home_logic.dart';
 import 'package:classes/model/home/home_class_single_day_entity.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/utils.dart';
+import 'package:classes/widgets/colourful_wrap.dart';
 import 'package:classes/widgets/grid_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,31 +18,57 @@ class HomePage extends BasePage {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return GetBuilder<HomeLogic>(builder: (logic) {
+    return GetBuilder<HomeLogic>(
+
+      builder: (logic) {
       return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text("第${logic.currentIndex + 1}周"),
-                    Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
-                    Icon(Icons.more_vert_rounded).tap(() => showMore(context))
-                  ],
+          appBar: AppBar(
+            backgroundColor: Colours.white,
+            title: ColourfulWrap(
+              colors: Colours.navigationColors[0],
+              child: Text("第${logic.currentIndex + 1}周",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600))),
+            centerTitle: false,
+            actions: [
+              ColourfulWrap(
+                colors: Colours.navigationColors[0],
+                child: Icon(Icons.add),
+                onTap: () => Get.toNamed(Routes.homeAdd)
+              ),
+              ColourfulWrap(
+                  colors: Colours.navigationColors[0],
+                  child: Icon(Icons.more_vert_rounded),
+                  onTap: () => showMore(context)
+              )
+            ],
+          ),
+          body: Column(
+            children: [
+              // Container(
+              //   color: Colours.YELLOW,
+              //   // decoration: BoxDecoration(
+              //   //   gradient: LinearGradient(colors: Colours.navigationColors[1])
+              //   // ),
+              //   padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              //   child: Row(
+              //     children: [
+              //       Text("第${logic.currentIndex + 1}周"),
+              //       Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
+              //       Icon(Icons.more_vert_rounded).tap(() => showMore(context))
+              //     ],
+              //   ),
+              // ),
+              Expanded(
+                child: PageView(
+                  controller: logic.pageController,
+                  onPageChanged: (index) {
+                    logic.currentIndex = index;
+                  },
+                  children: List.generate(14, (index) {
+                    return weekLessons();
+                  }),
                 ),
-                Expanded(
-                  child: PageView(
-                    controller: logic.pageController,
-                    onPageChanged: (index) {
-                      logic.currentIndex = index;
-                    },
-                    children: List.generate(14, (index) {
-                      return weekLessons();
-                    }),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           )
       );
     });
@@ -66,6 +93,7 @@ class HomePage extends BasePage {
         Expanded(
           child: SingleChildScrollView(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
@@ -77,51 +105,40 @@ class HomePage extends BasePage {
                   ),
                 ),
                 ClassSingleDay(classes: [
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 9)
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
                 ]),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(
-                          child: Text("面向对象编程"), color: Colors.green, num: 4)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"), color: Colors.yellow, num: 4)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"), color: Colors.blue, num: 4)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"), color: Colors.red, num: 4)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"), color: Colors.purple, num: 4)
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      GridUnit(child: Text("英语课"), color: Colors.grey, num: 4)
-                    ],
-                  ),
-                )
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                ]),
               ],
             ),
           ),

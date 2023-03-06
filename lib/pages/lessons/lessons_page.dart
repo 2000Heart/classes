@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lessons_logic.dart';
+import 'package:classes/res/colours.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../widgets/colourful_wrap.dart';
 
 
 class LessonsPage extends BasePage{
@@ -20,8 +23,16 @@ class LessonsPage extends BasePage{
         return Scaffold(
           appBar: AppBar(
             actions: [
-              Icon((Icons.add)).tap(() => Get.toNamed(Routes.lessonAdd)),
-              Icon(Icons.schedule).tap(() => Get.toNamed(Routes.lessonCheck))
+              ColourfulWrap(
+                  colors: Colours.navigationColors[1],
+                  child: Icon(Icons.add),
+                  onTap: () => Get.toNamed(Routes.lessonAdd)
+              ),
+              ColourfulWrap(
+                  colors: Colours.navigationColors[1],
+                  child: Icon(Icons.schedule),
+                  onTap: () => Get.toNamed(Routes.lessonCheck)
+              )
             ],
           ),
           body: SingleChildScrollView(
