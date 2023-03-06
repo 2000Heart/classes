@@ -19,16 +19,15 @@ class HomePage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeLogic>(
-
       builder: (logic) {
-      return Scaffold(
+        return Scaffold(
           appBar: AppBar(
             backgroundColor: Colours.white,
             title: Text("第${logic.currentIndex + 1}周",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.black.withOpacity(0.65))),
             centerTitle: false,
             actions: [
-              Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
-              Icon(Icons.more_vert_rounded).tap(() => () => showMore(context))
+              const Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
+              const Icon(Icons.more_vert_rounded).tap(() => showMore(context))
             ],
           ),
           body: Column(
@@ -46,7 +45,7 @@ class HomePage extends BasePage {
               ),
             ],
           )
-      );
+        );
     });
   }
 
@@ -55,8 +54,8 @@ class HomePage extends BasePage {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            SizedBox(width: 20, child: Text("12月")),
+          children: [
+            SizedBox(width: 20, child: Text("${DateTime.now().month >= 10?DateTime.now().month:" ${DateTime.now().month}"}月")),
             Expanded(child: GridUnit(child: Text("一"))),
             Expanded(child: GridUnit(child: Text("二"))),
             Expanded(child: GridUnit(child: Text("三"))),
@@ -82,7 +81,7 @@ class HomePage extends BasePage {
                 ),
                 ClassSingleDay(classes: [
                   HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "应用物理", start: 5, end: 7),
                   HomeClassSingeDayEntity(className: "形势与政策", start: 9, end: 12)
                 ]),
                 ClassSingleDay(classes: [
@@ -260,7 +259,6 @@ class FullWidthTrackShape extends RoundedRectSliderTrackShape {
     final double? trackHeight = sliderTheme.trackHeight;
     final double trackLeft = offset.dx;
     final double trackTop = offset.dy + (parentBox.size.height - (trackHeight ?? 0)) / 2;
-    // 让轨道宽度等于 Slider 宽度
     final double trackWidth = parentBox.size.width;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight ?? 0);
   }
