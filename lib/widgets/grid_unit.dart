@@ -37,17 +37,23 @@ class ClassSingleDay extends StatelessWidget{
     for(var i = 0;i < classes.length;i++){
       if(!classes[i].isUseless) {
         list.add(
+          Container(
+            color: Colors.transparent,
+            width: 50,
+            height: 50.0 * ((classes[i].start ?? 0) - (list.isNotEmpty?(classes[i-1].end ?? 100) + 1: 1)),
+            alignment: Alignment.center,
+          )
+        );
+        list.add(
             GestureDetector(
               onTap: () => showDetail(context),
               child: Container(
                 width: 50,
                 height: 50.0 * ((classes[i].end ?? 0) - (classes[i].start ?? 0) + 1),
-                // margin: EdgeInsets.only(bottom: 5,left: 2,right: 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.white70,width: 1),
                   color: Colours.colorList[Random.secure().nextInt(Colours.colorList.length - 1)].withOpacity(0.9)
-                  // gradient: LinearGradient(colors: [Colours.colorList[Random.secure().nextInt(Colours.colorList.length - 1)],Colours.colorList[Random.secure().nextInt(Colours.colorList.length - 1)]],begin: Alignment.topCenter,end: Alignment.bottomCenter)
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,16 +69,6 @@ class ClassSingleDay extends StatelessWidget{
             )
         );
       }
-    }
-    if((classes[0].start ?? 0) > 1){
-      list.insert(0,
-          Container(
-            color: Colors.transparent,
-            width: 50,
-            height: 50.0 * ((classes[0].start ?? 0) - 1),
-            alignment: Alignment.center,
-          )
-      );
     }
     return list;
   }

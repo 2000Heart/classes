@@ -24,39 +24,15 @@ class HomePage extends BasePage {
       return Scaffold(
           appBar: AppBar(
             backgroundColor: Colours.white,
-            title: ColourfulWrap(
-              colors: Colours.navigationColors[0],
-              child: Text("第${logic.currentIndex + 1}周",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600))),
+            title: Text("第${logic.currentIndex + 1}周",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: Colors.black.withOpacity(0.65))),
             centerTitle: false,
             actions: [
-              ColourfulWrap(
-                colors: Colours.navigationColors[0],
-                child: Icon(Icons.add),
-                onTap: () => Get.toNamed(Routes.homeAdd)
-              ),
-              ColourfulWrap(
-                  colors: Colours.navigationColors[0],
-                  child: Icon(Icons.more_vert_rounded),
-                  onTap: () => showMore(context)
-              )
+              Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
+              Icon(Icons.more_vert_rounded).tap(() => () => showMore(context))
             ],
           ),
           body: Column(
             children: [
-              // Container(
-              //   color: Colours.YELLOW,
-              //   // decoration: BoxDecoration(
-              //   //   gradient: LinearGradient(colors: Colours.navigationColors[1])
-              //   // ),
-              //   padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              //   child: Row(
-              //     children: [
-              //       Text("第${logic.currentIndex + 1}周"),
-              //       Icon(Icons.add).tap(() => Get.toNamed(Routes.homeAdd)),
-              //       Icon(Icons.more_vert_rounded).tap(() => showMore(context))
-              //     ],
-              //   ),
-              // ),
               Expanded(
                 child: PageView(
                   controller: logic.pageController,
@@ -107,7 +83,12 @@ class HomePage extends BasePage {
                 ClassSingleDay(classes: [
                   HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
                   HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 9, end: 12)
+                ]),
+                ClassSingleDay(classes: [
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 1, end: 2),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 11)
                 ]),
                 ClassSingleDay(classes: [
                   HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
@@ -117,15 +98,10 @@ class HomePage extends BasePage {
                 ClassSingleDay(classes: [
                   HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
                   HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 8, end: 10)
                 ]),
                 ClassSingleDay(classes: [
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
-                ]),
-                ClassSingleDay(classes: [
-                  HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
+                  HomeClassSingeDayEntity(className: "形势与政策", start: 2, end: 4),
                   HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
                   HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
                 ]),

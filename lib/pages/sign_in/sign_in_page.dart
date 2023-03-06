@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
+import 'package:classes/widgets/choose_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -79,20 +80,35 @@ class SignInPage extends BasePage {
 
   Widget chooseIdentity() {
     return Container(
-      color: Color(0xA7D3F4FF),
+      decoration: BoxDecoration(gradient: LinearGradient(
+        begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.9, 0.7),
+        stops: [0.1, 0.9], colors: [Color(0xFFD3F4FF), Colours.BLUE],
+      )),
       alignment: Alignment.center,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 66),
         margin: EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.BLUE_LIGHT]),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [BoxShadow(
-            color: Colors.black38,
-            blurRadius: 10,
-            offset: Offset(1.0, 9.0),
-          ),]
-        ),
+            boxShadow: const [BoxShadow(
+                color: Colors.black12,
+                blurRadius: 15,
+                spreadRadius: 0,
+                offset: Offset(0.0, 32.0))],
+            borderRadius: BorderRadius.circular(16.0),
+            gradient: const LinearGradient(
+                begin: FractionalOffset(0.0, 0.4),
+                end: FractionalOffset(0.9, 0.7),
+                stops: [0.2, 0.9],
+                colors: [Color(0xffFFC3A0), Color(0xffFFAFBD),])),
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.RED_LIGHT]),
+        //   borderRadius: BorderRadius.circular(15),
+        //   boxShadow: [BoxShadow(
+        //     color: Colors.black38,
+        //     blurRadius: 10,
+        //     offset: Offset(1.0, 9.0),
+        //   ),]
+        // ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -123,71 +139,53 @@ class SignInPage extends BasePage {
   Widget chooseSchool() {
     return GetBuilder<SignInLogic>(builder: (logic) {
       return Container(
-        color: Colours.grey2,
+        decoration: BoxDecoration(gradient: LinearGradient(
+          begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.8, 0.7),
+          stops: [0.1, 0.9], colors: [Colours.BLUE_DEEP, Colours.BLUE],
+        )),
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Autocomplete(
-              optionsBuilder: (TextEditingValue value) async {
-                if (value.text.isEmpty) {
-                  return const Iterable<String>.empty();
-                } else {
-                  return logic.data.where((element) => element.contains(value.text));
-                }
-              },
-              fieldViewBuilder: (context, textEditingController, focusNode,
-                  onFieldSubmitted) {
-                logic.textController = textEditingController;
-                return TextFormField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                    labelText: "你来自哪所学校？",
-                    labelStyle: TextStyle(color: Colors.black),
-
-                  ),
-                  controller: textEditingController,
-                  focusNode: focusNode,
-                  onFieldSubmitted: (value) => onFieldSubmitted(),
-                ).paddingSymmetric(horizontal: 40);
-              },
-              optionsViewBuilder: (context, onSelected, options) =>
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Material(
-                      child: Container(
-                        color: Colors.green,
-                        margin: EdgeInsets.only(top: 20),
-                        height: (50 * options.length).toDouble(),
-                        child: MediaQuery.removePadding(
-                          removeTop: true,
-                          context: context,
-                          child: ListView.builder(
-                              itemCount: options.length,
-                              itemBuilder: (_, index) =>
-                                  InkWell(
-                                    onTap: () =>
-                                        onSelected(options.elementAt(index)),
-                                    child: Container(
-                                      width: Get.width,
-                                      height: 50,
-                                      alignment: Alignment.centerLeft,
-                                      child: Text.rich(formSpan(
-                                          options.elementAt(index),
-                                          logic.textController.text)),
-                                    ),
-                                  )),
-                        ),
-                      ),
-                    ),
-                  ),
-              displayStringForOption: (option) => option,
-              onSelected: (selection) => logic.liquidController.animateToPage(page: 3,duration: 700),
-            ),
-          ],
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 240,horizontal: 30),
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+          decoration: BoxDecoration(
+            boxShadow: const [BoxShadow(
+              color: Colors.black12,
+              blurRadius: 15,
+              spreadRadius: 0,
+              offset: Offset(0.0, 32.0))],
+            borderRadius: BorderRadius.circular(16.0),
+            gradient: const LinearGradient(
+              begin: FractionalOffset(0.0, 0.4),
+              end: FractionalOffset(0.9, 0.7),
+              stops: [0.2, 0.9],
+              colors: [Color(0xffFFC3A0), Color(0xffFFAFBD)])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("你来自哪里？", style: TextStyle(fontSize: 40)),
+              Container(height: 40),
+              ChooseText(
+                horizontal: 50,
+                title: "学校",
+                data: logic.data,
+                // onSelected: (selection) => logic.liquidController.animateToPage(page: 3,duration: 700)
+              ),
+              Container(height: 20),
+              ChooseText(
+                horizontal: 50,
+                title: "班级",
+                data: logic.data,
+                // onSelected: (selection) => logic.liquidController.animateToPage(page: 3,duration: 700)
+              ),
+              Container(height: 40),
+              NormalButton(
+                width: 130,
+                text: "确定",
+                textStyle: const TextStyle(fontSize: 20),
+                onTap: () => logic.liquidController.animateToPage(page: 3,duration: 700), //logic.checkLogin(),
+              )
+            ],
+          ),
         ),
       );
     });
@@ -205,8 +203,9 @@ class SignInPage extends BasePage {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Container(height: 70),
                 fieldColorBox("学号", logic.username),
-                Container(height: 60),
+                Container(height: 40),
                 fieldColorBox("密码", logic.password),
                 // TextFormField(
                 //   cursorColor: Colors.black,
@@ -231,9 +230,12 @@ class SignInPage extends BasePage {
                 //   onChanged: (text) => logic.password = text,
                 //   onFieldSubmitted: (text) => logic.password = text,
                 // ),
-                Container(height: 30),
+                Container(height: 90),
                 NormalButton(
+                  width: 160,
+                  height: 50,
                   text: "确定",
+                  textStyle: const TextStyle(fontSize: 14),
                   onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
                   // child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),
@@ -244,27 +246,6 @@ class SignInPage extends BasePage {
         );
       }
     );
-  }
-
-  final TextStyle lightTextStyle = const TextStyle(
-    color: Colors.red,
-    fontWeight: FontWeight.bold,
-  );
-
-  InlineSpan formSpan(String src, String pattern) {
-    List<TextSpan> span = [];
-    List<String> parts = src.split(pattern);
-    if (parts.length > 1) {
-      for (int i = 0; i < parts.length; i++) {
-        span.add(TextSpan(text: parts[i]));
-        if (i != parts.length - 1) {
-          span.add(TextSpan(text: pattern, style: lightTextStyle));
-        }
-      }
-    } else {
-      span.add(TextSpan(text: src));
-    }
-    return TextSpan(children: span);
   }
 
   Widget fieldColorBox(String title, String input) {
@@ -287,24 +268,24 @@ class SignInPage extends BasePage {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            width: 30,
+            width: 16,
           ),
           Expanded(
-            flex: 3,
+            flex: 1,
             child: Text(
               title,
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Wrap(
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintStyle: TextStyle(
-                          fontSize: 12, color: Colors.black)),
+                          fontSize: 14, color: Colors.black)),
                   onChanged: (text) => input = text,
                   onFieldSubmitted: (text) => input = text,
                 ),
