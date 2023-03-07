@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:classes/res/colours.dart';
 import 'package:flutter/material.dart';
 
@@ -24,4 +26,12 @@ class Styles{
     stops: [0.4, 1],
     colors: [Colors.black, Colors.black54],
   );
+
+  static StrutStyle center(double fontSize, {FontWeight? fontWeight}) {
+    return StrutStyle(
+        fontSize: fontSize,
+        height: Platform.isIOS ? 1.1 : 1.4,
+        forceStrutHeight: true,
+        fontWeight: fontWeight ?? FontWeight.w400);
+  }
 }

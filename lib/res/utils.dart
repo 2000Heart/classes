@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'date_utils_extension.dart';
+
 class Utils {
   static String getImgPath(String name) {
     return 'assets/images/$name';
@@ -77,6 +79,26 @@ class Utils {
   }
 }
 
+//日期格式化
+String formatTime(String time) {
+  int interval = DateTime.now().millisecondsSinceEpoch - DateTime.parse(time).millisecondsSinceEpoch;
+  if (interval < 60 * 1000) {
+    interval = interval ~/ 1000;
+    return '刚刚';
+  } else if (interval < 60 * 60 * 1000) {
+    interval = interval ~/ 60000;
+    return '$interval分钟前';
+  } else if (interval < 24 * 60 * 60 * 1000) {
+    interval = interval ~/ 3600000;
+    return '$interval小时前';
+  } else if (interval < 3 * 24 * 60 * 60 * 1000) {
+    interval = interval ~/ (3600000 * 24);
+    return '$interval天前';
+  } else {
+    return DateUtilsExtension.formatDateString(time, 'MM-dd HH:mm');
+  }
+}
+
 int getCurrentMonthDays(int year, int month) {
   if (month == 2) {
     if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
@@ -131,8 +153,10 @@ extension StringEx1 on String {
 extension WidgetEx1 on Widget {
   SizedBox sized({double? width = null, double? height = null}) =>
       SizedBox(width: width, height: height, child: this);
+
   GestureDetector tap(void Function()? fn) =>
       GestureDetector(onTap: fn, behavior: HitTestBehavior.opaque, child: this);
+
   rounded(double r) => Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(r)),
       clipBehavior: Clip.hardEdge,
@@ -167,3 +191,15 @@ extension TextWidth on Text {
     );
   }
 }
+
+extension Exten on List<Widget>{
+  Widget formLine() => SizedBox(
+    height: 40,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: this,
+    ),
+  );
+}
+

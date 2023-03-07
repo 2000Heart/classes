@@ -21,7 +21,7 @@ class NavigationLogic extends BaseLogic{
     KeepAliveWrapper(child: MinePage())
   ];
   final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.message,Icons.accessibility];
-  final List<String> labelList = ["首页","课程","消息","我的"];
+  final List<String> labelList = ["课程表","课程","消息","我的"];
 
   void setIndex(value){
     _currentIndex = value;
