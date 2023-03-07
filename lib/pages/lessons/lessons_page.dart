@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:classes/base/base_controller.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lessons_logic.dart';
 import 'package:classes/res/colours.dart';
@@ -7,8 +5,6 @@ import 'package:classes/res/routes.dart';
 import 'package:classes/res/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../widgets/colourful_wrap.dart';
 
 
 class LessonsPage extends BasePage{
@@ -23,21 +19,16 @@ class LessonsPage extends BasePage{
         return Scaffold(
           appBar: AppBar(
             actions: [
-              ColourfulWrap(
-                  colors: Colours.navigationColors[1],
-                  child: Icon(Icons.add),
-                  onTap: () => Get.toNamed(Routes.lessonAdd)
-              ),
-              ColourfulWrap(
-                  colors: Colours.navigationColors[1],
-                  child: Icon(Icons.schedule),
-                  onTap: () => Get.toNamed(Routes.lessonCheck)
-              )
+              Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
+              Icon(Icons.schedule).tap(() => Get.toNamed(Routes.lessonCheck))
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: List.generate(10, (index) => lessonsListItem()),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(10, (index) => lessonsListItem()),
+              ),
             ),
           ),
         );
@@ -49,44 +40,47 @@ class LessonsPage extends BasePage{
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.lessonsDetail),
       child: Container(
-        margin: EdgeInsets.only(bottom: 5,left: 16,right: 16),
+        width: Get.width,
+        margin: EdgeInsets.only(bottom: 10,top: 10,left: 12,right: 12),
+        padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                color: Colors.black,
-                offset: const Offset(0, 5),
-                blurRadius: 5,
-                spreadRadius: -8
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 2,
+              blurStyle: BlurStyle.solid,
+              offset: Offset(5, 5)
             )
+
           ],
           borderRadius: BorderRadius.circular(10)),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              alignment: Alignment.center,
-              color: Colors.redAccent,
-              child: Text("形")
-              // CachedNetworkImage(
-              //   width: 60,
-              //   height: 60,
-              //   imageUrl: "",
-              //   errorWidget: (context, url, error) => Container(),
-              // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("形势与政策",style: TextStyle(fontSize: 18)),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(4)
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+                  child: Text("进行中",style: TextStyle(fontSize: 10))),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("形势与政策"),
-                  Text("当前第七周，进行中"),
-                  Text("2308")
-                ],
-              ),
-            )
+            Container(
+              width: 100,
+              height: 2,
+              margin: EdgeInsets.symmetric(vertical: 2),
+              decoration: BoxDecoration(gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.PURPLE])),
+            ),
+            Container(height: 4),
+            Text("张力高",style: TextStyle(fontSize: 16)),
+            Container(height: 4),
+            Text("2308",style: TextStyle(fontSize: 14))
           ],
         ),
       ),

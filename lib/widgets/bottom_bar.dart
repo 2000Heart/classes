@@ -1,3 +1,4 @@
+import '../res/colours.dart';
 import 'clipped_view.dart';
 import 'bottom_bar_button.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class BottomBar extends StatelessWidget {
     }).toList();
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colours.white,
         boxShadow: [
           BoxShadow(blurRadius: 16, color: Colors.black12),
           BoxShadow(blurRadius: 24, color: Colors.black12),

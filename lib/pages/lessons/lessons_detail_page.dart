@@ -1,4 +1,5 @@
 import 'package:classes/base/base_page.dart';
+import 'package:classes/res/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,108 +13,97 @@ class LessonsDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-          // onlyOneScrollInBody: true,
-          floatHeaderSlivers: true,
-          controller: logic.scrollController,
-          // pinnedHeaderSliverHeightBuilder: () => kToolbarHeight + MediaQuery.of(context).padding.top,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                pinned: true,
-                toolbarHeight: kToolbarHeight,
-                collapsedHeight: kToolbarHeight,
-                expandedHeight: 120,
-                titleSpacing: 0.0,
-                actions: [
-                  Container(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: const Icon(Icons.connected_tv_sharp))
-                ],
-                iconTheme: const IconThemeData(color: Colors.white),
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: const Text("形势与政策",style: TextStyle(fontSize: 18)),
-                  expandedTitleScale: 1.1,
-                  collapseMode: CollapseMode.pin,
-                  background: Container(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                    height: 120,
-                    width: Get.width,
-                    color: Colors.red,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
-            child: Column(
+      appBar: AppBar(title: Text("形式与政策")),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(child: const Text("签到")),
+                Container(height: 20),
+                Container(padding: EdgeInsets.symmetric(horizontal: 18),child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
+                Container(height: 5),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      group(5, 2),
-                      Container(width: 15),
-                      group(4, 4),
-                      Container(width: 15),
-                      group(3, 3)
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        group(5, 2),
+                        Container(width: 15),
+                        group(4, 4),
+                        Container(width: 15),
+                        group(3, 3)
+                      ],
+                    ),
                   ),
                 ),
-                Text("课程任务"),
-                ExpansionTile(
-                  initiallyExpanded: true,
-                  title: Text("今日"),
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black,width: 1),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                  collapsedShape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black,width: 1),
-                    borderRadius: BorderRadius.circular(8)
-                  ),
-                  childrenPadding: EdgeInsets.symmetric(horizontal: 10),
-                  children: List.generate(5, (index) => Container(
-                    height: 40,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      border: Border(top: BorderSide(color: Colors.black,width: 1))
-                    ),
-                    alignment: Alignment.centerLeft,
-                    child: Text("今日任务。。。。。。。。"),
-                  )),
-                ),
-                ExpansionTile(
-                  initiallyExpanded: true,
-                  title: Text("昨日"),
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black,width: 1),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                  collapsedShape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black,width: 1),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                  childrenPadding: EdgeInsets.symmetric(horizontal: 10),
-                  children: List.generate(5, (index) => Container(
-                    height: 40,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                        border: Border(top: BorderSide(color: Colors.black,width: 1))
-                    ),
-                    alignment: Alignment.centerLeft,
-                    child: Text("今日任务。。。。。。。。"),
-                  )),
-                )
               ],
             ),
-          )
-      ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(height: 15),
+                Text("课程任务",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 15,
+                          height: 15,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 2,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(3, 2)
+                            )],
+                          ),
+                        ),
+                        Container(width: 10),
+                        Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+                      ],
+                    ).paddingSymmetric(horizontal: 16,vertical: 4),
+                    Text("1.今天要把作业2完成；\n2.完成预习").paddingSymmetric(horizontal: 26)
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 15,
+                          height: 15,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 2,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(3, 2)
+                            )],
+                          ),
+                        ),
+                        Container(width: 10),
+                        Text("任务1",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+                      ],
+                    ).paddingSymmetric(horizontal: 16,vertical: 4),
+                    Text("1.今天要把作业2完成；\n2.完成预习").paddingSymmetric(horizontal: 26)
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      )
     );
   }
 
@@ -121,7 +111,7 @@ class LessonsDetailPage extends BasePage {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(column, (index) => Padding(
-        padding: EdgeInsets.only(bottom: index != column - 1?5:0),
+        padding: EdgeInsets.only(bottom: index != column - 1?10:0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -131,9 +121,10 @@ class LessonsDetailPage extends BasePage {
               child: RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 padding: EdgeInsets.all(3),
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
+                  borderRadius: BorderRadius.circular(4)
                 ),
                 constraints: BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
                 onPressed: () { Get.back(); },

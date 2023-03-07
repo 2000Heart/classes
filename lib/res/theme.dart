@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeConfig{
   static ThemeData theme(){
     return ThemeData(
+      fontFamilyFallback: ['PingFang SC'],
       primarySwatch: Colors.blue,
       appBarTheme: _appBarTheme(),
       splashColor: Colors.transparent,
@@ -22,10 +23,12 @@ class ThemeConfig{
       elevation: 5,
       toolbarHeight: 44,
       backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black.withOpacity(0.65)),
       actionsIconTheme: IconThemeData(size: 30,color: Colors.black.withOpacity(0.65)),
-      titleTextStyle: const TextStyle(
+      titleTextStyle: TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.w500,
+        color: Colors.black.withOpacity(0.65),
+        fontWeight: FontWeight.w600,
       )
     );
   }

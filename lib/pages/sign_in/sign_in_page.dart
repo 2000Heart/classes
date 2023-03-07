@@ -61,18 +61,18 @@ class SignInPage extends BasePage {
           ),
           Container(height: 300),
           NormalButton.rect(
-            width: 300,
-            height: 70,
+            width: 240,
+            height: 50,
             onTap: () => logic.liquidController.jumpToPage(page: 3),
             text: "登录",
-            textStyle: const TextStyle(fontSize: 25)),
+            textStyle: const TextStyle(fontSize: 20)),
           Container(height: 40),
           NormalButton.rect(
-              width: 300,
-              height: 70,
+              width: 240,
+              height: 50,
               onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
               text: "注册",
-              textStyle: const TextStyle(fontSize: 25)),
+              textStyle: const TextStyle(fontSize: 20)),
         ],
       ),
     );
@@ -145,7 +145,7 @@ class SignInPage extends BasePage {
         )),
         alignment: Alignment.center,
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 240,horizontal: 30),
+          margin: EdgeInsets.symmetric(vertical: 220,horizontal: 30),
           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 16),
           decoration: BoxDecoration(
             boxShadow: const [BoxShadow(
@@ -239,7 +239,7 @@ class SignInPage extends BasePage {
                   onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
                   // child: const Text("确定",style: TextStyle(fontSize: 24),),
                 ),
-                Text(logic.user.toString())
+                // Text(logic.user.toString())
               ],
             ),
           ),

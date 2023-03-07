@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
+import 'package:classes/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,19 +15,41 @@ class MinePage extends BasePage{
   @override
   Widget buildWidget(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            errorWidget: (context,url,error) => Icon(Icons.ac_unit),
-            imageUrl: ''),
-          Text("张三"),
-          Text("浙江万里学院"),
-          option(Icons.add, "我的班级"),
-          option(Icons.add, "我的作业"),
-          option(Icons.access_alarm, "签到记录"),
-          option(Icons.add, "用户设置"),
-          option(Icons.add, "应用设置"),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 5,
+                        offset: Offset(8, 8)
+                    )
+                  ]
+              ),
+              child: CachedNetworkImage(
+                  width: 120,
+                  height: 120,
+                  fit: BoxFit.cover,
+                  placeholder: (context, str) => Container(color: Colors.white),
+                  errorWidget: (context,url,error) => Icon(Icons.ac_unit,size: 90),
+                  imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
+            ),
+            Container(height: 40),
+            Text("张三",style: TextStyle(fontSize: 25)),
+            Container(height: 6),
+            Text("浙江万里学院",style: TextStyle(fontSize: 14)),
+            Container(height: 60),
+            option(Icons.add, "我的班级"),
+            option(Icons.add, "我的课程"),
+            option(Icons.add, "我的作业"),
+            option(Icons.access_alarm, "签到记录"),
+            option(Icons.add, "用户设置"),
+            option(Icons.add, "应用设置")
+          ],
+        ),
       ),
     );
   }
@@ -40,15 +63,30 @@ class MinePage extends BasePage{
             height: 52,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(size: 25, icon),
-                const SizedBox(width: 10),
-                Text(title, style: TextStyle(fontSize: 15),),
+                Container(
+                  height: 30,
+                  width: 30,
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 2,
+                        blurStyle: BlurStyle.solid,
+                        offset: Offset(3, 2)
+                    )],
+                  ),
+                  child: Icon(size: 25, icon)),
+                const SizedBox(width: 18),
+                Text(title, style: const TextStyle(fontSize: 15)),
                 const Spacer(),
-                Icon(size: 20, Icons.arrow_forward_ios)
+                const Icon(size: 18, Icons.arrow_forward_ios)
               ],
             ),
-          ),
+          )
         ],
       ).marginSymmetric(horizontal: 16),
     );

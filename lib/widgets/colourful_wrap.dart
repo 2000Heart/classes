@@ -12,7 +12,7 @@ class ColourfulWrap extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (bounds) =>
-          LinearGradient(colors: colors,begin: Alignment.topLeft,end: Alignment.bottomRight).createShader(bounds),
+          LinearGradient(colors: colors,begin: Alignment.centerLeft,end: Alignment.centerRight).createShader(bounds),
       child: child.tap(onTap),
     );
   }

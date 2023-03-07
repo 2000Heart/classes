@@ -39,7 +39,6 @@ class ClassSingleDay extends StatelessWidget{
         list.add(
           Container(
             color: Colors.transparent,
-            width: 50,
             height: 50.0 * ((classes[i].start ?? 0) - (list.isNotEmpty?(classes[i-1].end ?? 100) + 1: 1)),
             alignment: Alignment.center,
           )

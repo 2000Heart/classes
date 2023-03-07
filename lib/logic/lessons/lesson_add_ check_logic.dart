@@ -7,6 +7,8 @@ class LessonAddCheckLogic extends BaseLogic{
   ScrollController _controller = ScrollController();
   List<HomeClassSingeDayEntity> _data = [HomeClassSingeDayEntity()];
   final TextEditingController _editingController = TextEditingController();
+  List<String> roomList = ["2308","4441","5111","2115","2117","3412"];
+  List<String> reRoomList = [];
   List<String> classList = [];
   bool _choice = true;
   late FocusNode focus;
@@ -52,14 +54,14 @@ class LessonAddCheckLogic extends BaseLogic{
 
   Future getInput(str) async{
     _input = str;
-    // classList.clear();
-    // if(_input != ''){
-    //   for (var element in classList) {
-    //     if(element.expertName?.contains(RegExp(str,caseSensitive: false)) == true){
-    //       classList.add(element);
-    //     }
-    //   }
-    // }
+    reRoomList.clear();
+    if(_input != ''){
+      for (var element in roomList) {
+        if(element.contains(RegExp(_input,caseSensitive: false)) == true){
+          reRoomList.add(element);
+        }
+      }
+    }
     update();
   }
 }
