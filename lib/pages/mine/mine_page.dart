@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
+import 'package:classes/res/routes.dart';
 import 'package:classes/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,12 +43,11 @@ class MinePage extends BasePage{
             Container(height: 6),
             Text("浙江万里学院",style: TextStyle(fontSize: 14)),
             Container(height: 60),
-            option(Icons.add, "我的班级"),
-            option(Icons.add, "我的课程"),
-            option(Icons.add, "我的作业"),
-            option(Icons.access_alarm, "签到记录"),
-            option(Icons.add, "用户设置"),
-            option(Icons.add, "应用设置")
+            option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
+            option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
+            option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
+            option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
+            option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))
           ],
         ),
       ),

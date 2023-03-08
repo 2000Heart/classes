@@ -155,7 +155,7 @@ extension WidgetEx1 on Widget {
       SizedBox(width: width, height: height, child: this);
 
   GestureDetector tap(void Function()? fn) =>
-      GestureDetector(onTap: fn, behavior: HitTestBehavior.opaque, child: this);
+      GestureDetector(onTap: fn, behavior: HitTestBehavior.translucent, child: this);
 
   rounded(double r) => Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(r)),

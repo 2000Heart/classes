@@ -1,5 +1,7 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/res/colours.dart';
+import 'package:classes/res/utils.dart';
+import 'package:classes/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +15,13 @@ class LessonsDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("形式与政策")),
+      appBar: AppBar(title: Text("形式与政策"),actions: [
+        Container(
+            padding: const EdgeInsets.only(right: 16),
+            alignment: Alignment.center,
+            child: Text("发布任务",style: TextStyle(color: Colors.black.withOpacity(0.7)))
+        ).tap(() => Get.bottomSheet(addTask()))
+      ],),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -205,6 +213,63 @@ class LessonsDetailPage extends BasePage {
         ),
       )
       ),
+    );
+  }
+
+  Widget addTask(){
+    return BottomSheet(
+      elevation: 40,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16))
+      ),
+      constraints: BoxConstraints(minHeight: 490,maxHeight: 490),
+      builder: (BuildContext context) =>Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          [Text("标题",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
+            SizedBox(
+            width: 100,
+            child: TextField(
+              cursorColor: Colors.black,
+              expands: true,
+              maxLines: null,
+              minLines: null,
+              style: TextStyle(fontSize: 14),
+              decoration: InputDecoration(
+                hintText: '请输入任务标题',
+                contentPadding: EdgeInsets.symmetric(vertical: 5),
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+              ),
+            ),
+          )].formLine().paddingOnly(top: 10,left: 16,right: 16),
+          [Text("内容",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
+            NormalButton(text: "发布",width: 80,height: 30)].formLine().paddingOnly(left: 16,right: 16,bottom: 10),
+          Container(
+            width: Get.width,
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(35 / 2),
+              boxShadow: [BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 4,
+              )]
+            ),
+            child: TextField(
+              maxLines: 15,
+              decoration: InputDecoration(
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none
+              ),
+            ),
+          )
+        ],
+      ), onClosing: () {  },
     );
   }
 }
