@@ -21,7 +21,7 @@ class LessonsDetailPage extends BasePage {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(height: 20),
-                Container(padding: EdgeInsets.symmetric(horizontal: 18),child: const Text("签到",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500))),
+                Container(padding: EdgeInsets.symmetric(horizontal: 18),child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
                 Container(height: 5),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,

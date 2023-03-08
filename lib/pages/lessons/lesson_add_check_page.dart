@@ -24,7 +24,12 @@ class LessonAddCheckPage extends BasePage{
       },
       builder: (logic) {
         return Scaffold(
-          appBar: AppBar(title: Text("设置签到")),
+          appBar: AppBar(title: Text("设置签到"),actions: [
+            Container(
+                padding: const EdgeInsets.only(right: 16),
+                alignment: Alignment.center,
+                child: Text("保存",style: TextStyle(color: Colors.black.withOpacity(0.7))))
+          ],),
           body: CustomScrollView(
             controller: logic.controller,
             slivers: [
@@ -43,6 +48,7 @@ class LessonAddCheckPage extends BasePage{
                             Container(child: Text("新增教室")).tap(() {logic.choice = false;})
                           ])
                     ].formLine(),
+                    [Text("教室名",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),Text("2308")].formLine()
                   ],
                 ).paddingSymmetric(horizontal: 16),
               ),
