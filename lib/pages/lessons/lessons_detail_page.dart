@@ -47,58 +47,126 @@ class LessonsDetailPage extends BasePage {
               children: [
                 Container(height: 15),
                 Text("课程任务",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 15,
-                          height: 15,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
-                            shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.solid,
-                                offset: Offset(3, 2)
-                            )],
+                Container(
+                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                  BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 2,
+                  blurStyle: BlurStyle.solid,
+                  offset: Offset(5, 5)
+                  )]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 15,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                              shape: BoxShape.circle,
+                              boxShadow: [BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 2,
+                                  blurStyle: BlurStyle.solid,
+                                  offset: Offset(3, 2)
+                              )],
+                            ),
                           ),
-                        ),
-                        Container(width: 10),
-                        Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
-                      ],
-                    ).paddingSymmetric(horizontal: 16,vertical: 4),
-                    Text("1.今天要把作业2完成；\n2.完成预习").paddingSymmetric(horizontal: 26)
-                  ],
+                          Container(width: 10),
+                          Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+                        ],
+                      ).paddingSymmetric(horizontal: 16,vertical: 4),
+                      Text("1.今天要把作业2完成；\n2.完成预习").paddingOnly(left: 26)
+                    ],
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 15,
-                          height: 15,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
-                            shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                blurRadius: 2,
-                                blurStyle: BlurStyle.solid,
-                                offset: Offset(3, 2)
-                            )],
+                Container(
+                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2,
+                            blurStyle: BlurStyle.solid,
+                            offset: Offset(5, 5)
+                        )]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 15,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                              shape: BoxShape.circle,
+                              boxShadow: [BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 2,
+                                  blurStyle: BlurStyle.solid,
+                                  offset: Offset(3, 2)
+                              )],
+                            ),
                           ),
-                        ),
-                        Container(width: 10),
-                        Text("任务1",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
-                      ],
-                    ).paddingSymmetric(horizontal: 16,vertical: 4),
-                    Text("1.今天要把作业2完成；\n2.完成预习").paddingSymmetric(horizontal: 26)
-                  ],
-                )
+                          Container(width: 10),
+                          Text("任务1",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+                        ],
+                      ).paddingSymmetric(horizontal: 16,vertical: 4),
+                      Text("1.今天要把作业2完成；\n2.完成预习大三大四的撒大叔大叔大叔大叔大叔大叔的").paddingOnly(left: 26)
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2,
+                            blurStyle: BlurStyle.solid,
+                            offset: Offset(5, 5)
+                        )]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 15,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                              shape: BoxShape.circle,
+                              boxShadow: [BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 2,
+                                  blurStyle: BlurStyle.solid,
+                                  offset: Offset(3, 2)
+                              )],
+                            ),
+                          ),
+                          Container(width: 10),
+                          Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+                        ],
+                      ).paddingSymmetric(horizontal: 16,vertical: 4),
+                      Text("1.今天要把作业2完成；\n2.完成预习dasdasdasdasdaasda").paddingOnly(left: 26)
+                    ],
+                  ),
+                ),
               ],
             )
           ],

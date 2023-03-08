@@ -83,16 +83,17 @@ class ClassSingleDay extends StatelessWidget{
 
   showDetail(context){
     return showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        barrierColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        constraints: BoxConstraints(maxWidth: Get.width/1.2),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),topRight: Radius.circular(10))
-        ),
-        builder: (context) => HomeDetailPage()
+      context: context,
+      isScrollControlled: true,
+      barrierColor: Colors.transparent,
+      elevation: 40,
+      backgroundColor: Colors.white,
+      constraints: BoxConstraints(
+      maxWidth: Get.width, maxHeight: Get.height * 0.7),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(16))),
+      builder: (context) => HomeDetailPage()
     );
   }
 }

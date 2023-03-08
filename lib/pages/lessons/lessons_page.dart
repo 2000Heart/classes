@@ -52,7 +52,6 @@ class LessonsPage extends BasePage{
               blurStyle: BlurStyle.solid,
               offset: Offset(5, 5)
             )
-
           ],
           borderRadius: BorderRadius.circular(10)),
         child: Column(

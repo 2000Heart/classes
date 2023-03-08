@@ -150,8 +150,8 @@ class HomePage extends BasePage {
           elevation: 40,
           backgroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10))
+              borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(16))
           ),
           constraints: BoxConstraints(
               maxWidth: Get.width, maxHeight: Get.height * 0.25),
@@ -159,7 +159,6 @@ class HomePage extends BasePage {
               GetBuilder<HomeLogic>(
                   builder: (logic) {
                     return Container(
-                      color: Colors.white,
                       alignment: Alignment.center,
                       child: Column(
                         children: [

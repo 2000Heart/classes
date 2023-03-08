@@ -63,8 +63,8 @@ class NormalButton extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black38,
-              blurRadius: 20,
-              offset: Offset(1.0, 9.0),
+              blurRadius: 14,
+              offset: Offset(1.0, 7.0),
             ),
           ],
           borderRadius: BorderRadius.circular(radius ?? 50),
