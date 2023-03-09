@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChooseText extends StatelessWidget {
-  const ChooseText({Key? key, required this.title, required this.data, this.onSelected, required this.horizontal}) : super(key: key);
+  const ChooseText({Key? key, required this.title, required this.data, this.onSelected, required this.horizontal, this.onChanged}) : super(key: key);
 
   final String title;
   final List<String> data;
   final double horizontal;
+  final Function(String)? onChanged;
   final AutocompleteOnSelected<String>? onSelected;
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ class ChooseText extends StatelessWidget {
             ),
             controller: textEditingController,
             focusNode: focusNode,
+            onChanged: onChanged,
           ),
         );
       },

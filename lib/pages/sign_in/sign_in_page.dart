@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
+import 'package:classes/res/toast_utils.dart';
 import 'package:classes/widgets/choose_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -116,7 +117,10 @@ class SignInPage extends BasePage {
             Text("你是", style: TextStyle(fontSize: 40)),
             Container(height: 40),
             NormalButton.rect(
-                onTap: () => logic.liquidController.animateToPage(page: 2, duration: 700),
+                onTap: () {
+                  logic.userType = 1;
+                  logic.liquidController.animateToPage(page: 2, duration: 700);
+                },
                 text: "教师",
                 width: 160,
                 height: 50,
@@ -125,7 +129,10 @@ class SignInPage extends BasePage {
             Text("or", style: TextStyle(fontSize: 30)),
             Container(height: 10),
             NormalButton.rect(
-                onTap: () => logic.liquidController.animateToPage(page: 2,duration: 700),
+                onTap: () {
+                  logic.userType = 0;
+                  logic.liquidController.animateToPage(page: 2,duration: 700);
+                },
                 text: "学生",
                 width: 160,
                 height: 50,
@@ -139,14 +146,14 @@ class SignInPage extends BasePage {
   Widget chooseSchool() {
     return GetBuilder<SignInLogic>(builder: (logic) {
       return Container(
-        decoration: BoxDecoration(gradient: LinearGradient(
+        decoration: const BoxDecoration(gradient: LinearGradient(
           begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.8, 0.7),
           stops: [0.1, 0.9], colors: [Colours.BLUE_DEEP, Colours.BLUE],
         )),
         alignment: Alignment.center,
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 220,horizontal: 30),
-          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+          margin: const EdgeInsets.symmetric(vertical: 220,horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
           decoration: BoxDecoration(
             boxShadow: const [BoxShadow(
               color: Colors.black12,
@@ -167,22 +174,26 @@ class SignInPage extends BasePage {
               ChooseText(
                 horizontal: 50,
                 title: "学校",
-                data: logic.data,
-                // onSelected: (selection) => logic.liquidController.animateToPage(page: 3,duration: 700)
+                data: List.generate(logic.schoolList.length, (index) => logic.schoolList[index].schoolName ?? ""),
+                onChanged: (str) => logic.school = str,
+                  onSelected: (selection) => logic.school = selection
               ),
               Container(height: 20),
               ChooseText(
                 horizontal: 50,
                 title: "班级",
-                data: logic.data,
-                // onSelected: (selection) => logic.liquidController.animateToPage(page: 3,duration: 700)
+                data: List.generate(logic.classList.length, (index) => logic.classList[index].schoolName ?? ""),
+                onChanged: (str) => logic.classInfo = str,
+                onSelected: (selection) => logic.classInfo = selection
               ),
               Container(height: 40),
               NormalButton(
                 width: 130,
                 text: "确定",
                 textStyle: const TextStyle(fontSize: 20),
-                onTap: () => logic.liquidController.animateToPage(page: 3,duration: 700), //logic.checkLogin(),
+                onTap: () => logic.school != "" && logic.classInfo != ""?
+                logic.liquidController.animateToPage(page: 3,duration: 700):
+                ToastUtils.show("请完善信息后再继续"), //logic.checkLogin(),
               )
             ],
           ),
@@ -204,9 +215,9 @@ class SignInPage extends BasePage {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(height: 70),
-                fieldColorBox("学号", logic.username),
+                fieldColorBox("学号", (str) => logic.username = str),
                 Container(height: 40),
-                fieldColorBox("密码", logic.password),
+                fieldColorBox("密码",(str) => logic.password = str),
                 // TextFormField(
                 //   cursorColor: Colors.black,
                 //   decoration: InputDecoration(
@@ -236,8 +247,12 @@ class SignInPage extends BasePage {
                   height: 50,
                   text: "确定",
                   textStyle: const TextStyle(fontSize: 14),
-                  onTap: () => Get.offAndToNamed(Routes.navigation), //logic.checkLogin(),
-                  // child: const Text("确定",style: TextStyle(fontSize: 24),),
+                  onTap: () {
+                    if(logic.password != "" && logic.username != ""){
+                      Get.offAndToNamed(Routes.navigation);
+                      logic.createUser();
+                    }else{ToastUtils.show("请输入用户名与密码");}
+                  },
                 ),
                 // Text(logic.user.toString())
               ],
@@ -248,7 +263,7 @@ class SignInPage extends BasePage {
     );
   }
 
-  Widget fieldColorBox(String title, String input) {
+  Widget fieldColorBox(String title, Function(String)? onChanged) {
     return Container(
       height: 60,
       decoration: BoxDecoration(
@@ -281,13 +296,12 @@ class SignInPage extends BasePage {
             flex: 4,
             child: Wrap(
               children: <Widget>[
-                TextFormField(
+                TextField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintStyle: TextStyle(
                           fontSize: 14, color: Colors.black)),
-                  onChanged: (text) => input = text,
-                  onFieldSubmitted: (text) => input = text,
+                  onChanged: onChanged,
                 ),
               ],
             ),
