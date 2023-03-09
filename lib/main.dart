@@ -1,11 +1,15 @@
+import 'package:classes/pages/navigation_page.dart';
 import 'package:classes/pages/sign_in/sign_in_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/theme.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SpUtils.initSp();
   runApp(const MyApp());
 }
 
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
       onInit: () => EasyLoading.instance.userInteractions = false,
       builder: EasyLoading.init(),
       locale: const Locale("zh","CN"),
-      home: SignInPage(),
+      home: SpUtils.loginAuth == null?SignInPage():NavigationPage(),
     );
   }
 }

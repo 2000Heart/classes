@@ -1,11 +1,13 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
+import 'package:classes/model/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import '../../model/data/school_entity.dart';
 import '../../res/routes.dart';
+import '../../utils/sp_utils.dart';
 
 class SignInLogic extends BaseLogic{
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -14,11 +16,13 @@ class SignInLogic extends BaseLogic{
   late TextEditingController textController;
   final data = ["aaaaa", "cajnfoa", "hhokgo","string"];
   final LiquidController liquidController = LiquidController();
-  get formKey => _formKey;
-  dynamic user;
+  bool _isLogin = true;
+  User? user;
   List<School>? _schoolList;
   List<School>? _classList;
 
+  bool get isLogin => _isLogin;
+  get formKey => _formKey;
   List<School> get schoolList => _schoolList ?? [];
   List<School> get classList => _classList ?? [];
   String _school = "";
@@ -66,6 +70,11 @@ class SignInLogic extends BaseLogic{
     update();
   }
 
+  set isLogin(bool value) {
+    _isLogin = value;
+    update();
+  }
+
   validateID(value) {
     RegExp reg = RegExp(r'^\d{10}$');
     if (!reg.hasMatch(value)) {
@@ -75,11 +84,14 @@ class SignInLogic extends BaseLogic{
 
   Future checkLogin() async{
     user = await Api.login(_username, _password);
+
+    SpUtils.loginAuth = user;
     update();
   }
 
   Future createUser() async{
     user = await Api.createUser(_username, _password, _school, _classInfo);
+    SpUtils.loginAuth = user;
     update();
   }
 }

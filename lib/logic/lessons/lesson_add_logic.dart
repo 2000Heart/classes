@@ -1,14 +1,14 @@
 import 'dart:ffi';
 
+import 'package:classes/model/home/schedule_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../base/base_controller.dart';
-import '../../model/home/home_class_single_day_entity.dart';
 
 class LessonAddLogic extends BaseLogic{
   int _timeCount = 1;
   ScrollController _controller = ScrollController();
-  List<HomeClassSingeDayEntity> _data = [HomeClassSingeDayEntity()];
+  List<Schedule> _data = [Schedule()];
   final TextEditingController _editingController = TextEditingController();
   List<String> roomList = ["2308","4441","5111","2115","2117","3412"];
   List<String> reRoomList = [];
@@ -22,7 +22,7 @@ class LessonAddLogic extends BaseLogic{
   TextEditingController get editingController => _editingController;
   int get timeCount => _timeCount;
   ScrollController get controller => _controller;
-  List<HomeClassSingeDayEntity> get data => _data;
+  List<Schedule> get data => _data;
 
   set choice(bool value) {
     _choice = value;
@@ -40,7 +40,7 @@ class LessonAddLogic extends BaseLogic{
     update();
   }
 
-  set data(List<HomeClassSingeDayEntity> value) {
+  set data(List<Schedule> value) {
     _data = value;
     update();
   }

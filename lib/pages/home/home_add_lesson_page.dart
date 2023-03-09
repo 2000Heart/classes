@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_add_loigc.dart';
-import 'package:classes/model/home/home_class_single_day_entity.dart';
-import 'package:classes/res/utils.dart';
+import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:classes/widgets/unit_picker.dart';
 import 'package:classes/widgets/week_picker.dart';
@@ -58,7 +58,7 @@ class HomeAddLessonPage extends BasePage{
                     onTap: () {
                       log("click");
                       logic.timeCount +=1;
-                      logic.data.add(HomeClassSingeDayEntity());
+                      logic.data.add(Schedule());
                       _listKey.currentState?.insertItem(logic.timeCount - 1);
                     }
                   ),

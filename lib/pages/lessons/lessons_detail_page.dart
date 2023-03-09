@@ -1,6 +1,6 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/res/colours.dart';
-import 'package:classes/res/utils.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

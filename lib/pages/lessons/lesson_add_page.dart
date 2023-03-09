@@ -2,14 +2,13 @@ import 'dart:ffi';
 
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lesson_add_logic.dart';
+import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/week_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-
-import '../../model/home/home_class_single_day_entity.dart';
-import '../../res/utils.dart';
 
 class LessonAddPage extends BasePage{
   LessonAddPage({super.key});
@@ -152,7 +151,7 @@ class LessonAddPage extends BasePage{
                 child: Text(logic.timeCount -1  > index && logic.timeCount != 1?"删除":"添加").tap(() {
                   if(logic.timeCount - 1 == index) {
                     logic.timeCount += 1;
-                    logic.data.add(HomeClassSingeDayEntity());
+                    logic.data.add(Schedule());
                     _listKey.currentState?.insertItem(logic.timeCount - 1);
                   }else {
                     if (logic.timeCount > 1) {

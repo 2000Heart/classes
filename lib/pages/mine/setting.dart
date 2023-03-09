@@ -1,5 +1,5 @@
 import 'package:classes/base/base_page.dart';
-import 'package:classes/res/utils.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class Setting extends BasePage{

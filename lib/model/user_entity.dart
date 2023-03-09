@@ -1,5 +1,5 @@
 class User {
-  String? userId;
+  int? userId;
   String? userName;
   String? school;
   String? avatar;

@@ -3,7 +3,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../model/image_upload_result_entity.dart';
-import '../res/toast_utils.dart';
+import '../utils/toast_utils.dart';
 
 class DioUtils {
 

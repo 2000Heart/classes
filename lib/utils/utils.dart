@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import 'date_utils_extension.dart';
 
+
 class Utils {
   static String getImgPath(String name) {
     return 'assets/images/$name';
