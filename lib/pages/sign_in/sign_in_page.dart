@@ -2,7 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
-import 'package:classes/res/toast_utils.dart';
+import 'package:classes/utils/sp_utils.dart';
+import 'package:classes/utils/toast_utils.dart';
 import 'package:classes/widgets/choose_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,14 +65,20 @@ class SignInPage extends BasePage {
           NormalButton.rect(
             width: 240,
             height: 50,
-            onTap: () => logic.liquidController.jumpToPage(page: 3),
+            onTap: () {
+              logic.isLogin = true;
+              logic.liquidController.jumpToPage(page: 3);
+            },
             text: "登录",
             textStyle: const TextStyle(fontSize: 20)),
           Container(height: 40),
           NormalButton.rect(
               width: 240,
               height: 50,
-              onTap: () => logic.liquidController.animateToPage(page: 1,duration: 700),
+              onTap: () {
+                logic.isLogin = false;
+                logic.liquidController.animateToPage(page: 1,duration: 700);
+              },
               text: "注册",
               textStyle: const TextStyle(fontSize: 20)),
         ],
@@ -210,6 +217,7 @@ class SignInPage extends BasePage {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Form(
+            // key: GlobalKey<FormState>(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -250,7 +258,7 @@ class SignInPage extends BasePage {
                   onTap: () {
                     if(logic.password != "" && logic.username != ""){
                       Get.offAndToNamed(Routes.navigation);
-                      logic.createUser();
+                      logic.isLogin?logic.checkLogin():logic.createUser();
                     }else{ToastUtils.show("请输入用户名与密码");}
                   },
                 ),

@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:classes/logic/lessons/lesson_add_%20check_logic.dart';
-import 'package:classes/res/utils.dart';
+import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/date_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../base/base_page.dart';
-import '../../model/home/home_class_single_day_entity.dart';
 
 class LessonAddCheckPage extends BasePage{
   LessonAddCheckPage({super.key});
@@ -111,7 +111,7 @@ class LessonAddCheckPage extends BasePage{
                 child: Text(logic.timeCount -1  > index && logic.timeCount != 1?"删除":"添加").tap(() {
                   if(logic.timeCount - 1 == index) {
                     logic.timeCount += 1;
-                    logic.data.add(HomeClassSingeDayEntity());
+                    logic.data.add(Schedule());
                     _listKey.currentState?.insertItem(logic.timeCount - 1);
                   }else {
                     if (logic.timeCount > 1) {

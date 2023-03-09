@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
+import 'package:classes/res/routes.dart';
 import 'package:classes/res/styles.dart';
+import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../res/utils.dart';
 
 
 class MinePage extends BasePage{
@@ -35,19 +36,18 @@ class MinePage extends BasePage{
                   fit: BoxFit.cover,
                   placeholder: (context, str) => Container(color: Colors.white),
                   errorWidget: (context,url,error) => Icon(Icons.ac_unit,size: 90),
-                  imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
+                  imageUrl: UserState.info?.avatar ?? 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
             ),
             Container(height: 40),
-            Text("张三",style: TextStyle(fontSize: 25)),
+            Text(UserState.info?.userName ?? "",style: TextStyle(fontSize: 25)),
             Container(height: 6),
-            Text("浙江万里学院",style: TextStyle(fontSize: 14)),
+            Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
             Container(height: 60),
-            option(Icons.add, "我的班级"),
-            option(Icons.add, "我的课程"),
-            option(Icons.add, "我的作业"),
-            option(Icons.access_alarm, "签到记录"),
-            option(Icons.add, "用户设置"),
-            option(Icons.add, "应用设置")
+            if(UserState.info?.userType == 1)option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
+            option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
+            option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
+            option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
+            option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))
           ],
         ),
       ),

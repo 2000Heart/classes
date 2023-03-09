@@ -1,4 +1,5 @@
-import 'package:classes/res/utils.dart';
+
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class ColourfulWrap extends StatelessWidget {

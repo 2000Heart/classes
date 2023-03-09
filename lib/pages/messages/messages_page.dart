@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:classes/base/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../res/utils.dart';
+import '../../utils/utils.dart';
 
 class MessagesPage extends BasePage{
   const MessagesPage({super.key});
