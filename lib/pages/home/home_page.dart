@@ -212,7 +212,6 @@ class HomePage extends BasePage {
                                             currentWeek: value.toInt(),
                                             lessonNum: SpUtils.tableSet?.lessonNum,
                                             totalWeek: SpUtils.tableSet?.totalWeek);
-
                                           logic.pageController.animateToPage(
                                                 value.toInt() - 1,
                                                 duration: const Duration(

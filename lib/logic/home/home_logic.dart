@@ -22,6 +22,7 @@ class HomeLogic extends BaseLogic{
     _currentIndex = index;
     update();
   }
+
   set weekIndex(int value) {
     _weekIndex = value;
     update();
@@ -29,6 +30,11 @@ class HomeLogic extends BaseLogic{
   set tableIndex(int value) {
     _tableIndex = value;
     update();
+  }
+
+  @override
+  void onReady() {
+    requestData();
   }
 
   Future requestData() async{
