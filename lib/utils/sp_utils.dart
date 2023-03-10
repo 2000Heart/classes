@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:classes/http/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/home/table_set.dart';
 import '../model/user_entity.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -44,6 +46,39 @@ class SpUtils {
 
 
   static User? _loginAuth;
+  static TableSet? _tableSet;
+
+  static TableSet? get tableSet {
+    if (_tableSet != null) {
+      return _tableSet;
+    }
+    final str = sp.getString(_tableKey);
+    try {
+      final json = jsonDecode(str ?? "");
+      final table = TableSet.fromJson(json);
+      _tableSet = table;
+      return table;
+    } catch (err) {
+      log("sp utils get table err $err");
+      return null;
+    }
+  }
+
+  static set tableSet(TableSet? value) {
+    try {
+      Api.updateTableSet(value);
+      _tableSet = value;
+      final json = value?.toJson();
+      final str = jsonEncode(json);
+      sp.setString(_tableKey, str);
+      log("sp set table $str");
+    } catch (err) {
+      if (value == null) {
+        sp.remove(_tableKey);
+      }
+      log("sp set table err $err");
+    }
+  }
 
   static User? get loginAuth {
     if (_loginAuth != null) {
@@ -56,7 +91,7 @@ class SpUtils {
       _loginAuth = auth;
       return auth;
     } catch (err) {
-      log("sp utils get login err ${err}");
+      log("sp utils get login err $err");
       return null;
     }
   }
@@ -72,7 +107,7 @@ class SpUtils {
       if (en == null) {
         sp.remove(_loginAuthKey);
       }
-      log("set login auth err ${err}");
+      log("set login auth err $err");
     }
   }
 }

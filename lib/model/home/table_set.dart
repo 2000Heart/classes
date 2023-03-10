@@ -1,6 +1,6 @@
 class TableSet {
   int? tableId;
-  String? userId;
+  int? userId;
   int? currentWeek;
   int? lessonNum;
   int? totalWeek;

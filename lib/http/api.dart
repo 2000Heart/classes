@@ -1,5 +1,6 @@
 import 'package:classes/model/data/school_entity.dart';
 import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:classes/states/user_state.dart';
 
@@ -57,11 +58,21 @@ class Api{
     return null;
   }
 
-  static Future getTableSet(int userId) async {
+  static Future getTableSet(int? userId) async {
     final data = {'userId': userId};
-    final result = await DioUtils.post('/schedule/', params: data);
+    final result = await DioUtils.post('/table', params: data);
     if (result.statusCode == 200) {
-      return User.fromJson(result.data["d"]);
+      return TableSet.fromJson(result.data["d"]);
+    }else{
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
+  static Future updateTableSet(TableSet? table) async {
+    final data = table?.toJson();
+    final result = await DioUtils.post('/table/update', params: data);
+    if (result.statusCode == 200) {
+      return result.data["d"];
     }else{
       return ErrorEntity.fromJson(result.data["d"]);
     }

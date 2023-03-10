@@ -1,6 +1,10 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_logic.dart';
+import 'package:classes/model/home/table_set.dart';
+import 'package:classes/model/user_entity.dart';
 import 'package:classes/res/routes.dart';
+import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/colourful_wrap.dart';
 import 'package:classes/widgets/grid_unit.dart';
@@ -201,12 +205,20 @@ class HomePage extends BasePage {
                                         divisions: 13,
                                         onChanged: (value) =>
                                         logic.weekIndex = value.toInt(),
-                                        onChangeEnd: (value) =>
-                                            logic.pageController.animateToPage(
+                                        onChangeEnd: (value) {
+                                          SpUtils.tableSet = TableSet(
+                                            tableId: SpUtils.tableSet?.tableId,
+                                            userId: UserState.info?.userId,
+                                            currentWeek: value.toInt(),
+                                            lessonNum: SpUtils.tableSet?.lessonNum,
+                                            totalWeek: SpUtils.tableSet?.totalWeek);
+
+                                          logic.pageController.animateToPage(
                                                 value.toInt() - 1,
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 200),
-                                                curve: Curves.linear),
+                                                curve: Curves.linear);
+                                        },
                                       ),
                                     ),
                                   ],

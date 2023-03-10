@@ -1,5 +1,6 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
+import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class SignInLogic extends BaseLogic{
   final LiquidController liquidController = LiquidController();
   bool _isLogin = true;
   User? user;
+  TableSet? table;
   List<School>? _schoolList;
   List<School>? _classList;
 
@@ -84,14 +86,17 @@ class SignInLogic extends BaseLogic{
 
   Future checkLogin() async{
     user = await Api.login(_username, _password);
-
+    table = await Api.getTableSet(user?.userId);
     SpUtils.loginAuth = user;
+    SpUtils.tableSet = table;
     update();
   }
 
   Future createUser() async{
     user = await Api.createUser(_username, _password, _school, _classInfo);
+    table = await Api.getTableSet(user?.userId);
     SpUtils.loginAuth = user;
+    SpUtils.tableSet = table;
     update();
   }
 }
