@@ -7,7 +7,7 @@ import '../utils/toast_utils.dart';
 
 class DioUtils {
 
-  static final baseUrl = "http://127.0.0.1:8000";
+  static const baseUrl = "http://127.0.0.1:8000";
   static final options = BaseOptions(
       followRedirects: false,
       connectTimeout: 15000,

@@ -255,10 +255,10 @@ class SignInPage extends BasePage {
                   height: 50,
                   text: "确定",
                   textStyle: const TextStyle(fontSize: 14),
-                  onTap: () {
+                  onTap: () async{
                     if(logic.password != "" && logic.username != ""){
+                     logic.isLogin?await logic.checkLogin():await logic.createUser();
                       Get.offAndToNamed(Routes.navigation);
-                      logic.isLogin?logic.checkLogin():logic.createUser();
                     }else{ToastUtils.show("请输入用户名与密码");}
                   },
                 ),
