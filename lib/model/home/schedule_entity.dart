@@ -1,7 +1,8 @@
 class Schedule {
+  int? eventId;
   int? lessonId;
   String? lessonName;
-  int? teacherId;
+  String? teacherId;
   String? teacherName;
   String? userId;
   String? duration;
@@ -9,7 +10,6 @@ class Schedule {
   int? startUnit;
   int? endUnit;
   String? classroom;
-  int? eventId;
 
   Schedule(
       {this.lessonId,

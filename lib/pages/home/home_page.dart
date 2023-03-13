@@ -83,13 +83,13 @@ class HomePage extends BasePage {
                           12, (index) => GridUnit(child: Text("${index + 1}")))
                   ),
                 ),
-                // Expanded(
-                //   child: Column(
-                //     children: List.generate(list.length, (index) => ClassSingleDay(
-                //       classes: list[index]
-                //     )),
-                //   ),
-                // )
+                Expanded(
+                  child: Column(
+                    children: List.generate(list.length, (index) => ClassSingleDay(
+                      classes: list[index]
+                    )),
+                  ),
+                )
                 // Expanded(
                 //   child: ClassSingleDay(classes: [
                 //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),

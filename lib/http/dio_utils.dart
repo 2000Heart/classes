@@ -94,7 +94,7 @@ class DioUtils {
       }
       final toast = response.data["t"];
       if (toast != null) {
-        log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: ${toast.length > 1000 ? toast.substring(0, 1000) : toast}');
+        log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: $toast');
         // ToastUtils.show(toast);
       }
 

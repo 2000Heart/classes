@@ -49,8 +49,8 @@ class Api{
 
   static Future<List<Schedule>?> getScheduleList() async {
     final data = {"userId": UserState.info?.userId};
-    final result = await DioUtils.post("/resource/app-do/list", params: data);
-    if (result.statusCode == 200 && result.data["c"] == 200) {
+    final result = await DioUtils.post("/schedule/query", params: data);
+    if (result.statusCode == 200) {
       List<Schedule> data = result.data['d']
           .map<Schedule>((e) => Schedule.fromJson(e)).toList();
       return data;
@@ -60,7 +60,7 @@ class Api{
 
   static Future getTableSet(int? userId) async {
     final data = {'userId': userId};
-    final result = await DioUtils.post('/table', params: data);
+    final result = await DioUtils.post('/schedule/table/query', params: data);
     if (result.statusCode == 200) {
       return TableSet.fromJson(result.data["d"]);
     }else{
@@ -70,7 +70,7 @@ class Api{
 
   static Future updateTableSet(TableSet? table) async {
     final data = table?.toJson();
-    final result = await DioUtils.post('/table/update', params: data);
+    final result = await DioUtils.post('/schedule/table/update', params: data);
     if (result.statusCode == 200) {
       return result.data["d"];
     }else{

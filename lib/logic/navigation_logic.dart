@@ -1,5 +1,8 @@
 import 'package:classes/base/base_controller.dart';
+import 'package:classes/http/api.dart';
 import 'package:classes/pages/messages/messages_page.dart';
+import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/widgets/keep_alive.dart';
 import 'package:flutter/material.dart';
 import '../pages/home/home_page.dart';
@@ -26,5 +29,11 @@ class NavigationLogic extends BaseLogic{
   void setIndex(value){
     _currentIndex = value;
     update();
+  }
+
+  @override
+  void onInit() async{
+    super.onInit();
+    if(UserState.info != null) SpUtils.tableSet = await Api.getTableSet(UserState.info?.userId);
   }
 }
