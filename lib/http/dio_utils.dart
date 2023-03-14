@@ -24,18 +24,6 @@ class DioUtils {
         responseType: ResponseType.json,
         baseUrl: baseUrl);
     final dio = Dio(options);
-
-    // // 代理
-    // (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-    //     (client) {
-    //   // client.findProxy = (uri) {
-    //   //   return 'PROXY 10.0.0.10:8888';
-    //   // };
-    //   client.badCertificateCallback = (cert, host, port) {
-    //     return true;
-    //   };
-    // };
-
     return dio;
   }.call();
 
@@ -47,9 +35,9 @@ class DioUtils {
     // 代理
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
-      // client.findProxy = (uri) {
-      //   return 'PROXY 10.0.0.10:8888';
-      // };
+      client.findProxy = (uri) {
+        return 'PROXY 10.0.0.10:8888';
+      };
       client.badCertificateCallback = (cert, host, port) {
         return true;
       };

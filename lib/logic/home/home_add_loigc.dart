@@ -1,4 +1,7 @@
 import 'package:classes/base/base_controller.dart';
+import 'package:classes/http/api.dart';
+import 'package:classes/http/home_api.dart';
+import 'package:classes/model/home/schedule_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../utils/sp_utils.dart';
@@ -57,6 +60,7 @@ class HomeAddLogic extends BaseLogic{
 
   set lessonName(String value) {
     _lessonName = value;
+    update();
   }
 
   @override
@@ -85,5 +89,20 @@ class HomeAddLogic extends BaseLogic{
     _teacher.removeAt(index);
     _classroom.removeAt(index);
     update();
+  }
+
+  void createLesson(){
+    for(var i = 0;i < _timeCount;i++){
+      HomeAPI.createSchedule(
+        Schedule(
+        lessonName: _lessonName,
+        duration: _duration[i].join(","),
+        weekTime: _weekTime[i],
+        startUnit: _unit[i][0],
+        endUnit: _unit[i][1],
+        teacherName: _teacher[i],
+        classroom: _classroom[i]
+      ));
+    }
   }
 }
