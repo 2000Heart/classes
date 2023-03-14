@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_add_loigc.dart';
 import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:classes/widgets/unit_picker.dart';
@@ -58,7 +59,12 @@ class HomeAddLessonPage extends BasePage{
                     onTap: () {
                       log("click");
                       logic.timeCount +=1;
-                      logic.data.add(Schedule());
+                      logic.add();
+                      // logic.data.add(Schedule(
+                      //   lessonName: logic.lessonName,
+                      //   startUnit: logic.duration[logic.timeCount - 1].first,
+                      //   endUnit: logic.duration[logic.timeCount - 1].last
+                      // ));
                       _listKey.currentState?.insertItem(logic.timeCount - 1);
                     }
                   ),
@@ -91,6 +97,7 @@ class HomeAddLessonPage extends BasePage{
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
                   ),
+                  onChanged: (str) => logic.lessonName,
                 )),
             ],
           ).paddingSymmetric(horizontal: 16),
@@ -134,7 +141,7 @@ class HomeAddLessonPage extends BasePage{
                 ).tap(() {
                   if(logic.timeCount > 1) {
                     logic.timeCount -= 1;
-                    logic.data.removeAt(index);
+                    logic.remove(index);
                     _listKey.currentState?.removeItem(index, (context, animation)
                       => lessonTime(index, animation));
                   }
@@ -149,7 +156,9 @@ class HomeAddLessonPage extends BasePage{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("持续时间"),
-                  Text("第1-20周").tap(() => Get.bottomSheet(WeekPicker(length: 20))),
+                  Text(logic.duration[index].isEmpty?"第1-${SpUtils.tableSet?.totalWeek}周"
+                      :"第${logic.duration[index].first}-${logic.duration[index].last}周")
+                  .tap(() async=> logic.duration[index] = await Get.bottomSheet(WeekPicker(length: 20))),
                 ],
               ),
             ),
@@ -185,6 +194,8 @@ class HomeAddLessonPage extends BasePage{
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
                     ),
+                    onChanged: (str) => logic.teacher[index] = str,
+                    onSubmitted: (str) => logic.teacher[index] = str,
                     ),
                   ),
                 ],
@@ -211,6 +222,8 @@ class HomeAddLessonPage extends BasePage{
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
+                        onChanged: (str) => logic.classroom[index] = str,
+                        onSubmitted: (str) => logic.classroom[index] = str,
                       )),
                 ],
               ),

@@ -4,6 +4,7 @@ import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:classes/http/home_api.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import '../../model/data/school_entity.dart';
@@ -86,7 +87,7 @@ class SignInLogic extends BaseLogic{
 
   Future checkLogin() async{
     user = await Api.login(_username, _password);
-    table = await Api.getTableSet(user?.userId);
+    table = await HomeAPI.getTableSet(user?.userId);
     SpUtils.loginAuth = user;
     SpUtils.tableSet = table;
     update();
@@ -94,7 +95,7 @@ class SignInLogic extends BaseLogic{
 
   Future createUser() async{
     user = await Api.createUser(_username, _password, _school, _classInfo);
-    table = await Api.getTableSet(user?.userId);
+    table = await HomeAPI.getTableSet(user?.userId);
     SpUtils.loginAuth = user;
     SpUtils.tableSet = table;
     update();

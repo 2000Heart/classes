@@ -2,14 +2,14 @@ import 'package:classes/base/base_controller.dart';
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/states/user_state.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:classes/http/home_api.dart';
 import '../../http/api.dart';
 
 class HomeLogic extends BaseLogic{
-  final PageController pageController = PageController(initialPage: UserState.tableSet?.currentWeek ?? 0);
+  final PageController pageController = PageController(initialPage: (UserState.tableSet?.currentWeek ?? 0) - 1);
 
-  int _currentIndex = UserState.tableSet?.currentWeek ?? 0;
-  int _weekIndex = 1 + (UserState.tableSet?.currentWeek ?? 0);
+  int _currentIndex = (UserState.tableSet?.currentWeek ?? 0) - 1;
+  int _weekIndex = (UserState.tableSet?.currentWeek ?? 0);
   int _tableIndex = 0;
   List<Schedule>? data;
   List<List<List<Schedule>>> weekSchedule = List.generate(UserState.tableSet?.totalWeek ?? 0,(index) => List.generate(7, (index) => []));
@@ -38,7 +38,7 @@ class HomeLogic extends BaseLogic{
   }
 
   Future requestData() async{
-    data = await Api.getScheduleList();
+    data = await HomeAPI.getScheduleList();
     if(data != null) {
       for (var i = 0; i < (UserState.tableSet?.totalWeek ?? 0); i++) {
         for (var element in data!) {

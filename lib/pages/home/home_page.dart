@@ -201,7 +201,7 @@ class HomePage extends BasePage {
                                       child: Slider(
                                         value: logic.weekIndex.toDouble(),
                                         min: 1,
-                                        max: 14,
+                                        max: (SpUtils.tableSet?.totalWeek ?? 18).toDouble(),
                                         divisions: 13,
                                         onChanged: (value) =>
                                         logic.weekIndex = value.toInt(),

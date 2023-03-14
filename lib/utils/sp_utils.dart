@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:classes/http/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:classes/http/home_api.dart';
 import '../model/home/table_set.dart';
 import '../model/user_entity.dart';
 
@@ -66,7 +66,7 @@ class SpUtils {
 
   static set tableSet(TableSet? value) {
     try {
-      Api.updateTableSet(value);
+      HomeAPI.updateTableSet(value);
       _tableSet = value;
       final json = value?.toJson();
       final str = jsonEncode(json);

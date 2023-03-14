@@ -1,5 +1,6 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
+import 'package:classes/http/home_api.dart';
 import 'package:classes/pages/messages/messages_page.dart';
 import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/sp_utils.dart';
@@ -34,6 +35,6 @@ class NavigationLogic extends BaseLogic{
   @override
   void onInit() async{
     super.onInit();
-    if(UserState.info != null) SpUtils.tableSet = await Api.getTableSet(UserState.info?.userId);
+    if(UserState.info != null) SpUtils.tableSet = await HomeAPI.getTableSet(UserState.info?.userId);
   }
 }
