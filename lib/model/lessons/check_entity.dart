@@ -6,6 +6,8 @@ class Check {
   String? userAll;
   String? startTime;
   String? endTime;
+  String? column;
+  String? row;
   int? status;
   int? checkId;
 
@@ -17,6 +19,8 @@ class Check {
         this.userAll,
         this.startTime,
         this.endTime,
+        this.column,
+        this.row,
         this.status,
         this.checkId});
 
@@ -28,6 +32,8 @@ class Check {
     userAll = json['userAll'];
     startTime = json['startTime'];
     endTime = json['endTime'];
+    column = json['column'];
+    row = json['row'];
     status = json['status'];
     checkId = json['checkId'];
   }
@@ -41,6 +47,8 @@ class Check {
     data['userAll'] = this.userAll;
     data['startTime'] = this.startTime;
     data['endTime'] = this.endTime;
+    data['column'] = this.column;
+    data['row'] = this.row;
     data['status'] = this.status;
     data['checkId'] = this.checkId;
     return data;

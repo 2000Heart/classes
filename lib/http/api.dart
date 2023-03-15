@@ -42,19 +42,9 @@ class Api{
     final result = await DioUtils.post('/school/all');
     if (result.statusCode == 200) {
       List<School> data = result.data['d']
-          .map<School>((e) => Schedule.fromJson(e)).toList();
+          .map<School>((e) => School.fromJson(e)).toList();
       return data;
     }
     return [];
-  }
-
-  static Future createSchedule(List<Json> list) async{
-    final data = {"d":list};
-    try {
-      await DioUtils.post(
-          "/schedule/create/all", params: data, showLoading: true);
-    }catch(e){
-
-    }
   }
 }

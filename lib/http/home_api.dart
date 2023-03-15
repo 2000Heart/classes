@@ -3,6 +3,7 @@ import '../model/error_entity.dart';
 import '../model/home/schedule_entity.dart';
 import '../model/home/table_set.dart';
 import '../states/user_state.dart';
+import '../utils/sp_utils.dart';
 import 'dio_utils.dart';
 
 class HomeAPI{
@@ -37,11 +38,16 @@ class HomeAPI{
     }
   }
   
-  static Future createSchedule(Schedule schedule) async{
-    final data = schedule.toJson();
-    final result = await DioUtils.post('/schedule/create',params: data,showLoading: true);
-    if(result.statusCode == 200){
-      return result.data["d"];
-    }
+  // static Future createSchedule(Schedule schedule) async{
+  //   final data = schedule.toJson();
+  //   final result = await DioUtils.post('/schedule/create',params: data,showLoading: true);
+  //   if(result.statusCode == 200){
+  //     return result.data["d"];
+  //   }
+  // }
+
+  static Future createSchedule(List<Json> list) async{
+    final data = {"d":list};
+    await DioUtils.post("/schedule/create/all", params: data, showLoading: true);
   }
 }
