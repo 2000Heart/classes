@@ -3,6 +3,7 @@ import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/sp_utils.dart';
 
 import '../model/error_entity.dart';
 import 'dio_utils.dart';
@@ -47,7 +48,13 @@ class Api{
     return [];
   }
 
+  static Future createSchedule(List<Json> list) async{
+    final data = {"d":list};
+    try {
+      await DioUtils.post(
+          "/schedule/create/all", params: data, showLoading: true);
+    }catch(e){
 
-
-
+    }
+  }
 }

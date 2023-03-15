@@ -80,6 +80,14 @@ class ClassSingleDay extends StatelessWidget{
           );
         }
       }
+    }else{
+      list.add(
+          Container(
+            color: Colors.transparent,
+            height: 50.0*18,
+            alignment: Alignment.center,
+          )
+      );
     }
     return list;
   }

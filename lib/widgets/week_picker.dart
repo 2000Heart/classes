@@ -9,9 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WeekPicker extends StatefulWidget {
-  const WeekPicker({Key? key, required this.length}) : super(key: key);
-
-  final int length;
+  const WeekPicker({Key? key}) : super(key: key);
 
   @override
   State<WeekPicker> createState() => _WeekPickerState();

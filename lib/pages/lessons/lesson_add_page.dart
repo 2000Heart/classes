@@ -60,7 +60,7 @@ class LessonAddPage extends BasePage{
               SliverToBoxAdapter(
                 child: [
                     Text("课程时间",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
-                    Text("选择").tap(() { Get.bottomSheet(WeekPicker(length: 20));})
+                    Text("选择").tap(() { Get.bottomSheet(WeekPicker());})
                   ].formLine().paddingSymmetric(horizontal: 16),
               ),
               SliverToBoxAdapter(

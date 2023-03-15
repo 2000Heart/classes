@@ -1,10 +1,15 @@
 import 'package:classes/base/base_controller.dart';
+import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../http/api.dart';
 import '../../utils/sp_utils.dart';
 
 class HomeAddLogic extends BaseLogic{
   int _timeCount = 1;
+  List<String> weekday = ["一","二","三","四","五","六","日"];
   ScrollController _controller = ScrollController();
   String _lessonName = "";
   List<List<int>> _duration = [[1,SpUtils.tableSet?.totalWeek ?? 0]];
@@ -27,10 +32,7 @@ class HomeAddLogic extends BaseLogic{
     _weekTime = value;
     update();
   }
-  set unit(List<List<int>> value) {
-    _unit = value;
-    update();
-  }
+
   set teacher(List<String> value) {
     _teacher = value;
     update();
@@ -50,13 +52,9 @@ class HomeAddLogic extends BaseLogic{
     update();
   }
 
-  set duration(List<List<int>> value) {
-    _duration = value;
-    update();
-  }
-
   set lessonName(String value) {
     _lessonName = value;
+    update();
   }
 
   @override
@@ -85,5 +83,53 @@ class HomeAddLogic extends BaseLogic{
     _teacher.removeAt(index);
     _classroom.removeAt(index);
     update();
+  }
+
+  void setDuration(index,value){
+    _duration[index] = value;
+    update();
+  }
+
+  void setUnit(index,List<int> value){
+    _unit[index] = value;
+    update();
+  }
+
+  List<String> formDuration(int index){
+    var list = [""];
+    var item = 0;
+    list[item] = duration[index][0].toString();
+    for(var i=0;i< duration[index].length-1;i++){
+      if(duration[index][i+1] - duration[index][i] > 1){
+        list[item] += "-${duration[index][i]}";
+        if(duration[index].length > 2) {
+          item += 1;
+          list.add(duration[index][i+1].toString());
+          i++;
+        }
+      }
+    }
+    return list;
+  }
+
+  Future createSchedule() async{
+    List<Json> list = [];
+    for(var i = 0;i<_timeCount;i++){
+      if(!_lessonName.isNullOrEmpty) {
+        Json need = Schedule(
+            lessonName: _lessonName,
+            userId: UserState.info?.userId.toString(),
+            duration: _duration[i].join(","),
+            weekTime: _weekTime[i],
+            startUnit: _unit[i][0],
+            endUnit: _unit[i][1],
+            classroom: _classroom[i],
+            teacherName: _teacher[i]
+        ).toJson();
+        need.removeWhere((key, value) => value == null);
+        list.add(need);
+      }
+    }
+    Api.createSchedule(list);
   }
 }

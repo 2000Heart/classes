@@ -100,6 +100,7 @@ class DioUtils {
 
       return response;
     } finally {
+      EasyLoading.dismiss();
       // Loading.hideLoading(context);
     }
   }

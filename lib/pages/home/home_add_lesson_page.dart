@@ -29,6 +29,7 @@ class HomeAddLessonPage extends BasePage{
                 padding: const EdgeInsets.only(right: 16),
                 alignment: Alignment.center,
                 child: Text("保存",style: TextStyle(color: Colors.black.withOpacity(0.7))))
+                .tap(() { logic.createSchedule();})
             ],
           ),
           body: CustomScrollView(
@@ -92,12 +93,14 @@ class HomeAddLessonPage extends BasePage{
               Container(width: 120,
                 child: TextField(
                   cursorColor: Colors.black,
+                  textAlign: TextAlign.end,
                   decoration: InputDecoration(
                     hintText: '请输入课程名称',
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
                   ),
-                  onChanged: (str) => logic.lessonName,
+                  onChanged: (str) => logic.lessonName = str,
+                  onSubmitted: (str) => logic.lessonName = str,
                 )),
             ],
           ).paddingSymmetric(horizontal: 16),
@@ -138,12 +141,14 @@ class HomeAddLessonPage extends BasePage{
                         offset: Offset(2,2)
                       )]),
                   child: Text("删除本时段",style: TextStyle(color: Colors.black.withOpacity(0.7)),)
-                ).tap(() {
+                ).tap(() async{
                   if(logic.timeCount > 1) {
-                    logic.timeCount -= 1;
-                    logic.remove(index);
                     _listKey.currentState?.removeItem(index, (context, animation)
                       => lessonTime(index, animation));
+                    Future.delayed(Duration(milliseconds: 350)).then((value) {
+                      logic.timeCount -= 1;
+                      logic.remove(index);
+                    });
                   }
                 })
               ],
@@ -155,10 +160,15 @@ class HomeAddLessonPage extends BasePage{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("持续时间"),
-                  Text(logic.duration[index].isEmpty?"第1-${SpUtils.tableSet?.totalWeek}周"
-                      :"第${logic.duration[index].first}-${logic.duration[index].last}周")
-                  .tap(() async=> logic.duration[index] = await Get.bottomSheet(WeekPicker(length: 20))),
+                  const Text("持续时间"),
+                  Text(List.generate(logic.formDuration(index).length,
+                    (childIndex) {
+                      return "第${logic.formDuration(index)[childIndex]}周";
+                    }).join(","))
+                  .tap(() async {
+                    var list = await Get.bottomSheet(const WeekPicker());
+                    if(list != null) logic.setDuration(index, list);
+                  }),
                 ],
               ),
             ),
@@ -168,8 +178,13 @@ class HomeAddLessonPage extends BasePage{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("上课时间"),
-                  Text("周三 2-9节").tap(() => Get.bottomSheet(UnitPicker())),
+                  const Text("上课时间"),
+                  Text("周${logic.weekday[logic.weekTime[index] - 1]} ${logic.unit[index][0]}-${logic.unit[index][1]}节")
+                    .tap(() async{
+                      var list = await Get.bottomSheet(UnitPicker());
+                      logic.weekTime[index] = list[0];
+                      logic.setUnit(index, [list[1],list[2]]);
+                  }),
                 ],
               ),
             ),
@@ -187,6 +202,7 @@ class HomeAddLessonPage extends BasePage{
                     expands: true,
                     maxLines: null,
                     minLines: null,
+                    textAlign: TextAlign.end,
                     style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                       hintText: '请输入老师姓名',
@@ -215,7 +231,7 @@ class HomeAddLessonPage extends BasePage{
                         expands: true,
                         maxLines: null,
                         minLines: null,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 14),textAlign: TextAlign.end,
                         decoration: InputDecoration(
                           hintText: '请输入教室名称',
                           contentPadding: EdgeInsets.symmetric(vertical: 5),
