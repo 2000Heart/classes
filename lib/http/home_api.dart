@@ -36,4 +36,12 @@ class HomeAPI{
       return ErrorEntity.fromJson(result.data["d"]);
     }
   }
+  
+  static Future createSchedule(Schedule schedule) async{
+    final data = schedule.toJson();
+    final result = await DioUtils.post('/schedule/create',params: data,showLoading: true);
+    if(result.statusCode == 200){
+      return result.data["d"];
+    }
+  }
 }
