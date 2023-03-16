@@ -39,7 +39,7 @@ class LessonsPage extends BasePage{
 
   Widget lessonsListItem(Lesson entity){
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.lessonsDetail),
+      onTap: () => Get.toNamed(Routes.lessonsDetail,arguments: entity),
       child: Container(
         width: Get.width,
         margin: EdgeInsets.only(bottom: 10,top: 10,left: 12,right: 12),
@@ -79,8 +79,8 @@ class LessonsPage extends BasePage{
             ),
             Container(height: 4),
             Text(entity.teacherName ?? '',style: TextStyle(fontSize: 16)),
-            Container(height: 4),
-            Text("2308",style: TextStyle(fontSize: 14))
+            // Container(height: 4),
+            // Text("2308",style: TextStyle(fontSize: 14))
           ],
         ),
       ),

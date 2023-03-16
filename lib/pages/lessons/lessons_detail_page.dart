@@ -15,7 +15,7 @@ class LessonsDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("形式与政策"),actions: [
+      appBar: AppBar(title: Text(logic.data?.lessonName ?? ''),actions: [
         Container(
             padding: const EdgeInsets.only(right: 16),
             alignment: Alignment.center,
@@ -25,155 +25,30 @@ class LessonsDetailPage extends BasePage {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(height: 20),
-                Container(padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
-                Container(height: 5),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(logic.column.length, (index) => Padding(
-                        padding: EdgeInsets.only(bottom: (index != logic.column.length -1)?15:0),
-                        child: group(logic.column[index], logic.row[index]),
-                      )),
-                    ),
+            Container(height: 20),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
+            Container(height: 5),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List.generate(logic.column.length, (index) => Padding(
+                      padding: EdgeInsets.only(bottom: (index != logic.column.length -1)?15:0),
+                      child: group(logic.column[index], logic.row[index], index),
+                    )),
                   ),
                 ),
-              ],
+              ),
             ),
+            Container(height: 15),
+            Text("课程任务",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(height: 15),
-                Text("课程任务",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                  BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 2,
-                  blurStyle: BlurStyle.solid,
-                  offset: Offset(5, 5)
-                  )]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 15,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
-                              shape: BoxShape.circle,
-                              boxShadow: [BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 2,
-                                  blurStyle: BlurStyle.solid,
-                                  offset: Offset(3, 2)
-                              )],
-                            ),
-                          ),
-                          Container(width: 10),
-                          Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
-                        ],
-                      ).paddingSymmetric(horizontal: 16,vertical: 4),
-                      Text("1.今天要把作业2完成；\n2.完成预习").paddingOnly(left: 26)
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 2,
-                            blurStyle: BlurStyle.solid,
-                            offset: Offset(5, 5)
-                        )]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 15,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
-                              shape: BoxShape.circle,
-                              boxShadow: [BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 2,
-                                  blurStyle: BlurStyle.solid,
-                                  offset: Offset(3, 2)
-                              )],
-                            ),
-                          ),
-                          Container(width: 10),
-                          Text("任务1",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
-                        ],
-                      ).paddingSymmetric(horizontal: 16,vertical: 4),
-                      Text("1.今天要把作业2完成；\n2.完成预习大三大四的撒大叔大叔大叔大叔大叔大叔的").paddingOnly(left: 26)
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 2,
-                            blurStyle: BlurStyle.solid,
-                            offset: Offset(5, 5)
-                        )]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 15,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
-                              shape: BoxShape.circle,
-                              boxShadow: [BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 2,
-                                  blurStyle: BlurStyle.solid,
-                                  offset: Offset(3, 2)
-                              )],
-                            ),
-                          ),
-                          Container(width: 10),
-                          Text("任务2",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
-                        ],
-                      ).paddingSymmetric(horizontal: 16,vertical: 4),
-                      Text("1.今天要把作业2完成；\n2.完成预习dasdasdasdasdaasda").paddingOnly(left: 26)
-                    ],
-                  ),
-                ),
-              ],
+              children: List.generate(logic.data?.lessonTask?.split(",").length ?? 0, (index) => taskItem(index)),
             )
           ],
         ),
@@ -181,7 +56,51 @@ class LessonsDetailPage extends BasePage {
     );
   }
 
-  Widget group(int column,int row){
+  Widget taskItem(int index){
+    String task = logic.data?.lessonTask?.split(",")[index] ?? "";
+    return Container(
+      margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 2,
+                blurStyle: BlurStyle.solid,
+                offset: Offset(5, 5)
+            )]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 15,
+                height: 15,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      blurRadius: 2,
+                      blurStyle: BlurStyle.solid,
+                      offset: Offset(3, 2)
+                  )],
+                ),
+              ),
+              Container(width: 10),
+              Text("任务${index+1}",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+            ],
+          ).paddingSymmetric(horizontal: 16,vertical: 4),
+          Text(task).paddingOnly(left: 26)
+        ],
+      ),
+    );
+  }
+
+  Widget group(int column,int row, int num){
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(column, (index) => Padding(
@@ -190,8 +109,8 @@ class LessonsDetailPage extends BasePage {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: List.generate(
-            row, (index) => Padding(
-              padding: EdgeInsets.only(right: index != row - 1?5:0),
+            row, (childIndex) => Padding(
+              padding: EdgeInsets.only(right: childIndex != row - 1?5:0),
               child: RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 padding: EdgeInsets.all(3),
@@ -201,10 +120,14 @@ class LessonsDetailPage extends BasePage {
                   borderRadius: BorderRadius.circular(4)
                 ),
                 constraints: BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
-                onPressed: () { Get.back(); },
+                onPressed: () {
+                  if(logic.signMember[num][index+childIndex] == ""){
+                    Get.dialog(checkDialog());
+                  }
+                },
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text("张三张",style: TextStyle(fontSize: 12))),
+                  child: Text(logic.signMember[num][index+childIndex],style: const TextStyle(fontSize: 12))),
               ),
             )
           ),
@@ -268,6 +191,41 @@ class LessonsDetailPage extends BasePage {
           )
         ],
       ), onClosing: () {  },
+    );
+  }
+
+  Widget checkDialog(){
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 4,
+              blurStyle: BlurStyle.solid,
+              offset: Offset(0, 1)
+          )],
+          color: Colors.white,
+        ),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Text("确定这个位置吗？")),
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  Expanded(child: Text("否")),
+                  Expanded(child: Text("是"))
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

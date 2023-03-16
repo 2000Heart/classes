@@ -251,43 +251,6 @@ class HomePage extends BasePage {
                               ],
                             ),
                           ),
-                          // ExpansionTile(
-                          //   title: Text("切换课表",style: TextStyle(fontSize: 12)),
-                          //   collapsedBackgroundColor: Colors.red,
-                          //
-                          //   // shape: RoundedRectangleBorder(
-                          //   //     side: BorderSide(color: Colors.black,width: 1),
-                          //   //     borderRadius: BorderRadius.circular(8)
-                          //   // ),
-                          //   // collapsedShape: RoundedRectangleBorder(
-                          //   //     side: BorderSide(color: Colors.black,width: 1),
-                          //   //     borderRadius: BorderRadius.circular(8)
-                          //   // ),
-                          //   trailing: Row(
-                          //       mainAxisSize: MainAxisSize.min,
-                          //     crossAxisAlignment: CrossAxisAlignment.center,
-                          //     children: [
-                          //       Text("大三下"),
-                          //       Icon(Icons.keyboard_arrow_down_rounded)
-                          //     ],
-                          //   ),
-                          //   childrenPadding: EdgeInsets.symmetric(horizontal: 10),
-                          //   children: List.generate(5, (index) => Container(
-                          //     height: 40,
-                          //     width: Get.width,
-                          //     decoration: BoxDecoration(
-                          //         border: Border(top: BorderSide(color: Colors.black,width: 1))
-                          //     ),
-                          //     alignment: Alignment.centerLeft,
-                          //       child: ListTile(
-                          //         title: Text("大三下"),
-                          //         selectedColor: Colors.white,
-                          //         selectedTileColor: Colors.red,
-                          //         selected: logic.tableIndex == index,
-                          //         onTap: () => logic.tableIndex = index,
-                          //       ),
-                          //   )),
-                          // ),
                         ],
                       ),
                     );
