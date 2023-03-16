@@ -1,6 +1,9 @@
 import 'package:classes/base/base_page.dart';
+import 'package:classes/res/routes.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Setting extends BasePage{
   const Setting({super.key});
@@ -26,6 +29,11 @@ class Setting extends BasePage{
           child: Column(
             children: [
               [Text("注销账户",style: TextStyle(fontSize: 15)),Icon(Icons.arrow_forward_ios_rounded,size: 18)].formLine(),
+              [Text("退出登录",style: TextStyle(fontSize: 15)),
+                Icon(Icons.arrow_forward_ios_rounded,size: 18)].formLine().tap((){
+                  SpUtils.loginAuth = null;
+                  Get.toNamed(Routes.sign);
+              }),
             ],
           )
       ),

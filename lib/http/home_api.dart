@@ -1,4 +1,6 @@
 
+import 'package:classes/model/user_entity.dart';
+
 import '../model/error_entity.dart';
 import '../model/home/schedule_entity.dart';
 import '../model/home/table_set.dart';
@@ -9,6 +11,21 @@ class HomeAPI{
   static Future<List<Schedule>?> getScheduleList() async {
     final data = {"userId": UserState.info?.userId};
     final result = await DioUtils.post("/schedule/query", params: data);
+    if (result.statusCode == 200) {
+      List<Schedule> data = result.data['d']
+          .map<Schedule>((e) => Schedule.fromJson(e)).toList();
+      return data;
+    }
+    return null;
+  }
+
+  static Future<List<Schedule>?> getUnitSchedule(int weekTime, int startUnit) async {
+    final data = {
+      "userId": UserState.info?.userId,
+      "userType": UserState.info?.userType,
+      "weekTime": weekTime,
+      "startUnit": startUnit};
+    final result = await DioUtils.post("/schedule/query/list", params: data);
     if (result.statusCode == 200) {
       List<Schedule> data = result.data['d']
           .map<Schedule>((e) => Schedule.fromJson(e)).toList();
@@ -38,6 +55,14 @@ class HomeAPI{
   }
   
   static Future createSchedule(Schedule schedule) async{
+    final data = schedule.toJson();
+    final result = await DioUtils.post('/schedule/create',params: data,showLoading: true);
+    if(result.statusCode == 200){
+      return result.data["d"];
+    }
+  }
+
+  static Future updateSchedule(Schedule schedule) async{
     final data = schedule.toJson();
     final result = await DioUtils.post('/schedule/create',params: data,showLoading: true);
     if(result.statusCode == 200){

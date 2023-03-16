@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/pages/home/home_detail_page.dart';
+import 'package:classes/res/routes.dart';
 import 'package:classes/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class ClassSingleDay extends StatelessWidget{
 
   final List<Schedule> classes;
 
-  List<Widget> formClasses(context){
+  List<Widget> formClasses(){
     List<Widget> list = [];
     if(classes.isNotEmpty){
       for(var i = 0;i < classes.length;i++) {
@@ -47,7 +48,7 @@ class ClassSingleDay extends StatelessWidget{
           );
           list.add(
               GestureDetector(
-                onTap: () => showDetail(context),
+                onTap: () => showDetail(classes[i].weekTime ?? 0, classes[i].startUnit ?? 0),
                 child: Container(
                   width: 50,
                   height: 50.0 *
@@ -84,6 +85,7 @@ class ClassSingleDay extends StatelessWidget{
       list.add(
           Container(
             color: Colors.transparent,
+            width: 50,
             height: 50.0*18,
             alignment: Alignment.center,
           )
@@ -97,23 +99,23 @@ class ClassSingleDay extends StatelessWidget{
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: formClasses(context),
+      children: formClasses(),
     );
   }
 
-  showDetail(context){
-    return showModalBottomSheet(
-      context: context,
+  showDetail(int weekTime, int startTime){
+    return Get.bottomSheet(
+      HomeDetailPage(),
+      settings: RouteSettings(
+        name: Routes.homeDetail,
+        arguments: [weekTime,startTime]),
       isScrollControlled: true,
       barrierColor: Colors.transparent,
       elevation: 40,
       backgroundColor: Colors.white,
-      constraints: BoxConstraints(
-      maxWidth: Get.width, maxHeight: Get.height * 0.7),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(16))),
-      builder: (context) => HomeDetailPage()
     );
   }
 }

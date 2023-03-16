@@ -95,23 +95,6 @@ class HomeAddLogic extends BaseLogic{
     update();
   }
 
-  List<String> formDuration(int index){
-    var list = [""];
-    var item = 0;
-    list[item] = duration[index][0].toString();
-    for(var i=0;i< duration[index].length-1;i++){
-      if(duration[index][i+1] - duration[index][i] > 1){
-        list[item] += "-${duration[index][i]}";
-        if(duration[index].length > 2) {
-          item += 1;
-          list.add(duration[index][i+1].toString());
-          i++;
-        }
-      }
-    }
-    return list;
-  }
-
   Future createSchedule() async{
     List<Json> list = [];
     for(var i = 0;i<_timeCount;i++){

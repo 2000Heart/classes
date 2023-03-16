@@ -1,9 +1,7 @@
 import 'dart:developer';
 
 import 'package:classes/base/base_page.dart';
-import 'package:classes/logic/home/home_add_loigc.dart';
-import 'package:classes/model/home/schedule_entity.dart';
-import 'package:classes/utils/sp_utils.dart';
+import 'package:classes/logic/home/home_add_logic.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:classes/widgets/unit_picker.dart';
@@ -161,9 +159,9 @@ class HomeAddLessonPage extends BasePage{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text("持续时间"),
-                  Text(List.generate(logic.formDuration(index).length,
+                  Text(List.generate(formDuration(logic.duration[index]).length,
                     (childIndex) {
-                      return "第${logic.formDuration(index)[childIndex]}周";
+                      return "第${formDuration(logic.duration[index])[childIndex]}周";
                     }).join(","))
                   .tap(() async {
                     var list = await Get.bottomSheet(const WeekPicker());
@@ -179,7 +177,7 @@ class HomeAddLessonPage extends BasePage{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text("上课时间"),
-                  Text("周${logic.weekday[logic.weekTime[index] - 1]} ${logic.unit[index][0]}-${logic.unit[index][1]}节")
+                  Text("周${weekZh(logic.weekTime[index])} ${logic.unit[index][0]}-${logic.unit[index][1]}节")
                     .tap(() async{
                       var list = await Get.bottomSheet(UnitPicker());
                       logic.weekTime[index] = list[0];

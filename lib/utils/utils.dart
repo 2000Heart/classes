@@ -120,6 +120,29 @@ int getCurrentMonthDays(int year, int month) {
   }
 }
 
+String formDuration(List<int> duration){
+  var list = [""];
+  var item = 0;
+  list[item] = duration[0].toString();
+  for(var i=0;i< duration.length-1;i++){
+    if(duration[i+1] - duration[i] > 1){
+      list[item] += "-${duration[i]}";
+      if(duration.length > 2) {
+        item += 1;
+        list.add(duration[i+1].toString());
+        i++;
+      }
+    }
+    if(i == duration.length-2) list[item] += "-${duration[i]}";
+  }
+  return list.join(",");
+}
+
+String weekZh(int day){
+  List<String> weekday = ["一","二","三","四","五","六","日"];
+  return weekday[day -1];
+}
+
 typedef FilterFn<T> = bool Function(T item);
 
 extension ListEx1<T> on List<T> {
