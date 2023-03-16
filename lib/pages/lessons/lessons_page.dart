@@ -1,5 +1,6 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lessons_logic.dart';
+import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:classes/res/colours.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/utils/utils.dart';
@@ -27,7 +28,7 @@ class LessonsPage extends BasePage{
             padding: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
               child: Column(
-                children: List.generate(10, (index) => lessonsListItem()),
+                children: List.generate(logic.lessons.length, (index) => lessonsListItem(logic.lessons[index])),
               ),
             ),
           ),
@@ -36,7 +37,7 @@ class LessonsPage extends BasePage{
     );
   }
 
-  Widget lessonsListItem(){
+  Widget lessonsListItem(Lesson entity){
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.lessonsDetail),
       child: Container(
@@ -60,7 +61,7 @@ class LessonsPage extends BasePage{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("形势与政策",style: TextStyle(fontSize: 18)),
+                Text(entity.lessonName ?? "",style: TextStyle(fontSize: 18)),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.2),
@@ -77,7 +78,7 @@ class LessonsPage extends BasePage{
               decoration: BoxDecoration(gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.PURPLE])),
             ),
             Container(height: 4),
-            Text("张力高",style: TextStyle(fontSize: 16)),
+            Text(entity.teacherName ?? '',style: TextStyle(fontSize: 16)),
             Container(height: 4),
             Text("2308",style: TextStyle(fontSize: 14))
           ],

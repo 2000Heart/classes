@@ -29,7 +29,8 @@ class LessonsDetailPage extends BasePage {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(height: 20),
-                Container(padding: EdgeInsets.symmetric(horizontal: 18),child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
+                Container(padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
                 Container(height: 5),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -38,13 +39,10 @@ class LessonsDetailPage extends BasePage {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        group(5, 2),
-                        Container(width: 15),
-                        group(4, 4),
-                        Container(width: 15),
-                        group(3, 3)
-                      ],
+                      children: List.generate(logic.column.length, (index) => Padding(
+                        padding: EdgeInsets.only(bottom: (index != logic.column.length -1)?15:0),
+                        child: group(logic.column[index], logic.row[index]),
+                      )),
                     ),
                   ),
                 ),
