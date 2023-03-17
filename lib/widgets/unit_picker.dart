@@ -32,7 +32,7 @@ class _UnitPickerState extends State<UnitPicker> {
               top: Radius.circular(16))
       ),
       constraints: BoxConstraints(
-          maxWidth: Get.width,maxHeight: 285),
+          maxWidth: Get.width),
       onClosing: () {  },
       builder: (BuildContext context) {
         return Padding(

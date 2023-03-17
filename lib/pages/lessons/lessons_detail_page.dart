@@ -24,24 +24,23 @@ class LessonsDetailPage extends BasePage {
       ],),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(height: 20),
             Container(padding: const EdgeInsets.symmetric(horizontal: 18),
               child: const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500))),
             Container(height: 5),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(logic.column.length, (index) => Padding(
-                      padding: EdgeInsets.only(bottom: (index != logic.column.length -1)?15:0),
-                      child: group(logic.column[index], logic.row[index], index),
-                    )),
-                  ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(logic.column.length, (index) => Padding(
+                    padding: EdgeInsets.only(bottom: (index != logic.column.length -1)?15:0),
+                    child: group(logic.column[index], logic.row[index], index),
+                  )),
                 ),
               ),
             ),
@@ -57,7 +56,7 @@ class LessonsDetailPage extends BasePage {
   }
 
   Widget taskItem(int index){
-    String task = logic.data?.lessonTask?.split(",")[index] ?? "";
+    String task = logic.data?.lessonTask?.split(",")[index].split("/").join("\n") ?? "";
     return Container(
       margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
       padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
@@ -75,6 +74,7 @@ class LessonsDetailPage extends BasePage {
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 width: 15,
@@ -93,8 +93,8 @@ class LessonsDetailPage extends BasePage {
               Container(width: 10),
               Text("任务${index+1}",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
             ],
-          ).paddingSymmetric(horizontal: 16,vertical: 4),
-          Text(task).paddingOnly(left: 26)
+          ).paddingSymmetric(horizontal: 10,vertical: 4),
+          Text(task).paddingOnly(left: 16)
         ],
       ),
     );
@@ -208,7 +208,7 @@ class LessonsDetailPage extends BasePage {
           )],
           color: Colors.white,
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(

@@ -5,7 +5,7 @@ class Lesson {
   String? teacherName;
   String? lessonTask;
   int? checkId;
-  int? eventId;
+  String? eventId;
   String? userId;
   int? infoId;
 

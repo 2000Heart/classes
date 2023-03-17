@@ -134,7 +134,7 @@ class HomeDetailPage extends BasePage {
         decoration: InputDecoration(
           hintText: text,
           hintStyle: const TextStyle(color: Colors.black),
-          contentPadding: const EdgeInsets.symmetric(vertical: 0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 1),
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
         ),

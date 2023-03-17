@@ -114,10 +114,10 @@ class HomeAddLessonPage extends BasePage{
         margin: EdgeInsets.only(bottom: 16),
         padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.grey.withOpacity(0.4),blurRadius: 8,spreadRadius: 1)
-          ]
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.grey.withOpacity(0.4),blurRadius: 8,spreadRadius: 1)
+            ]
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,22 +127,22 @@ class HomeAddLessonPage extends BasePage{
               children: [
                 Text("时间段${index+1}",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8,vertical: 3),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.25),
-                        blurRadius: 2,
-                        blurStyle: BlurStyle.solid,
-                        offset: Offset(2,2)
-                      )]),
-                  child: Text("删除本时段",style: TextStyle(color: Colors.black.withOpacity(0.7)),)
+                    padding: EdgeInsets.symmetric(horizontal: 8,vertical: 3),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.25),
+                              blurRadius: 2,
+                              blurStyle: BlurStyle.solid,
+                              offset: Offset(2,2)
+                          )]),
+                    child: Text("删除本时段",style: TextStyle(color: Colors.black.withOpacity(0.7)),)
                 ).tap(() async{
                   if(logic.timeCount > 1) {
                     _listKey.currentState?.removeItem(index, (context, animation)
-                      => lessonTime(index, animation));
+                    => lessonTime(index, animation));
                     Future.delayed(Duration(milliseconds: 350)).then((value) {
                       logic.timeCount -= 1;
                       logic.remove(index);
@@ -159,11 +159,8 @@ class HomeAddLessonPage extends BasePage{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text("持续时间"),
-                  Text(List.generate(formDuration(logic.duration[index]).length,
-                    (childIndex) {
-                      return "第${formDuration(logic.duration[index])[childIndex]}周";
-                    }).join(","))
-                  .tap(() async {
+                  Text("第${formDuration(logic.duration[index])}周")
+                      .tap(() async {
                     var list = await Get.bottomSheet(const WeekPicker());
                     if(list != null) logic.setDuration(index, list);
                   }),
@@ -178,10 +175,10 @@ class HomeAddLessonPage extends BasePage{
                 children: [
                   const Text("上课时间"),
                   Text("周${weekZh(logic.weekTime[index])} ${logic.unit[index][0]}-${logic.unit[index][1]}节")
-                    .tap(() async{
-                      var list = await Get.bottomSheet(UnitPicker());
-                      logic.weekTime[index] = list[0];
-                      logic.setUnit(index, [list[1],list[2]]);
+                      .tap(() async{
+                    var list = await Get.bottomSheet(UnitPicker());
+                    logic.weekTime[index] = list[0];
+                    logic.setUnit(index, [list[1],list[2]]);
                   }),
                 ],
               ),
@@ -196,20 +193,20 @@ class HomeAddLessonPage extends BasePage{
                   Container(
                     width: 100,
                     child: TextField(
-                    cursorColor: Colors.black,
-                    expands: true,
-                    maxLines: null,
-                    minLines: null,
-                    textAlign: TextAlign.end,
-                    style: TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      hintText: '请输入老师姓名',
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                    ),
-                    onChanged: (str) => logic.teacher[index] = str,
-                    onSubmitted: (str) => logic.teacher[index] = str,
+                      cursorColor: Colors.black,
+                      expands: true,
+                      maxLines: null,
+                      minLines: null,
+                      textAlign: TextAlign.end,
+                      style: TextStyle(fontSize: 14),
+                      decoration: InputDecoration(
+                        hintText: '请输入老师姓名',
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                      onChanged: (str) => logic.teacher[index] = str,
+                      onSubmitted: (str) => logic.teacher[index] = str,
                     ),
                   ),
                 ],

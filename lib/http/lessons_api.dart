@@ -69,12 +69,12 @@ class LessonAPI {
 
   static Future getLessonList() async {
     final data = {"userId": UserState.info?.userId,"userType": UserState.info?.userType};
-    final result = await DioUtils.post('/lesson/queryList', params: data);
+    final result = await DioUtils.post('/lesson/query', params: data);
     if (result.statusCode == 200) {
       List<Lesson> data = result.data['d']
           .map<Lesson>((e) => Lesson.fromJson(e)).toList();
       return data;
-    } else {
+    } else{
       return ErrorEntity.fromJson(result.data["d"]);
     }
   }

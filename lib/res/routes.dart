@@ -30,6 +30,9 @@ class Routes {
   static const setting = "/mine/setting";
   static const homeDetail = "/home/homeDetail";
   static const lessonsDetail = "/lessons/lessonsDetail";
+  static const itemPicker = "/itemPicker";
+  static const unitPicker = "/unitPicker";
+  static const weekPicker = "/weekPicker";
 
   static final List<GetPage> getPages = [
     GetPage(name: sign, page: () => SignInPage()),

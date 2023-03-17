@@ -121,19 +121,16 @@ int getCurrentMonthDays(int year, int month) {
 }
 
 String formDuration(List<int> duration){
-  var list = [""];
+  List<String> list = [""];
   var item = 0;
   list[item] = duration[0].toString();
-  for(var i=0;i< duration.length-1;i++){
-    if(duration[i+1] - duration[i] > 1){
-      list[item] += "-${duration[i]}";
-      if(duration.length > 2) {
-        item += 1;
-        list.add(duration[i+1].toString());
-        i++;
-      }
+  for(var i=0;i< duration.length;i++){
+    var j = i+1>=duration.length?i=duration.length-1:i+1;
+    if(duration[j] - duration[i] > 1 || i==duration.length-1){
+      if(list[item] != duration[i].toString())list[item] += "-${duration[i]}";
+      item += 1;
+      if(i!=duration.length-1)list.add(duration[j].toString());
     }
-    if(i == duration.length-2) list[item] += "-${duration[i]}";
   }
   return list.join(",");
 }

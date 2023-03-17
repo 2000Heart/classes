@@ -8,8 +8,13 @@ class LessonsLogic extends BaseLogic{
 
   List<Lesson> get lessons => _lessons ?? [];
 
+  @override
+  void onReady() {
+    requestData();
+  }
 
   Future requestData() async{
     _lessons = await LessonAPI.getLessonList();
+    update();
   }
 }

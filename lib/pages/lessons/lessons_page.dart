@@ -16,7 +16,7 @@ class LessonsPage extends BasePage{
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<LessonsLogic>(
-      builder: (controller) {
+      builder: (logic) {
         return Scaffold(
           appBar: AppBar(
             actions: [

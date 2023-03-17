@@ -1,6 +1,6 @@
 class Classroom {
   int? roomId;
-  int? schoolName;
+  String? schoolName;
   String? roomName;
   String? column;
   String? row;
