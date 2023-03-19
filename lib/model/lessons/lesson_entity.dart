@@ -1,7 +1,7 @@
 class Lesson {
   int? lessonId;
   String? lessonName;
-  int? teacherId;
+  String? teacherId;
   String? teacherName;
   String? lessonTask;
   int? checkId;

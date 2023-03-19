@@ -22,8 +22,8 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
   List<Classroom> _data = [];
   int _timeCount = 1;
   String? _roomName;
-  List<int> _row = [];
-  List<int> _column = [];
+  List<int> _row = [0];
+  List<int> _column = [0];
   String _input = "";
   String? _result;
   int? tapped;
@@ -90,9 +90,13 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
                   NormalButton.rect(text: "确认", width: 80,height: 35,
                     onTap: () async{
                       if(!_choice){
-                        _result = await DataAPI.createClassroom(Classroom(
-                          roomName: _roomName,row: _row.join(","),column: _column.join(",")
+                        var classroom = await DataAPI.createClassroom(Classroom(
+                          schoolName: UserState.info?.school,
+                          roomName: _roomName,
+                          row: _row.join(","),
+                          column: _column.join(",")
                         ).toJson());
+                        _result = classroom.roomName;
                       }
                       Get.back(result: _result);
                     })
@@ -217,12 +221,14 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
               focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             ),
             onChanged: (str) {
-              try {
-                _column[index] = int.parse(str);
-              }catch(e){
-                ToastUtils.show("请输入数字");
+              if(!str.isNullOrEmpty) {
+                if (int.tryParse(str) == null) {
+                  ToastUtils.show("请输入数字");
+                } else {
+                  _column[index] = int.parse(str);
+                  update();
+                }
               }
-              update();
             },
           )),
             Text("列"),
@@ -237,12 +243,14 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
                 focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
               ),
               onChanged: (str){
-                try {
-                  _row[index] = int.parse(str);
-                }catch(e){
-                  ToastUtils.show("请输入数字");
+                if(!str.isNullOrEmpty) {
+                  if (int.tryParse(str) == null) {
+                    ToastUtils.show("请输入数字");
+                  } else {
+                    _row[index] = int.parse(str);
+                    update();
+                  }
                 }
-                update();
               },
             )),
             Text("行")

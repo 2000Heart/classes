@@ -10,7 +10,7 @@ import 'dio_utils.dart';
 
 class HomeAPI{
   static Future<List<Schedule>?> getScheduleList() async {
-    final data = {"userId": UserState.info?.userId};
+    final data = {"userId": UserState.info?.userId, "userType": UserState.info?.userType};
     final result = await DioUtils.post("/schedule/query", params: data);
     if (result.statusCode == 200) {
       List<Schedule> data = result.data['d']
@@ -65,7 +65,14 @@ class HomeAPI{
 
   static Future createSchedule(List<Json> list) async{
     final data = {"d":list};
-    await DioUtils.post("/schedule/create/all", params: data, showLoading: true);
+    final result = await DioUtils.post("/schedule/create/all", params: data, showLoading: true);
+    if (result.statusCode == 200) {
+      List<Schedule> data = result.data['d']
+          .map<Schedule>((e) => Schedule.fromJson(e)).toList();
+      return data;
+    } else{
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
   }
 
   static Future updateSchedule(Schedule schedule) async{

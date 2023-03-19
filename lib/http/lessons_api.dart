@@ -46,7 +46,7 @@ class LessonAPI {
 
   static Future createLesson(Json lesson) async {
     final data = lesson;
-    final result = await DioUtils.post('/lesson/create', params: data);
+    final result = await DioUtils.post('/lesson/create', params: data,showLoading: true);
     if (result.statusCode == 200) {
       return Lesson.fromJson(result.data["d"]);
     } else {
@@ -77,5 +77,10 @@ class LessonAPI {
     } else{
       return ErrorEntity.fromJson(result.data["d"]);
     }
+  }
+
+  static Future createLessons(List<Json> list) async{
+    final data = {"d":list};
+    await DioUtils.post("/lesson/create/all", params: data, showLoading: true);
   }
 }

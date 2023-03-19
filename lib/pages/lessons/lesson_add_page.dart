@@ -3,8 +3,10 @@ import 'dart:ffi';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/lessons/lesson_add_logic.dart';
 import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/res/routes.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/classroomPicker.dart';
+import 'package:classes/widgets/item_picker.dart';
 import 'package:classes/widgets/week_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,8 +74,7 @@ class LessonAddPage extends BasePage{
                         width: 80,
                         height: 40,
                         onTap: () {
-                          logic.timeCount +=1;
-                          logic.data.add(logic.data[logic.timeCount-1]);
+                          logic.add();
                           _listKey.currentState?.insertItem(logic.timeCount - 1);
                         }
                     ),
@@ -123,8 +124,7 @@ class LessonAddPage extends BasePage{
                     _listKey.currentState?.removeItem(index, (context, animation)
                     => lessonTime(index, animation));
                     Future.delayed(Duration(milliseconds: 350)).then((value) {
-                      logic.timeCount -= 1;
-                      logic.data.removeAt(index);
+                      logic.remove(index);
                     });
                   }
                 })
@@ -155,19 +155,19 @@ class LessonAddPage extends BasePage{
                   const Text("上课时间"),
                   Text(logic.data[index].weekTime == null?"选择":"周${weekZh(logic.data[index].weekTime ?? 0)} ${logic.data[index].startUnit}-${logic.data[index].endUnit}节")
                       .tap(() async{
-                    var list = await Get.bottomSheet(UnitPicker());
-                    logic.time(index, list);
+                    var list = await Get.bottomSheet(const UnitPicker());
+                    if(list != null) logic.time(index, list);
                   }),
                 ],
               ),
             ),
             [Text("上课班级",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
-              Text("选择")].formLine(),
+              Text(logic.classes.isNotEmpty?"选择以下班级":"您暂无班级选择")].formLine(),
             Center(
               child: Wrap(
                 runSpacing: 10,
                 spacing: 10,
-                children: List.generate(9, (index) =>
+                children: List.generate(logic.classes.length, (i) =>
                     Container(
                         padding: EdgeInsets.symmetric(horizontal: 5,vertical: 2),
                         decoration: BoxDecoration(
@@ -179,8 +179,8 @@ class LessonAddPage extends BasePage{
                                 blurRadius: 3,offset: Offset(2, 2)
                             )]
                         ),
-                        child: Text("物联网19${index + 1}")
-                    )
+                        child: Text(logic.classes[i].className ?? "")
+                    ).tap(() => logic.choice = i)
                 ),
               ),
             ).paddingOnly(bottom: 5),

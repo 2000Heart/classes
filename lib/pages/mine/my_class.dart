@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/my_class_logic.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

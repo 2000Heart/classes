@@ -1,13 +1,15 @@
 class ClassEntity {
   int? classId;
-  int? teacherId;
-  int? userId;
+  String? className;
+  String? teacherId;
+  String? userId;
   String? schoolName;
 
-  ClassEntity({this.classId, this.teacherId, this.userId, this.schoolName});
+  ClassEntity({this.classId, this.className, this.teacherId, this.userId, this.schoolName});
 
   ClassEntity.fromJson(Map<String, dynamic> json) {
     classId = json['classId'];
+    className = json['clasName'];
     teacherId = json['teacherId'];
     userId = json['userId'];
     schoolName = json['schoolName'];
@@ -16,6 +18,7 @@ class ClassEntity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['classId'] = this.classId;
+    data['className'] = this.className;
     data['teacherId'] = this.teacherId;
     data['userId'] = this.userId;
     data['schoolName'] = this.schoolName;

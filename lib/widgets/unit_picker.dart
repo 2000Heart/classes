@@ -48,60 +48,58 @@ class _UnitPickerState extends State<UnitPicker> {
                     onTap: () => Get.back(result: [selectWeek,startUnit,endUnit]))
                 ],
               ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 200,
-                        child: CupertinoPicker(
-                          itemExtent: 30,
-                          onSelectedItemChanged: (position) => selectWeek = position+1,
-                          children: week.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
-                      ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      child: CupertinoPicker(
+                        itemExtent: 30,
+                        onSelectedItemChanged: (position) => selectWeek = position+1,
+                        children: week.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 200,
-                        child: CupertinoPicker(
-                          scrollController: start,
-                          itemExtent: 30,
-                          onSelectedItemChanged: (position) {
-                            setState(() {
-                              startUnit = position+1;
-                            });
-                            if(startUnit > endUnit) {
-                              end.animateToItem(
-                                position, duration: const Duration(milliseconds: 200),
-                                curve: Curves.linear);
-                            }
-                          },
-                          children: lesson.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
-                      ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      child: CupertinoPicker(
+                        scrollController: start,
+                        itemExtent: 30,
+                        onSelectedItemChanged: (position) {
+                          setState(() {
+                            startUnit = position+1;
+                          });
+                          if(startUnit > endUnit) {
+                            end.animateToItem(
+                              position, duration: const Duration(milliseconds: 200),
+                              curve: Curves.linear);
+                          }
+                        },
+                        children: lesson.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 200,
-                        child: CupertinoPicker(
-                          scrollController: end,
-                          itemExtent: 30,
-                          onSelectedItemChanged: (position) {
-                            setState(() {
-                              endUnit = position+1;
-                            });
-                            if(endUnit < startUnit) {
-                              start.animateToItem(
-                                position, duration: const Duration(milliseconds: 200),
-                                curve: Curves.linear);
-                            }
-                          },
-                          children: lesson.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
-                      ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      child: CupertinoPicker(
+                        scrollController: end,
+                        itemExtent: 30,
+                        onSelectedItemChanged: (position) {
+                          setState(() {
+                            endUnit = position+1;
+                          });
+                          if(endUnit < startUnit) {
+                            start.animateToItem(
+                              position, duration: const Duration(milliseconds: 200),
+                              curve: Curves.linear);
+                          }
+                        },
+                        children: lesson.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
