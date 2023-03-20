@@ -10,8 +10,6 @@ import '../../utils/sp_utils.dart';
 
 class HomeAddLogic extends BaseLogic{
   int _timeCount = 1;
-  List<String> weekday = ["一","二","三","四","五","六","日"];
-  ScrollController _controller = ScrollController();
   String _lessonName = "";
   List<List<int>> _duration = [[1,SpUtils.tableSet?.totalWeek ?? 0]];
   List<int> _weekTime = [1];
@@ -22,7 +20,6 @@ class HomeAddLogic extends BaseLogic{
 
   int get timeCount => _timeCount;
   List<List<int>> get duration => _duration;
-  ScrollController get controller => _controller;
   String get lessonName => _lessonName;
   List<String> get classroom => _classroom;
   List<String> get teacher => _teacher;
@@ -33,12 +30,10 @@ class HomeAddLogic extends BaseLogic{
     _weekTime = value;
     update();
   }
-
   set teacher(List<String> value) {
     _teacher = value;
     update();
   }
-
   set classroom(List<String> value) {
     _classroom = value;
     update();
@@ -47,25 +42,9 @@ class HomeAddLogic extends BaseLogic{
     _timeCount = value;
     update();
   }
-
-  set controller(ScrollController value) {
-    _controller = value;
-    update();
-  }
-
   set lessonName(String value) {
     _lessonName = value;
     update();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    controller.addListener(() {
-      if(!controller.keepScrollOffset) {
-        controller.jumpTo(controller.position.maxScrollExtent);
-      }
-    });
   }
 
   void add(){

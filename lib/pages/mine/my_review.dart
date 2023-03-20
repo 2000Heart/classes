@@ -4,7 +4,7 @@ import 'package:classes/base/base_page.dart';
 import 'package:classes/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import '../../utils/utils.dart';
+import 'package:classes/utils/utils.dart';
 
 class MyReview extends BasePage{
   @override

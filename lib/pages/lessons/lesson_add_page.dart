@@ -32,7 +32,7 @@ class LessonAddPage extends BasePage{
             Container(
                 padding: const EdgeInsets.only(right: 16),
                 alignment: Alignment.center,
-                child: Text("保存",style: TextStyle(color: Colors.black.withOpacity(0.7))))
+                child: Text("保存",style: TextStyle(color: Colors.black.withOpacity(0.7))).tap(() => logic.create()))
           ]),
           body: CustomScrollView(
             slivers: [
@@ -49,6 +49,7 @@ class LessonAddPage extends BasePage{
                       expands: true,
                       maxLines: null,
                       minLines: null,
+                      textAlign: TextAlign.end,
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                         hintText: '请输入课程名称',
@@ -56,6 +57,8 @@ class LessonAddPage extends BasePage{
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                       ),
+                      onChanged: (str) => logic.lessonName = str,
+                      onSubmitted: (str) => logic.lessonName = str,
                     ),
                   )
                 ].formLine().paddingSymmetric(horizontal: 16),
@@ -176,7 +179,7 @@ class LessonAddPage extends BasePage{
                             boxShadow: [BoxShadow(
                                 color: Colors.grey.withOpacity(0.5),
                                 blurStyle: BlurStyle.solid,
-                                blurRadius: 3,offset: Offset(2, 2)
+                                blurRadius: logic.classChoice[index][i]?3:1,offset: Offset(logic.classChoice[index][i]?2:0, logic.classChoice[index][i]?2:0)
                             )]
                         ),
                         child: Text(logic.classes[i].className ?? "")

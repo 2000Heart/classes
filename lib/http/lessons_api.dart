@@ -26,7 +26,7 @@ class LessonAPI {
     };
     final result = await DioUtils.post('/lesson/check/query', params: data);
     if (result.statusCode == 200) {
-      return Schedule.fromJson(result.data["d"]);
+      return Check.fromJson(result.data["d"]);
     } else {
       return ErrorEntity.fromJson(result.data["d"]);
     }

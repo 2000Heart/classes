@@ -92,55 +92,6 @@ class HomePage extends BasePage {
                     )),
                   ),
                 )
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                //     HomeClassSingeDayEntity(className: "应用物理", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 9, end: 12)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 1, end: 2),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 11)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 8, end: 10)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 2, end: 4),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
-                //   ]),
-                // ),
-                // Expanded(
-                //   child: ClassSingleDay(classes: [
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 3, end: 4),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 5, end: 7),
-                //     HomeClassSingeDayEntity(className: "形势与政策", start: 10, end: 12)
-                //   ]),
-                // ),
               ],
             ),
           ),

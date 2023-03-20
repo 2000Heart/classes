@@ -173,15 +173,19 @@ extension StringEx1 on String {
 
 extension WidgetEx1 on Widget {
   SizedBox sized({double? width = null, double? height = null}) =>
-      SizedBox(width: width, height: height, child: this);
+    SizedBox(width: width, height: height, child: this);
 
   GestureDetector tap(void Function()? fn) =>
-      GestureDetector(onTap: fn, behavior: HitTestBehavior.translucent, child: this);
+    GestureDetector(onTap: fn, behavior: HitTestBehavior.translucent, child: this);
 
   rounded(double r) => Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(r)),
-      clipBehavior: Clip.hardEdge,
-      child: this);
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(r)),
+    clipBehavior: Clip.hardEdge,
+    child: this);
+
+  Container get center => Container(
+    alignment: Alignment.center,
+    child: this);
 }
 
 extension FontWeightEx1 on FontWeight {

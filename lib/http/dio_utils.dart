@@ -6,8 +6,8 @@ import '../model/image_upload_result_entity.dart';
 import '../utils/toast_utils.dart';
 
 class DioUtils {
-  // static const baseUrl = "http://127.0.0.1:8888";
-  static const baseUrl = "http://192.168.1.104:8888";
+  static const baseUrl = "http://127.0.0.1:8888";
+  // static const baseUrl = "http://192.168.1.104:8888";
   static final options = BaseOptions(
       followRedirects: false,
       connectTimeout: 15000,

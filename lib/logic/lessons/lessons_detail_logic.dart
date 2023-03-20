@@ -11,15 +11,24 @@ class LessonsDetailLogic extends BaseLogic{
   Lesson? data = Get.arguments;
   List<int> row = [];
   List<int> column = [];
-  List<List<String>> signMember = [];
+  List<String> signMember = [];
 
   Check? get check => _check;
+
+  @override
+  void onReady() {
+    getCheck();
+  }
 
   Future getCheck() async{
     _check = await LessonAPI.getCheck(data?.infoId ?? 0);
     column = _check?.column?.split(",").map((e) => int.parse(e)).toList() ?? [];
     row = _check?.row?.split(",").map((e) => int.parse(e)).toList() ?? [];
-    signMember = List.generate(column.length, (index) => List.generate(column[index]*row[index],(index) => ""));
+    for(var i=0;i<column.length;i++){
+      for(var j=0;j<column.length;j++){
+        signMember.add(" ");
+      }
+    }
     update();
   }
 }

@@ -54,6 +54,7 @@ class ClassSingleDay extends StatelessWidget{
                   height: 50.0 *
                       ((classes[i].endUnit ?? 0) - (classes[i].startUnit ?? 0) +
                           1),
+                  padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 2),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.white70, width: 1),
@@ -63,17 +64,19 @@ class ClassSingleDay extends StatelessWidget{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      classes[i].lessonName.hasValue ?
-                      Text(classes[i].lessonName!, textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white)) : Container(),
-                      Container(height: 10),
-                      if(classes[i].classroom.hasValue)Text(
-                          classes[i].classroom!, textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white)),
-                      Container(height: 10),
-                      if(classes[i].teacherName.hasValue)Text(
-                          classes[i].teacherName!, textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white)),
+                      if(classes[i].lessonName.hasValue)Expanded(
+                        child: Text(classes[i].lessonName!, textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white,fontSize: 12)),
+                      ),
+                      if(classes[i].classroom.hasValue)Flexible(
+                        child: Text(classes[i].classroom!, textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.white,fontSize: 12)),
+                      ),
+                      if(classes[i].teacherName.hasValue)Flexible(
+                        child: Text(
+                            classes[i].teacherName!, textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.white,fontSize: 12)),
+                      ),
                     ],
                   ),
                 ),

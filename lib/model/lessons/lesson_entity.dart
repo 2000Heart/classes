@@ -8,6 +8,8 @@ class Lesson {
   String? eventId;
   String? userId;
   int? infoId;
+  String? schoolName;
+  String? duration;
 
   Lesson(
       {this.lessonId,
@@ -18,7 +20,9 @@ class Lesson {
         this.checkId,
         this.eventId,
         this.userId,
-        this.infoId});
+        this.infoId,
+        this.schoolName,
+        this.duration});
 
   Lesson.fromJson(Map<String, dynamic> json) {
     lessonId = json['lessonId'];
@@ -30,6 +34,8 @@ class Lesson {
     eventId = json['eventId'];
     userId = json['userId'];
     infoId = json['infoId'];
+    schoolName = json['schoolName'];
+    duration = json['duration'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +49,8 @@ class Lesson {
     data['eventId'] = this.eventId;
     data['userId'] = this.userId;
     data['infoId'] = this.infoId;
+    data['schoolName'] = this.schoolName;
+    data['duration'] = this.duration;
     return data;
   }
 }

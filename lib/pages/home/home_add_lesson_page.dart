@@ -31,7 +31,6 @@ class HomeAddLessonPage extends BasePage{
             ],
           ),
           body: CustomScrollView(
-            controller: logic.controller,
             slivers: [
               SliverToBoxAdapter(
                 child: Column(

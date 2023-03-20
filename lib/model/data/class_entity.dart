@@ -9,7 +9,7 @@ class ClassEntity {
 
   ClassEntity.fromJson(Map<String, dynamic> json) {
     classId = json['classId'];
-    className = json['clasName'];
+    className = json['className'];
     teacherId = json['teacherId'];
     userId = json['userId'];
     schoolName = json['schoolName'];

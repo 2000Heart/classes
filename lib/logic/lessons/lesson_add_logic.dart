@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:classes/http/data_api.dart';
 import 'package:classes/http/lessons_api.dart';
 import 'package:classes/model/data/class_entity.dart';
+import 'package:classes/model/data/lesson_entity.dart';
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:classes/states/user_state.dart';
@@ -19,10 +20,12 @@ class LessonAddLogic extends BaseLogic{
     teacherName: UserState.info?.userName,
     teacherId: "${UserState.info?.userId}"
   )];
+  String _lessonName = "";
+
   List<ClassEntity> classes = [];
   int get timeCount => _timeCount;
   List<List<bool>> _classChoice = [[]];
-
+  String get lessonName => _lessonName;
   List<List<bool>> get classChoice => _classChoice;
   List<Schedule> get data => _data;
 
@@ -46,9 +49,8 @@ class LessonAddLogic extends BaseLogic{
     _classChoice.removeAt(index);
     update();
   }
-  void lessonName(int index,String value) {
-    _data[index].lessonName = value;
-    update();
+  set lessonName(String value) {
+    _lessonName = value;
   }
   void duration(int index,String value) {
     _data[index].duration = value;
@@ -85,19 +87,20 @@ class LessonAddLogic extends BaseLogic{
   }
 
   Future create() async{
-    var lessonId = await DataAPI.getLesson(_data[0].lessonName ?? "");
+    LessonEntity? lessonEntity = await DataAPI.getLesson(_lessonName);
     List<Json> list = [];
     for(var i = 0;i<_data.length;i++){
-      _data[i].lessonId = lessonId;
+      _data[i].lessonId = lessonEntity?.lessonId;
+      _data[i].lessonName = _lessonName;
       if(!_data[i].lessonName.isNullOrEmpty) {
-        var stu = "";
+        List<String> stu = [];
         for (var e=0; e<classes.length; e++) {
           if(_classChoice[i][e]){
-            stu += classes[e].userId ?? '';
+            stu.addAll(classes[e].userId?.split(',') ?? []);
           }
         }
-        _data[i].userId = stu;
-        stu = '';
+        _data[i].userId = stu.join(',');
+        stu = [];
         var need = _data[i].toJson();
         need.removeWhere((key, value) => value == null);
         list.add(need);
@@ -105,9 +108,13 @@ class LessonAddLogic extends BaseLogic{
     }
     List<Schedule> schedules = await HomeAPI.createSchedule(list);
     var lesson = Lesson(
-      lessonId: lessonId,
-      lessonName: _data[0].lessonName,
-      eventId: schedules.map((e) => e.eventId).toList().join(",")
+      lessonId: lessonEntity?.lessonId,
+      lessonName: _lessonName,
+      teacherId: "${UserState.info?.userId}",
+      teacherName: "${UserState.info?.userName}",
+      eventId: schedules.map((e) => e.eventId).toList().join(","),
+      schoolName: UserState.info?.school,
+      duration: _data.map((e) => e.duration).toSet().join(',')
     ).toJson();
     lesson.removeWhere((key, value) => value == null);
     LessonAPI.createLesson(lesson);
