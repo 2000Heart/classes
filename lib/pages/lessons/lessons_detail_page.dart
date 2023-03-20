@@ -1,6 +1,7 @@
 import 'package:classes/base/base_page.dart';
 import 'package:classes/res/colours.dart';
 import 'package:classes/res/routes.dart';
+import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -131,21 +132,21 @@ class LessonsDetailPage extends BasePage {
               padding: EdgeInsets.only(right: childIndex != column - 1?5:0),
               child: RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                padding: EdgeInsets.all(3),
+                padding: const EdgeInsets.all(3),
                 fillColor: Colors.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4)
                 ),
-                constraints: BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
+                constraints: const BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
                 onPressed: () {
-                  if(logic.signMember[num*logic.row[num>0?num-1:num]*logic.column[num>0?num-1:num]+2*index+childIndex] == " "){
-                    Get.dialog(checkDialog(num*logic.row[num>0?num-1:num]*logic.column[num>0?num-1:num]+2*index+childIndex),barrierColor: Colors.grey.withOpacity(0.1));
+                  if(logic.signMember[column+row*column] == " "){
+                    Get.dialog(checkDialog(column+row*column),barrierColor: Colors.grey.withOpacity(0.1));
                   }
                 },
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(logic.signMember[num*logic.row[num>0?num-1:num]*logic.column[num>0?num-1:num]+2*index+childIndex].isNullOrEmpty?" ":logic.signMember[num][index+childIndex],style: const TextStyle(fontSize: 12))),
+                  child: Text(logic.signMember[column+row*column].isNullOrEmpty?" ":logic.signMember[num][index+childIndex],style: const TextStyle(fontSize: 12))),
               ),
             )
           ),
@@ -272,7 +273,10 @@ class LessonsDetailPage extends BasePage {
                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(8)),
                       color: Colors.white
                     ),
-                    child: Text("是")).tap(() { }),
+                    child: Text("是")).tap(() {
+                      logic.updateCheck(index);
+                      Get.back();
+                    }),
                 ],
               ),
             )

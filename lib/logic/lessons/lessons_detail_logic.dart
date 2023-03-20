@@ -5,6 +5,8 @@ import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../states/user_state.dart';
+
 class LessonsDetailLogic extends BaseLogic{
   final ScrollController scrollController = ScrollController();
   Check? _check;
@@ -30,5 +32,11 @@ class LessonsDetailLogic extends BaseLogic{
       }
     }
     update();
+  }
+
+  Future updateCheck(int index) async{
+    signMember[index] = UserState.info?.userName ?? "";
+    var i = await LessonAPI.updateCheck(_check?.checkId ?? 0, signMember.join(','));
+    if(i > 0) getCheck();
   }
 }

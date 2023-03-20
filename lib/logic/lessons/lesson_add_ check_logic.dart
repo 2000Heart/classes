@@ -1,71 +1,75 @@
 import 'package:classes/base/base_controller.dart';
+import 'package:classes/http/data_api.dart';
+import 'package:classes/model/data/classroom.dart';
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/model/lessons/check_entity.dart';
 import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 import '../../http/lessons_api.dart';
 import '../../model/lessons/lesson_entity.dart';
+import '../../utils/utils.dart';
 
 class LessonAddCheckLogic extends BaseLogic{
   int _timeCount = 1;
-  ScrollController _controller = ScrollController();
   Check _data = Check();
-  final TextEditingController _editingController = TextEditingController();
-  List<String> roomList = ["2308","4441","5111","2115","2117","3412"];
-  List<String> reRoomList = [];
-  List<String> classList = [];
-  bool _choice = true;
-  late FocusNode focus;
-  String _input = '';
-  List<Lesson>? _lessons;
-  
-  Check get data => _data;
-  List<Lesson> get lessons => _lessons ?? [];
-  bool get choice => _choice;
-  String get input => _input;
-  TextEditingController get editingController => _editingController;
-  int get timeCount => _timeCount;
-  ScrollController get controller => _controller;
+  List<Schedule>? _schedule;
+  List<String> _itemList = [];
+  int? _choice;
+  String? _startTime;
+  String? _endTime;
 
-  set choice(bool value) {
-    _choice = value;
-    update();
-  }
+  String? get startTime => _startTime;
+  String? get endTime => _endTime;
+  int? get choice => _choice;
+  List<String> get itemList => _itemList;
+  Check get data => _data;
+  List<Schedule> get schedule => _schedule ?? [];
+  int get timeCount => _timeCount;
+
   set timeCount(int value) {
     _timeCount = value;
     update();
   }
-  set controller(ScrollController value) {
-    _controller = value;
+  set choice(int? value) {
+    _choice = value;
     update();
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    controller.addListener(() {
-      if(!controller.keepScrollOffset) {
-        controller.jumpTo(controller.position.maxScrollExtent);
-      }
-    });
+  set endTime(String? value) {
+    _endTime = value;
+    update();
   }
-
-  Future getInput(str) async{
-    _input = str;
-    reRoomList.clear();
-    if(_input != ''){
-      for (var element in roomList) {
-        if(element.contains(RegExp(_input,caseSensitive: false)) == true){
-          reRoomList.add(element);
-        }
-      }
-    }
+  set startTime(String? value) {
+    _startTime = value;
     update();
   }
 
   Future requestData() async{
-    _lessons = await LessonAPI.getLessonList();
+    _schedule = await LessonAPI.getLessonSchedule(Get.arguments);
+    _itemList = List.generate(_schedule?.length ?? 0, (index) => formUnit(index));
     update();
+  }
+
+  String formUnit(int index){
+    return "周${weekZh(_schedule?[index].weekTime ?? 0)} ${_schedule?[index].startUnit}-${_schedule?[index].endUnit}节";
+  }
+
+  Future createCheck() async{
+    if(_choice != null) {
+      Classroom classroom = await DataAPI.getClassroomList();
+      Json check = Check(
+        lessonId: _schedule?[_choice!].lessonId,
+        userAll: _schedule?[_choice!].userId,
+        startTime: _startTime,
+        endTime: _endTime,
+        postTime: DateTime.now().toIso8601String(),
+        column: classroom.column,
+        row: classroom.row,
+        teacherId: UserState.info?.userId
+      ).toJson();
+      await LessonAPI.createCheck(check);
+    }
   }
 }

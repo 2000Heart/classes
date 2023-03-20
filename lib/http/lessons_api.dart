@@ -32,6 +32,19 @@ class LessonAPI {
     }
   }
 
+  static Future updateCheck(int checkId, String userId) async {
+    final data = {
+      "checkId": checkId,
+      "userId": userId
+    };
+    final result = await DioUtils.post('/lesson/check/update', params: data);
+    if (result.statusCode == 200) {
+      return result.data["d"];
+    } else {
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
   static Future getCheckList() async {
     final data = {"userId": UserState.info?.userId};
     final result = await DioUtils.post('/lesson/check/queryList', params: data);
@@ -82,5 +95,16 @@ class LessonAPI {
   static Future createLessons(List<Json> list) async{
     final data = {"d":list};
     await DioUtils.post("/lesson/create/all", params: data, showLoading: true);
+  }
+
+  static Future getLessonSchedule(int infoId) async{
+    final result = await DioUtils.post('/lesson/query/schedule', params: {"infoId": infoId});
+    if (result.statusCode == 200) {
+      List<Schedule> data = result.data['d']
+          .map<Schedule>((e) => Schedule.fromJson(e)).toList();
+      return data;
+    } else{
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
   }
 }
