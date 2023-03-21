@@ -3,6 +3,9 @@ import 'package:classes/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import 'button.dart';
 
 class DatePicker extends StatefulWidget {
   const DatePicker({Key? key, required this.needSheet, this.showDay=true}) : super(key: key);
@@ -25,8 +28,16 @@ class _DatePickerState extends State<DatePicker> {
   @override
   Widget build(BuildContext context) {
     return widget.needSheet?BottomSheet(
-      onClosing: () {  },
+      elevation: 40,
       enableDrag: false,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16))
+      ),
+      constraints: BoxConstraints(
+          maxWidth: Get.width),
+      onClosing: (){},
       builder: (BuildContext context) {
         return picker();
       },
@@ -35,12 +46,13 @@ class _DatePickerState extends State<DatePicker> {
 
   Widget picker(){
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("取消").tap(() => Get.back()),
-            Text("确认").tap(() => Get.back(result: [day,minute,hour]))
+            NormalButton.rect(text: "取消", width: 80,height: 35,onTap: Get.back),
+            NormalButton.rect(text: "确认", width: 80,height: 35, onTap: () => Get.back(result: [day,minute,hour]))
           ],
         ),
         Expanded(

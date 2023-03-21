@@ -43,16 +43,16 @@ class LessonAddCheckPage extends BasePage{
                 })
               ].formLine().paddingSymmetric(horizontal: 16),
               [
-                Text("开始时间",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
+                const Text("开始时间",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
                 Text(logic.startTime ?? "选择").tap(() async{
-                  var str = await Get.bottomSheet(DatePicker(needSheet: true),barrierColor: Colors.transparent);
+                  var str = await Get.bottomSheet(const DatePicker(needSheet: true),barrierColor: Colors.transparent);
                   if(str != null) logic.startTime = str;
                 })
               ].formLine().paddingSymmetric(horizontal: 16),
               [
-                Text("结束时间",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
+                const Text("结束时间",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500)),
                 Text(logic.endTime ?? "选择").tap(() async{
-                  var str = await Get.bottomSheet(DatePicker(needSheet: true),barrierColor: Colors.transparent);
+                  var str = await Get.bottomSheet(const DatePicker(needSheet: true),barrierColor: Colors.transparent);
                   if(str != null) logic.startTime = str;
                 })
               ].formLine().paddingSymmetric(horizontal: 16),
