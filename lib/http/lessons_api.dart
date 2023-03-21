@@ -1,5 +1,6 @@
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/model/lessons/check_entity.dart';
+import 'package:classes/model/lessons/check_stu_entity.dart';
 import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/sp_utils.dart';
@@ -13,7 +14,17 @@ class LessonAPI {
     final data = check;
     final result = await DioUtils.post('/lesson/check/create', params: data);
     if (result.statusCode == 200) {
-      return Schedule.fromJson(result.data["d"]);
+      return Check.fromJson(result.data["d"]);
+    } else {
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
+  static Future createCheckStu(Json check) async {
+    final data = check;
+    final result = await DioUtils.post('/lesson/check/stu/create', params: data);
+    if (result.statusCode == 200) {
+      return CheckStu.fromJson(result.data["d"]);
     } else {
       return ErrorEntity.fromJson(result.data["d"]);
     }
@@ -45,12 +56,34 @@ class LessonAPI {
     }
   }
 
+  static Future updateCheckStu(int id,int index) async {
+    final data = {"id": id,"index":index};
+    final result = await DioUtils.post('/lesson/check/stu/update', params: data);
+    if (result.statusCode == 200) {
+      return result.data["d"];
+    } else {
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
   static Future getCheckList() async {
     final data = {"userId": UserState.info?.userId};
     final result = await DioUtils.post('/lesson/check/queryList', params: data);
     if (result.statusCode == 200) {
       List<Check> data = result.data['d']
           .map<Check>((e) => Check.fromJson(e)).toList();
+      return data;
+    } else {
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
+  static Future getCheckStu(int checkId) async {
+    final data = {"checkId": checkId};
+    final result = await DioUtils.post('/lesson/check/stu/query', params: data);
+    if (result.statusCode == 200) {
+      List<CheckStu> data = result.data['d']
+          .map<CheckStu>((e) => CheckStu.fromJson(e)).toList();
       return data;
     } else {
       return ErrorEntity.fromJson(result.data["d"]);
@@ -104,6 +137,16 @@ class LessonAPI {
           .map<Schedule>((e) => Schedule.fromJson(e)).toList();
       return data;
     } else{
+      return ErrorEntity.fromJson(result.data["d"]);
+    }
+  }
+
+  static Future deleteCheckStu(int id) async {
+    final data = {"id": id};
+    final result = await DioUtils.post('/lesson/check/stu/delete', params: data);
+    if (result.statusCode == 200) {
+      return result.data["d"];
+    } else {
       return ErrorEntity.fromJson(result.data["d"]);
     }
   }

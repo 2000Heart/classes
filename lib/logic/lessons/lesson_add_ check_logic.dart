@@ -46,6 +46,11 @@ class LessonAddCheckLogic extends BaseLogic{
     update();
   }
 
+  @override
+  void onReady() {
+    requestData();
+  }
+
   Future requestData() async{
     _schedule = await LessonAPI.getLessonSchedule(Get.arguments);
     _itemList = List.generate(_schedule?.length ?? 0, (index) => formUnit(index));

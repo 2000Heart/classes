@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key, required this.needSheet}) : super(key: key);
+  const DatePicker({Key? key, required this.needSheet, this.showDay=true}) : super(key: key);
 
   final bool needSheet;
+  final bool showDay;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -45,7 +46,7 @@ class _DatePickerState extends State<DatePicker> {
         Expanded(
           child: Row(
             children: [
-              Expanded(
+              if(widget.showDay)Expanded(
                 child: CupertinoPicker(
                     itemExtent: 40,
                     onSelectedItemChanged: (position) => day = position+1,

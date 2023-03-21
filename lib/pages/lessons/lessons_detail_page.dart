@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../logic/lessons/lessons_detail_logic.dart';
+import '../../widgets/checkDialog.dart';
 
 class LessonsDetailPage extends BasePage {
   LessonsDetailPage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class LessonsDetailPage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<LessonsDetailLogic>(
+      initState: (state) => logic.getCheck(),
       builder: (logic) {
         return Scaffold(
           appBar: AppBar(title: Text(logic.data?.lessonName ?? ''),actions: [
@@ -128,7 +130,9 @@ class LessonsDetailPage extends BasePage {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: List.generate(
-            column, (childIndex) => Padding(
+            column, (childIndex) {
+            var count = childIndex+num*row*column+index*column;
+              return Padding(
               padding: EdgeInsets.only(right: childIndex != column - 1?5:0),
               child: RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -140,15 +144,43 @@ class LessonsDetailPage extends BasePage {
                 ),
                 constraints: const BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
                 onPressed: () {
-                  if(logic.signMember[column+row*column] == " "){
-                    Get.dialog(checkDialog(column+row*column),barrierColor: Colors.grey.withOpacity(0.1));
+                  var i = logic.checkList.indexWhere((element) =>
+                  element.userName == (UserState.info?.userName ?? ""));
+                  if(logic.signMember[count] == " "){
+                    if(i==-1) {
+                      Get.dialog(CheckDialog(
+                          title: "选择这个位置吗？",
+                          doYes: () {
+                            logic.updateCheck(count,null);
+                            Get.back();
+                          }),
+                          barrierColor: Colors.grey.withOpacity(0.1));
+                    }else{
+                      Get.dialog(CheckDialog(
+                          title: "您已签到，要更换位置吗？",
+                          doYes: () {
+                            logic.updateCheck(count,i);
+                            Get.back();
+                          }),
+                          barrierColor: Colors.grey.withOpacity(0.1));
+                    }
+                  }else if(count == logic.checkList[i].index){
+                    Get.dialog(CheckDialog(
+                      title: "要移除该位置的签到吗？",
+                      doYes: (){
+                        logic.deleteCheck(i);
+                        Get.back();
+                      },
+                    ));
                   }
                 },
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(logic.signMember[column+row*column].isNullOrEmpty?" ":logic.signMember[num][index+childIndex],style: const TextStyle(fontSize: 12))),
+                  child: Text(logic.signMember[count],
+                    style: const TextStyle(fontSize: 12))),
               ),
-            )
+            );
+            }
           ),
         ),
       )
@@ -210,79 +242,6 @@ class LessonsDetailPage extends BasePage {
           )
         ],
       ), onClosing: () {  },
-    );
-  }
-
-  Widget checkDialog(int index){
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      alignment: Alignment.center,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 80,maxWidth: 160),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 5,
-              child: Container(
-                width: 180,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(
-                      color: Colors.grey.withOpacity(0.7),
-                      blurRadius: 10,
-                      blurStyle: BlurStyle.solid,
-                      offset: Offset(3, -4)
-                  )],
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-                  color: Colors.white
-                ),
-                child: Text("确定这个位置吗？"))),
-            Container(height: 6),
-            Expanded(
-              flex: 3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 87,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      boxShadow: [BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          blurRadius: 5,
-                          blurStyle: BlurStyle.solid,
-                          offset: Offset(3, 4)
-                      )],
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8)),
-                      color: Colors.white
-                    ),
-                    child: Text("否")).tap(Get.back),
-                  Container(width: 6),
-                  Container(
-                    width: 87,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      boxShadow: [BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          blurRadius: 5,
-                          blurStyle: BlurStyle.solid,
-                          offset: Offset(3, 4)
-                      )],
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(8)),
-                      color: Colors.white
-                    ),
-                    child: Text("是")).tap(() {
-                      logic.updateCheck(index);
-                      Get.back();
-                    }),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }
