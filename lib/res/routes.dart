@@ -33,6 +33,7 @@ class Routes {
   static const itemPicker = "/itemPicker";
   static const unitPicker = "/unitPicker";
   static const weekPicker = "/weekPicker";
+  static const datePicker = "/datePicker";
 
   static final List<GetPage> getPages = [
     GetPage(name: sign, page: () => SignInPage()),

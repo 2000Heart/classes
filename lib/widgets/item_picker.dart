@@ -12,8 +12,8 @@ class ItemPicker extends StatefulWidget {
 }
 
 class _ItemPickerState extends State<ItemPicker> {
-  List<String> list = Get.arguments;
-  String? result;
+  List<String?> list = Get.arguments;
+  late String? result = list[0];
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _ItemPickerState extends State<ItemPicker> {
                 child: CupertinoPicker(
                     itemExtent: 30,
                     onSelectedItemChanged: (position) => result = list[position],
-                    children: list.map((e) => Center(child: Text(e,style: TextStyle(fontSize: 17)))).toList()),
+                    children: list.map((e) => Center(child: Text(e ?? "",style: TextStyle(fontSize: 17)))).toList()),
               ),
             ],
           ),

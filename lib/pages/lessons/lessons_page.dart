@@ -21,7 +21,6 @@ class LessonsPage extends BasePage{
           appBar: AppBar(
             actions: [
               Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
-              Icon(Icons.schedule).tap(() => Get.toNamed(Routes.lessonCheck))
             ],
           ),
           body: Padding(

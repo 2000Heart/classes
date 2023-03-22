@@ -52,4 +52,13 @@ class DataAPI{
       return ErrorEntity.fromJson(result.data["d"]);
     }
   }
+
+  static Future<Classroom?> getClassroom(String roomName) async {
+    var data = {"roomName": roomName,"schoolName":UserState.info?.school};
+    final result = await DioUtils.post('/data/classroom/query', params: data,showLoading: true);
+    if (result.statusCode == 200) {
+      return Classroom.fromJson(result.data["d"]);
+    }
+    return null;
+  }
 }

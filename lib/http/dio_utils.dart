@@ -80,9 +80,9 @@ class DioUtils {
       if (showLoading) {
         EasyLoading.dismiss();
       }
+      log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: ${response.data['d']}');
       final toast = response.data["t"];
       if (toast != null) {
-        log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: $toast');
         // ToastUtils.show(toast);
       }
 

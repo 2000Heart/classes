@@ -1,6 +1,9 @@
 class Check {
+  int? infoId;
   int? lessonId;
+  String? lessonName;
   int? teacherId;
+  String? teacherName;
   String? postTime;
   String? checkedUser;
   String? userAll;
@@ -12,8 +15,11 @@ class Check {
   int? checkId;
 
   Check(
-      {this.lessonId,
+      {this.infoId,
+        this.lessonId,
+        this.lessonName,
         this.teacherId,
+        this.teacherName,
         this.postTime,
         this.checkedUser,
         this.userAll,
@@ -25,8 +31,11 @@ class Check {
         this.checkId});
 
   Check.fromJson(Map<String, dynamic> json) {
+    infoId = json['infoId'];
     lessonId = json['lessonId'];
+    lessonName = json['lessonName'];
     teacherId = json['teacherId'];
+    teacherName = json['teacherName'];
     postTime = json['postTime'];
     checkedUser = json['checkedUser'];
     userAll = json['userAll'];
@@ -40,8 +49,11 @@ class Check {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['infoId'] = this.infoId;
     data['lessonId'] = this.lessonId;
+    data['lessonName'] = this.lessonName;
     data['teacherId'] = this.teacherId;
+    data['teacherName'] = this.teacherName;
     data['postTime'] = this.postTime;
     data['checkedUser'] = this.checkedUser;
     data['userAll'] = this.userAll;

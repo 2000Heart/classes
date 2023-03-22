@@ -7,6 +7,7 @@ import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/sp_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../http/lessons_api.dart';
 import '../../model/lessons/lesson_entity.dart';
@@ -14,18 +15,18 @@ import '../../utils/utils.dart';
 
 class LessonAddCheckLogic extends BaseLogic{
   int _timeCount = 1;
-  Check _data = Check();
   List<Schedule>? _schedule;
   List<String> _itemList = [];
   int? _choice;
-  String? _startTime;
-  String? _endTime;
+  List<DateTime> _daysList = [];
+  DateTime? _startTime;
+  DateTime? _endTime;
 
-  String? get startTime => _startTime;
-  String? get endTime => _endTime;
+  List<DateTime> get daysList => _daysList;
+  DateTime? get startTime => _startTime;
+  DateTime? get endTime => _endTime;
   int? get choice => _choice;
   List<String> get itemList => _itemList;
-  Check get data => _data;
   List<Schedule> get schedule => _schedule ?? [];
   int get timeCount => _timeCount;
 
@@ -37,11 +38,11 @@ class LessonAddCheckLogic extends BaseLogic{
     _choice = value;
     update();
   }
-  set endTime(String? value) {
+  set endTime(DateTime? value) {
     _endTime = value;
     update();
   }
-  set startTime(String? value) {
+  set startTime(DateTime? value) {
     _startTime = value;
     update();
   }
@@ -63,18 +64,38 @@ class LessonAddCheckLogic extends BaseLogic{
 
   Future createCheck() async{
     if(_choice != null) {
-      Classroom classroom = await DataAPI.getClassroomList();
+      Classroom? classroom = await DataAPI.getClassroom(_schedule?[_choice!].classroom ?? "");
       Json check = Check(
-        lessonId: _schedule?[_choice!].lessonId,
+        infoId: Get.arguments,
+        lessonName: _schedule?[_choice!].lessonName,
         userAll: _schedule?[_choice!].userId,
-        startTime: _startTime,
-        endTime: _endTime,
+        startTime: _startTime?.toIso8601String(),
+        endTime: _endTime?.toIso8601String(),
         postTime: DateTime.now().toIso8601String(),
-        column: classroom.column,
-        row: classroom.row,
-        teacherId: UserState.info?.userId
+        column: classroom?.column,
+        row: classroom?.row,
+        teacherId: UserState.info?.userId,
+        teacherName: UserState.info?.userName
       ).toJson();
+      check.removeWhere((key, value) => value == null);
       await LessonAPI.createCheck(check);
     }
   }
+
+  void formDays(){
+    _daysList.clear();
+    var year = DateTime.now().year;
+    var month = DateTime.now().month;
+    var day = DateTime.now().day;
+    var length = DateTime(year,month+1,0).day;
+    for(var i=day;i<=length;i++){
+      var time = DateTime(year,month,i);
+      if(time.weekday == _schedule?[_choice!].weekTime){
+        _daysList.add(time);
+      }
+    }
+    update();
+  }
+
+
 }

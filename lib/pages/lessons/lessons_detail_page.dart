@@ -37,12 +37,19 @@ class LessonsDetailPage extends BasePage {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)),
+                          Container(width: 16),
+                          Text(logic.text)
+                        ],
+                      ),
                       const Text("发布签到",style: TextStyle(fontSize: 14)).tap(() =>
                         Get.toNamed(Routes.lessonCheck,arguments: logic.data?.infoId)),
                     ],
                   )),
               ),
+              if(logic.status == 0)
               SliverToBoxAdapter(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -149,29 +156,26 @@ class LessonsDetailPage extends BasePage {
                   if(logic.signMember[count] == " "){
                     if(i==-1) {
                       Get.dialog(CheckDialog(
-                          title: "选择这个位置吗？",
-                          doYes: () {
-                            logic.updateCheck(count,null);
-                            Get.back();
-                          }),
-                          barrierColor: Colors.grey.withOpacity(0.1));
+                        title: "选择这个位置吗？",
+                        doYes: () {
+                          logic.updateCheck(count,null);
+                          Get.back();
+                        }), barrierColor: Colors.grey.withOpacity(0.1));
                     }else{
                       Get.dialog(CheckDialog(
-                          title: "您已签到，要更换位置吗？",
-                          doYes: () {
-                            logic.updateCheck(count,i);
-                            Get.back();
-                          }),
-                          barrierColor: Colors.grey.withOpacity(0.1));
+                        title: "您已签到，要更换位置吗？",
+                        doYes: () {
+                          logic.updateCheck(count,i);
+                          Get.back();
+                        }), barrierColor: Colors.grey.withOpacity(0.1));
                     }
                   }else if(count == logic.checkList[i].index){
                     Get.dialog(CheckDialog(
                       title: "要移除该位置的签到吗？",
-                      doYes: (){
+                      doYes: () {
                         logic.deleteCheck(i);
                         Get.back();
-                      },
-                    ));
+                      }), barrierColor: Colors.grey.withOpacity(0.1));
                   }
                 },
                 child: FittedBox(
