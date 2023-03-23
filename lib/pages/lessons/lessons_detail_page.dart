@@ -49,9 +49,9 @@ class LessonsDetailPage extends BasePage {
                     ],
                   )),
               ),
-              if(logic.status == 0)
+              if(logic.status == 0 || UserState.info?.userType == 1)
               SliverToBoxAdapter(
-                child: SingleChildScrollView(
+                child: logic.check==null?const Text("暂无签到").center:SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
@@ -73,6 +73,7 @@ class LessonsDetailPage extends BasePage {
                     style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
                 ),
               ),
+              logic.data?.lessonTask?.length == 0?SliverToBoxAdapter(child: const Text("暂无任务").center):
               SliverList(delegate: SliverChildListDelegate(
                   List.generate(logic.data?.lessonTask?.split(",").length ?? 0, (index) => taskItem(index))
               ))
@@ -86,8 +87,8 @@ class LessonsDetailPage extends BasePage {
   Widget taskItem(int index){
     String task = logic.data?.lessonTask?.split(",")[index].split("/").join("\n") ?? "";
     return Container(
-      margin: EdgeInsets.only(bottom: 10,top: 10,right: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      margin: const EdgeInsets.only(bottom: 10,top: 10,right: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -95,7 +96,7 @@ class LessonsDetailPage extends BasePage {
                 color: Colors.grey.withOpacity(0.5),
                 blurRadius: 2,
                 blurStyle: BlurStyle.solid,
-                offset: Offset(5, 5)
+                offset: const Offset(5, 5)
             )]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,18 +109,18 @@ class LessonsDetailPage extends BasePage {
                 width: 15,
                 height: 15,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
+                  gradient: const LinearGradient(colors: [Colours.RED_LIGHT,Colours.white]),
                   shape: BoxShape.circle,
                   boxShadow: [BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
                       blurRadius: 2,
                       blurStyle: BlurStyle.solid,
-                      offset: Offset(3, 2)
+                      offset: const Offset(3, 2)
                   )],
                 ),
               ),
               Container(width: 10),
-              Text("任务${index+1}",style: TextStyle(fontSize: 16),).paddingOnly(top: 2),
+              Text("任务${index+1}",style: const TextStyle(fontSize: 16)).paddingOnly(top: 2),
             ],
           ).paddingSymmetric(horizontal: 10,vertical: 4),
           Text(task).paddingOnly(left: 16)

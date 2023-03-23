@@ -1,11 +1,12 @@
 import 'package:classes/states/user_state.dart';
 
-class Message with Content{
+class Message {
   int? messageId;
   int? posterId;
   String? posterName;
   String? userAll;
   String? title;
+  String? content;
   String? postTime;
   int? type;
 
@@ -15,6 +16,7 @@ class Message with Content{
         this.posterName,
         this.userAll,
         this.title,
+        this.content,
         this.postTime,
         this.type});
 
@@ -24,6 +26,7 @@ class Message with Content{
     posterName = json['posterName'];
     userAll = json['userAll'];
     title = json['title'];
+    content = json['content'];
     postTime = json['postTime'];
     type = json['type'];
   }
@@ -35,34 +38,24 @@ class Message with Content{
     data['posterName'] = this.posterName;
     data['userAll'] = this.userAll;
     data['title'] = this.title;
+    data['content'] = this.content;
     data['postTime'] = this.postTime;
     data['type'] = this.type;
     return data;
   }
 }
 
-mixin Content{
-  String content = "";
-}
-
 extension MessageEx on Message{
-  String get toContent {
+  String? toContent() {
     var userType = UserState.info?.userType;
     switch(type){
       case 0:
         return userType == 0?
-         '教师$posterName创建了此课程，您已被加入。':'您成功创建了此课程';
+         '教师$posterName$content':"您$content";
       case 1:
         return userType == 0?
-        '教师$posterName发布了本课程的签到，请记得届时上课签到。':'您成功发布本课程签到';
-      case 10:
-        return '签到即将开始，请注意到课签到';
-      case 11:
-        return '签到即将结束，请注意签到情况';
-      // case 12:
-      //   return '签到结束，'
+        '教师$posterName$content':'您$content';
       default:
-        return "";
-
+        return content;
     }
   }}

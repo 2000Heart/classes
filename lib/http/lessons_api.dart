@@ -81,6 +81,16 @@ class LessonAPI {
     }
   }
 
+  static Future getCheckOne(int checkId) async {
+    final data = {"userId": UserState.info?.userId};
+    final result = await DioUtils.post('/lesson/check/stu/query', params: data);
+    if (result.statusCode == 200 && result.data['d'] != null) {
+      List<CheckStu> data = result.data['d']
+          .map<CheckStu>((e) => CheckStu.fromJson(e)).toList();
+      return data;
+    }
+  }
+
   static Future<Lesson?> createLesson(Json lesson) async {
     final data = lesson;
     data.removeWhere((key, value) => value == null);

@@ -122,6 +122,7 @@ class LessonAddLogic extends BaseLogic{
       MessageAPI.createMessage(
       userAll: schedules.map((e) => e.userId).toSet().join(','),
       title: _lessonName,
+      content: "创建了本课程，您已被加入，前往课程页面查看详情",
       type: 0
       );
     }

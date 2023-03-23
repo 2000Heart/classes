@@ -1,12 +1,16 @@
 import 'dart:math';
 
 import 'package:classes/base/base_page.dart';
+import 'package:classes/logic/mine/my_review_logic.dart';
 import 'package:classes/res/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:classes/utils/utils.dart';
 
 class MyReview extends BasePage{
+  MyReview({super.key});
+
+  final MyReviewLogic logic = MyReviewLogic();
+
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
@@ -23,8 +27,8 @@ class MyReview extends BasePage{
 
   Widget message(){
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -33,7 +37,7 @@ class MyReview extends BasePage{
                 color: Colors.grey.withOpacity(0.5),
                 blurRadius: 5,
                 blurStyle: BlurStyle.solid,
-                offset: Offset(5, 5)
+                offset: const Offset(5, 5)
             )
           ]
       ),

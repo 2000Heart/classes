@@ -7,11 +7,12 @@ import 'dio_utils.dart';
 
 class MessageAPI{
   static Future<Message?> createMessage(
-      {required String title, required String userAll, required int type}) async {
+      {required String title, required String userAll, required String content, required int type}) async {
     final data = Message(
       posterId: UserState.info?.userId,
       posterName: UserState.info?.userName,
       title: title,
+      content: content,
       postTime: DateTime.now().toIso8601String(),
       userAll: userAll,
       type: type
@@ -20,20 +21,20 @@ class MessageAPI{
     final result = await DioUtils.post('/message/create', params: data,showLoading: true);
     if (result.statusCode == 200 && result.data['d'] != null) {
       Message data = Message.fromJson(result.data["d"]);
-      data.content = data.toContent;
+      data.content = data.toContent();
       return data;
     }
     return null;
   }
 
   static Future<List<Message>?> getMessages() async {
-    final data = {"userId": UserState.info?.userId,"userType": UserState.info?.userType};
+    final data = {"userId": UserState.info?.userId};
     final result = await DioUtils.post('/message/query', params: data);
     if (result.statusCode == 200 && result.data['d'] != null) {
       List<Message> data = result.data['d']
           .map<Message>((e) => Message.fromJson(e)).toList();
       for (var element in data) {
-        element.content = element.toContent;
+        element.content = element.toContent();
       }
       return data;
     }

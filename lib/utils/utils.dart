@@ -28,16 +28,6 @@ class Utils {
     return randomString;
   }
 
-  //阅读人数格式化
-  static String formatReadNum(int num) {
-    if (num < 9999) {
-      return num.toString();
-    } else {
-      num = num ~/ 10000;
-      return '$num万+';
-    }
-  }
-
   static FutureOr<T?> tryOrNullf<T>(FutureOr<T> Function() fn) async {
     try {
       return await fn();
@@ -66,17 +56,6 @@ class Utils {
       size = size + "GB";
     }
     return size;
-  }
-
-  static String _resolvePath(String path, {String? subpath}) {
-    final topPath = {
-      '/home': '首页',
-      '/match': '比赛',
-      '/expert': "推荐",
-      '/data': '数据',
-      '/my': '我的'
-    };
-    return topPath[path] ?? path;
   }
 }
 
@@ -168,11 +147,11 @@ extension StringExtension on String? {
 
 extension StringEx1 on String {
   String lastString(int len) =>
-      substring((length - len) > 0 ? (length - len) : 0, length);
+      substring((length-len)>0?(length-len):0, length);
 }
 
 extension WidgetEx1 on Widget {
-  SizedBox sized({double? width = null, double? height = null}) =>
+  SizedBox sized({double? width, double? height}) =>
     SizedBox(width: width, height: height, child: this);
 
   GestureDetector tap(void Function()? fn) =>
