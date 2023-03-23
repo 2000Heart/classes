@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../http/lessons_api.dart';
+import '../../http/message_api.dart';
 import '../../model/lessons/lesson_entity.dart';
 import '../../utils/utils.dart';
 
@@ -77,8 +78,14 @@ class LessonAddCheckLogic extends BaseLogic{
         teacherId: UserState.info?.userId,
         teacherName: UserState.info?.userName
       ).toJson();
-      check.removeWhere((key, value) => value == null);
-      await LessonAPI.createCheck(check);
+      Check? back = await LessonAPI.createCheck(check);
+      if(back!=null){
+        MessageAPI.createMessage(
+            userAll: _schedule?[_choice!].userId ?? "",
+            title: _schedule?[_choice!].lessonName ?? "",
+            type: 1
+        );
+      }
     }
   }
 

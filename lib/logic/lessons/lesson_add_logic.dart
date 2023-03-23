@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 import '../../base/base_controller.dart';
 import '../../http/home_api.dart';
+import '../../http/message_api.dart';
 import '../../utils/sp_utils.dart';
 
 class LessonAddLogic extends BaseLogic{
@@ -116,7 +117,13 @@ class LessonAddLogic extends BaseLogic{
       schoolName: UserState.info?.school,
       duration: _data.map((e) => e.duration).toSet().join(',')
     ).toJson();
-    lesson.removeWhere((key, value) => value == null);
-    LessonAPI.createLesson(lesson);
+    Lesson? back = await LessonAPI.createLesson(lesson);
+    if(back != null) {
+      MessageAPI.createMessage(
+      userAll: schedules.map((e) => e.userId).toSet().join(','),
+      title: _lessonName,
+      type: 0
+      );
+    }
   }
 }

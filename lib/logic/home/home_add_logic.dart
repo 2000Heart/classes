@@ -1,6 +1,8 @@
 import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/home_api.dart';
+import 'package:classes/http/message_api.dart';
 import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/model/message_entity.dart';
 import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,5 +96,6 @@ class HomeAddLogic extends BaseLogic{
       }
     }
     HomeAPI.createSchedule(list);
+
   }
 }

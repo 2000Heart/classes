@@ -12,6 +12,7 @@ class LessonAPI {
 
   static Future<Check?> createCheck(Json check) async {
     final data = check;
+    data.removeWhere((key, value) => value == null);
     final result = await DioUtils.post('/lesson/check/create', params: data);
     if (result.statusCode == 200) {
       return Check.fromJson(result.data["d"]);
@@ -80,12 +81,14 @@ class LessonAPI {
     }
   }
 
-  static Future createLesson(Json lesson) async {
+  static Future<Lesson?> createLesson(Json lesson) async {
     final data = lesson;
+    data.removeWhere((key, value) => value == null);
     final result = await DioUtils.post('/lesson/create', params: data,showLoading: true);
     if (result.statusCode == 200 && result.data['d'] != null) {
       return Lesson.fromJson(result.data["d"]);
     }
+    return null;
   }
 
   static Future getLesson(int infoId) async {
