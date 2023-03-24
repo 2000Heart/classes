@@ -3,6 +3,7 @@ import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/pages/home/home_detail_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/utils/extensions.dart';
+import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -66,13 +67,15 @@ class ClassSingleDay extends StatelessWidget{
                     children: [
                       if(classes[i].lessonName.hasValue)Expanded(
                         child: Text(classes[i].lessonName!, textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white,fontSize: 12)),
+                            style: TextStyle(color: Colors.white,fontSize: 12)).center,
                       ),
-                      if(classes[i].classroom.hasValue)Flexible(
+                      if(classes[i].classroom.hasValue&&((classes[i].endUnit ?? 0) - (classes[i].startUnit ?? 0) +
+                          1) > 2)Flexible(
                         child: Text(classes[i].classroom!, textAlign: TextAlign.center,
-                            style: const TextStyle(color: Colors.white,fontSize: 12)),
+                            style: const TextStyle(color: Colors.white,fontSize: 12),softWrap: true),
                       ),
-                      if(classes[i].teacherName.hasValue)Flexible(
+                      if(classes[i].teacherName.hasValue&&((classes[i].endUnit ?? 0) - (classes[i].startUnit ?? 0) +
+                          1) > 3)Flexible(
                         child: Text(
                             classes[i].teacherName!, textAlign: TextAlign.center,
                             style: const TextStyle(color: Colors.white,fontSize: 12)),

@@ -82,7 +82,7 @@ class LessonAddLogic extends BaseLogic{
   }
 
   Future requestData() async{
-    classes = await DataAPI.getClassList();
+    classes = await DataAPI.getClassList() ?? [];
     _classChoice[0] = List.generate(classes.length, (index) => false);
     update();
   }

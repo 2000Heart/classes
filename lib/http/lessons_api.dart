@@ -1,5 +1,6 @@
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/model/lessons/check_entity.dart';
+import 'package:classes/model/lessons/check_history_entity.dart';
 import 'package:classes/model/lessons/check_stu_entity.dart';
 import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:classes/states/user_state.dart';
@@ -142,5 +143,16 @@ class LessonAPI {
     if (result.statusCode == 200 && result.data['d'] != null) {
       return result.data["d"];
     }
+  }
+
+  static Future<List<CheckHistory>?> getCheckHistory() async{
+    final data = {"userId": UserState.info?.userId,"userType": UserState.info?.userType};
+    final result = await DioUtils.post('/lesson/check/history', params: data);
+    if (result.statusCode == 200 && result.data['d'] != null) {
+      List<CheckHistory> data = result.data['d']
+          .map<CheckHistory>((e) => CheckHistory.fromJson(e)).toList();
+      return data;
+    }
+    return null;
   }
 }

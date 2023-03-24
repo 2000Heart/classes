@@ -26,7 +26,7 @@ class MinePage extends BasePage{
                     BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
                         blurRadius: 5,
-                        offset: Offset(8, 8)
+                        offset: const Offset(8, 8)
                     )
                   ]
               ),

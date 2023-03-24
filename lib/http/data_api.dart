@@ -41,16 +41,15 @@ class DataAPI{
     }
   }
 
-  static Future getClassList() async {
+  static Future<List<ClassEntity>?> getClassList() async {
     final data = {"schoolName": UserState.info?.school,"teacherId": UserState.info?.userId};
     final result = await DioUtils.post('/data/class/query/list', params: data);
     if (result.statusCode == 200) {
       List<ClassEntity> data = result.data['d']
           .map<ClassEntity>((e) => ClassEntity.fromJson(e)).toList();
       return data;
-    } else{
-      return ErrorEntity.fromJson(result.data["d"]);
     }
+    return null;
   }
 
   static Future<Classroom?> getClassroom(String roomName) async {
