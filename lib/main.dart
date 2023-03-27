@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:classes/pages/navigation_page.dart';
 import 'package:classes/pages/sign_in/sign_in_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/theme.dart';
+import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/sp_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -23,7 +26,10 @@ class MyApp extends StatelessWidget {
       title: '课程管理',
       getPages: Routes.getPages,
       theme: ThemeConfig.theme(),
-      onInit: () => EasyLoading.instance.userInteractions = false,
+      onInit: () {
+        EasyLoading.instance.userInteractions = false;
+        log("current user:${UserState.info?.toJson().toString()}");
+      },
       builder: EasyLoading.init(),
       locale: const Locale("zh","CN"),
       home: SpUtils.loginAuth == null?SignInPage():NavigationPage(),

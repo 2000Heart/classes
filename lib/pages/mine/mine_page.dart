@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
@@ -12,46 +15,85 @@ import 'package:get/get.dart';
 class MinePage extends BasePage{
   MinePage({super.key});
 
-  final controller = Get.put(MineLogic());
+  final logic = Get.put(MineLogic());
   @override
   Widget buildWidget(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 5,
-                        offset: const Offset(8, 8)
-                    )
-                  ]
-              ),
-              child: CachedNetworkImage(
-                  width: 120,
-                  height: 120,
-                  fit: BoxFit.cover,
-                  placeholder: (context, str) => Container(color: Colors.white),
-                  errorWidget: (context,url,error) => Icon(Icons.ac_unit,size: 90),
-                  imageUrl: UserState.info?.avatar ?? 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
+    return GetBuilder<MineLogic>(
+      builder: (logic) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: Column()),
+                    Container(
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 5,
+                                offset: const Offset(8, 8)
+                            )
+                          ]
+                      ),
+                      child: CachedNetworkImage(
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          placeholder: (context, str) => Container(color: Colors.white),
+                          errorWidget: (context,url,error) => CachedNetworkImage(imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
+                          imageUrl: UserState.info?.avatar ?? ""),
+                    ).tap(() => logic.pic = !logic.pic),
+                    Expanded(child: Column(
+                      children: [
+                        if(logic.pic)Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedTextKit(
+                                onTap: () => Utils.pickPhotoFormGallery(),
+                                totalRepeatCount: 1,
+                                animatedTexts: [
+                                  FadeAnimatedText("从相册中选择",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
+                                ],
+                                onFinished: () => logic.pic = !logic.pic,
+                              ),
+                              Container(height: 16),
+                              AnimatedTextKit(
+                                onTap: () => Utils.pickPhotoFormCamera(),
+                                totalRepeatCount: 1,
+                                animatedTexts: [
+                                  FadeAnimatedText("手机拍摄",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
+                                ],
+                                onFinished: () => logic.pic = !logic.pic,
+                              )
+                            ],
+                          ),
+                        )
+
+                      ],
+                    ))
+                  ],
+                ),
+                Container(height: 40),
+                Text(UserState.info?.userName ?? "",style: TextStyle(fontSize: 25)),
+                Container(height: 6),
+                Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
+                Container(height: 60),
+                // if(UserState.info?.userType == 1)
+                option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
+                option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
+                option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
+                option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
+                option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))
+              ],
             ),
-            Container(height: 40),
-            Text(UserState.info?.userName ?? "",style: TextStyle(fontSize: 25)),
-            Container(height: 6),
-            Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
-            Container(height: 60),
-            // if(UserState.info?.userType == 1)
-            option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
-            option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
-            option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
-            option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
-            option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
   Widget option(IconData icon, String title, {void Function()? onTap}) {

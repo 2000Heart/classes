@@ -1,11 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:math' as math;
+import 'package:classes/model/user_entity.dart';
+import 'package:classes/states/user_state.dart';
+import 'package:classes/utils/sp_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../http/api.dart';
 import 'date_utils_extension.dart';
 
 
@@ -57,6 +64,61 @@ class Utils {
     }
     return size;
   }
+  static Future<String?> cropImage(String path) async {
+    final croppedFile = await ImageCropper().cropImage(
+      compressQuality: 50,
+      sourcePath: path,
+      aspectRatioPresets: Platform.isAndroid
+          ? [CropAspectRatioPreset.square]
+          : [CropAspectRatioPreset.square],
+      aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: '裁剪',
+            toolbarColor: Colors.white,
+            toolbarWidgetColor: Colors.black.withOpacity(0.8),
+            initAspectRatio: CropAspectRatioPreset.square,
+            lockAspectRatio: true,
+            hideBottomControls: true),
+        IOSUiSettings(
+            title: '',
+            aspectRatioPickerButtonHidden: true,
+            aspectRatioLockEnabled: true,
+            resetAspectRatioEnabled: false)
+      ],
+    );
+    return croppedFile?.path;
+  }
+
+  static Future pickPhotoFormCamera({int imageQuality = 50}) async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
+    if(file?.path == null) return null;
+    String? cropped = await cropImage(file!.path);
+    if(cropped == null) return null;
+    var result = await Api.uploadImage(cropped);
+    if(result != null) SpUtils.loginAuth = result;
+  }
+
+  static Future pickPhotoFormGallery({int imageQuality = 50}) async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
+    if(file?.path == null) return;
+    var cropped = await cropImage(file!.path);
+    if(cropped == null) return;
+    var result = await Api.uploadImage(cropped);
+    if(result != null) SpUtils.loginAuth = result;
+  }
+
+  // static Future<List<AssetEntity>?> pickPhotoFormGallary(
+  //     {int maxPhotos = 1}) async {
+  //   return await AssetPicker.pickAssets(Get.context!,
+  //       pickerConfig: AssetPickerConfig(
+  //           maxAssets: maxPhotos,
+  //           themeColor: Colours.main_color,
+  //           requestType: RequestType.image,
+  //           textDelegate: AssetPickerTextDelegate()));
+  // }
 }
 
 //日期格式化

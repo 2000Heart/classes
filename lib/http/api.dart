@@ -4,6 +4,7 @@ import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/sp_utils.dart';
+import 'package:dio/dio.dart';
 
 import '../model/error_entity.dart';
 import 'dio_utils.dart';
@@ -46,5 +47,28 @@ class Api{
       return data;
     }
     return [];
+  }
+
+  static Future<User?> updateUser(User user) async{
+    final data = user.toJson();
+    data.removeWhere((key, value) => value == null);
+    final result = await DioUtils.post('/user/update', params: data);
+    if (result.statusCode == 200 && result.data['d'] != null) {
+      return User.fromJson(result.data["d"]);
+    }
+    return null;
+  }
+
+  static Future<User?> uploadImage(String path) async{
+    final file = await MultipartFile.fromFile(path);
+    final data = FormData.fromMap({
+      'userId': UserState.info?.userId,
+      'file': file
+    });
+    final result = await DioUtils.post('/data/avatar/upload', params: data);
+    if (result.statusCode == 200) {
+      return User.fromJson(result.data["d"]);
+    }
+    return null;
   }
 }

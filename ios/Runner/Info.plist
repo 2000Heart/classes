@@ -49,5 +49,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>App需要拍照及相册权限来上传图片</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App需要拍照及相册权限来上传图片</string>
 </dict>
 </plist>
