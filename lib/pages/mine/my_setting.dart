@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class MySetting extends BasePage{
   MySetting({super.key});
 
-  MySettingLogic logic = Get.put(MySettingLogic());
+  final MySettingLogic logic = Get.put(MySettingLogic());
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -45,9 +45,24 @@ class MySetting extends BasePage{
                 ),
                 child: Column(
                   children: [
-                    [Expanded(child: Text("账号")),Expanded(child: text(logic.user.account ?? "", readOnly: logic.read))].formLine(),
-                    [Expanded(child: Text("姓名")),Expanded(child: text(logic.user.userName ?? "", readOnly: logic.read))].formLine(),
-                    [Expanded(child: Text("密码")), Expanded(child: text(logic.user.password ?? "", readOnly: logic.read))].formLine()
+                    [Expanded(child: Text("账号")),
+                      Expanded(child: text(
+                        logic.user.account ?? "",
+                        readOnly: logic.read,
+                        onChanged: (str) => logic.account = str,
+                        onSubmitted: (str) => logic.account = str))].formLine(),
+                    [Expanded(child: Text("姓名")),
+                      Expanded(child: text(
+                          logic.user.userName ?? "",
+                          readOnly: logic.read,
+                          onChanged: (str) => logic.userName = str,
+                          onSubmitted: (str) => logic.userName = str))].formLine(),
+                    [Expanded(child: Text("密码")),
+                      Expanded(child: text(
+                          logic.user.password ?? "",
+                          readOnly: logic.read,
+                          onChanged: (str) => logic.password = str,
+                          onSubmitted: (str) => logic.password = str))].formLine()
                   ],
                 )
               ),
@@ -67,8 +82,18 @@ class MySetting extends BasePage{
                   ),
                   child: Column(
                     children: [
-                      [Expanded(child: Text("学校")),Expanded(child: text(logic.user.school ?? "", readOnly: logic.read))].formLine(),
-                      [Expanded(child: Text("班级")),Expanded(child: text(logic.user.className ?? "", readOnly: logic.read))].formLine(),
+                      [Expanded(child: Text("学校")),
+                        Expanded(child: text(
+                            logic.user.school ?? "",
+                            readOnly: logic.read,
+                            onChanged: (str) => logic.school = str,
+                            onSubmitted: (str) => logic.school = str))].formLine(),
+                      [Expanded(child: Text("班级")),
+                        Expanded(child: text(
+                            logic.user.className ?? "",
+                            readOnly: logic.read,
+                            onChanged: (str) => logic.className = str,
+                            onSubmitted: (str) => logic.className = str))].formLine(),
                     ],
                   )
               ),
