@@ -87,8 +87,10 @@ class HomePage extends BasePage {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(list.length, (index) => ClassSingleDay(
-                      classes: list[index]
+                    children: List.generate(list.length, (index) => Expanded(
+                      child: ClassSingleDay(
+                        classes: list[index]
+                      ),
                     )),
                   ),
                 )

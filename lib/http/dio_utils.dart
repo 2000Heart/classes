@@ -7,8 +7,8 @@ import '../utils/toast_utils.dart';
 
 class DioUtils {
   // static const baseUrl = "http://127.0.0.1:8888";
-  static const baseUrl = "http://192.168.1.104:8888";
-  // static const baseUrl = "http://192.168.1.9:8888";
+  // static const baseUrl = "http://192.168.1.104:8888";
+  static const baseUrl = "http://192.168.1.9:8888";
   // static const baseUrl = "http://47.115.211.39:9999";
   static final options = BaseOptions(
       followRedirects: false,

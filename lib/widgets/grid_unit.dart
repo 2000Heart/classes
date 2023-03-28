@@ -51,7 +51,6 @@ class ClassSingleDay extends StatelessWidget{
               GestureDetector(
                 onTap: () => showDetail(classes[i].weekTime ?? 0, classes[i].startUnit ?? 0),
                 child: Container(
-                  width: 50,
                   height: 50.0 *
                       ((classes[i].endUnit ?? 0) - (classes[i].startUnit ?? 0) +
                           1),
@@ -104,7 +103,7 @@ class ClassSingleDay extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: formClasses(),
     );
   }
