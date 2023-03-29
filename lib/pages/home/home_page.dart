@@ -208,7 +208,7 @@ class HomePage extends BasePage {
                       ),
                     );
                   }
-              ), onClosing: () {  },
+              ), onClosing: () { },
       ),
     );
   }

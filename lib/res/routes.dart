@@ -7,6 +7,7 @@ import 'package:classes/pages/mine/mine_page.dart';
 import 'package:classes/pages/mine/my_class.dart';
 import 'package:classes/pages/mine/my_review.dart';
 import 'package:classes/pages/mine/my_setting.dart';
+import 'package:classes/pages/mine/password_page.dart';
 import 'package:classes/pages/mine/setting.dart';
 import 'package:classes/pages/navigation_page.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const myClass = "/mine/class";
   static const myReview = "/mine/review";
   static const mySetting = "/mine/mySetting";
+  static const password = "/mine/password";
   static const setting = "/mine/setting";
   static const homeDetail = "/home/homeDetail";
   static const lessonsDetail = "/lessons/lessonsDetail";
@@ -53,5 +55,6 @@ class Routes {
     GetPage(name: myReview, page: () => MyReview()),
     GetPage(name: mySetting, page: () => MySetting()),
     GetPage(name: setting, page: () => Setting()),
+    GetPage(name: password, page: () => PasswordPage())
   ];
 }

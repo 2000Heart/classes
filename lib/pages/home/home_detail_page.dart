@@ -138,8 +138,8 @@ class HomeDetailPage extends BasePage {
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
         ),
-        onChanged: (str) => onChanged,
-        onSubmitted: (str) => onSubmitted,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
       ),
     );
   }
