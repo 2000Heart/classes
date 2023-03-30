@@ -102,17 +102,6 @@ class LessonAPI {
     return null;
   }
 
-  static Future getLesson(int infoId) async {
-    final data = {
-      "infoId": infoId,
-      "userId": UserState.info?.userId
-    };
-    final result = await DioUtils.post('/lesson/query', params: data);
-    if (result.statusCode == 200 && result.data['d'] != null) {
-      return Lesson.fromJson(result.data["d"]);
-    }
-  }
-
   static Future getLessonList() async {
     final data = {"userId": UserState.info?.userId,"userType": UserState.info?.userType};
     final result = await DioUtils.post('/lesson/query', params: data);

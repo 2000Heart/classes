@@ -11,9 +11,9 @@ import 'dio_utils.dart';
 
 class Api{
 
-  static Future login(String username,String password) async {
+  static Future login(String account,String password) async {
     final data = {
-      'userName': username,
+      'account': account,
       'password': password,
     };
     final result = await DioUtils.post('/user/login', params: data);
@@ -24,8 +24,9 @@ class Api{
     }
   }
 
-  static Future createUser(String username,String password,String school,String className) async {
+  static Future createUser(String account,String username,String password,String school,String className) async {
     final data = {
+      'account': account,
       'userName': username,
       'password': password,
       'school': school,

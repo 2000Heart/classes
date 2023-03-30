@@ -160,7 +160,7 @@ class SignInPage extends BasePage {
         alignment: Alignment.center,
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 220,horizontal: 30),
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 16),
           decoration: BoxDecoration(
             boxShadow: const [BoxShadow(
               color: Colors.black12,
@@ -176,8 +176,16 @@ class SignInPage extends BasePage {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("你来自哪里？", style: TextStyle(fontSize: 40)),
+              const Text("完善你的信息", style: TextStyle(fontSize: 32)),
               Container(height: 40),
+              ChooseText(
+                  horizontal: 50,
+                  title: "姓名",
+                  data: [],
+                  onChanged: (str) => logic.username = str,
+                  onSelected: (selection) => logic.username = selection
+              ),
+              Container(height: 20),
               ChooseText(
                 horizontal: 50,
                 title: "学校",
@@ -223,32 +231,9 @@ class SignInPage extends BasePage {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(height: 70),
-                fieldColorBox("学号", (str) => logic.username = str),
+                fieldColorBox("账号", (str) => logic.account = str, true),
                 Container(height: 40),
-                fieldColorBox("密码",(str) => logic.password = str),
-                // TextFormField(
-                //   cursorColor: Colors.black,
-                //   decoration: InputDecoration(
-                //     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     labelText: "学号",
-                //     labelStyle: TextStyle(color: Colors.black)),
-                //   onChanged: (text) => logic.username = text,
-                //   onFieldSubmitted: (text) => logic.username = text,
-                // ),
-                // Container(height: 60),
-                // TextFormField(
-                //   cursorColor: Colors.black,
-                //   decoration: InputDecoration(
-                //     enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                //     labelText: "密码",
-                //     labelStyle: TextStyle(color: Colors.black)),
-                //   onChanged: (text) => logic.password = text,
-                //   onFieldSubmitted: (text) => logic.password = text,
-                // ),
+                fieldColorBox("密码",(str) => logic.password = str, false),
                 Container(height: 90),
                 NormalButton(
                   width: 160,
@@ -256,7 +241,7 @@ class SignInPage extends BasePage {
                   text: "确定",
                   textStyle: const TextStyle(fontSize: 14),
                   onTap: () async{
-                    if(logic.password != "" && logic.username != ""){
+                    if(logic.password != "" && logic.account != ""){
                      logic.isLogin?await logic.checkLogin():await logic.createUser();
                       Get.offAndToNamed(Routes.navigation);
                     }else{ToastUtils.show("请输入用户名与密码");}
@@ -271,7 +256,7 @@ class SignInPage extends BasePage {
     );
   }
 
-  Widget fieldColorBox(String title, Function(String)? onChanged) {
+  Widget fieldColorBox(String title, Function(String)? onChanged, bool showText) {
     return Container(
       height: 60,
       decoration: BoxDecoration(
@@ -305,6 +290,7 @@ class SignInPage extends BasePage {
             child: Wrap(
               children: <Widget>[
                 TextField(
+                  obscureText: !showText,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintStyle: TextStyle(
