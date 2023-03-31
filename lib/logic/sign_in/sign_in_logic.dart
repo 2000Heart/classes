@@ -100,7 +100,15 @@ class SignInLogic extends BaseLogic{
   }
 
   Future createUser() async{
-    user = await Api.createUser(_account, _username, _password, _school, _classInfo);
+    User cUser = User(
+      account: _account,
+      userName: _username,
+      userType: _userType,
+      password: _password,
+      school: _school,
+      className: _classInfo
+    );
+    user = await Api.createUser(cUser);
     table = await HomeAPI.getTableSet(user?.userId);
     SpUtils.loginAuth = user;
     SpUtils.tableSet = table;

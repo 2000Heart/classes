@@ -190,7 +190,7 @@ class SignInPage extends BasePage {
                   ChooseText(
                       horizontal: 60,
                       title: "姓名",
-                      data: [],
+                      data: const [],
                       text: logic.username,
                       onChanged: (str) => logic.username = str,
                       onSelected: (selection) => logic.username = selection

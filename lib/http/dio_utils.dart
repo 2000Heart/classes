@@ -6,8 +6,8 @@ import '../utils/toast_utils.dart';
 
 class DioUtils {
   // static const baseUrl = "http://127.0.0.1:8888";
-  // static const baseUrl = "http://192.168.1.104:8888";
-  static const baseUrl = "http://192.168.1.9:8888";
+  static const baseUrl = "http://192.168.1.104:8888";
+  // static const baseUrl = "http://192.168.1.9:8888";
   // static const baseUrl = "http://47.115.211.39:9999";
   static final options = BaseOptions(
       followRedirects: false,
@@ -56,7 +56,7 @@ class DioUtils {
       if (receiveTimeout != null) option = Options(receiveTimeout: receiveTimeout);
       Response response = await dio.post(url, data: params, options: option);
       if (showLoading) EasyLoading.dismiss();
-      if(showLog) log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: ${response.data['d']}');
+      if(showLog) log('${DateTime.now()} Dio response for ${response.requestOptions.uri}\n data: ${response.data}');
       final toast = response.data["t"];
       if (toast != null) ToastUtils.show(toast);
       return response;

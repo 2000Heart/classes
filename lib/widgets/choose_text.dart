@@ -4,17 +4,11 @@ import 'package:get/get.dart';
 
 class ChooseLogic extends GetxController{
   bool _first = true;
-  TextEditingController _controller = TextEditingController();
 
   bool get first => _first;
 
   set first(bool value) {
     _first = value;
-    update();
-  }
-  set text(String value){
-    if(_first) _controller.text = value;
-    _first = !_first;
     update();
   }
 }
@@ -28,14 +22,16 @@ class ChooseText extends StatelessWidget {
   final double horizontal;
   final Function(String)? onChanged;
   final AutocompleteOnSelected<String>? onSelected;
-  late final logic;
+  late final ChooseLogic logic;
 
   @override
   Widget build(BuildContext context) {
     late TextEditingController controller;
     return GetBuilder<ChooseLogic>(
       tag: title,
-      initState: (state) => logic = Get.put(ChooseLogic(),tag: title),
+      initState: (state) {
+        logic = Get.put(ChooseLogic(),tag: title);
+      },
       builder: (logic) {
         return Autocomplete(
           optionsMaxHeight: 100,
@@ -49,10 +45,10 @@ class ChooseText extends StatelessWidget {
           fieldViewBuilder: (context, textEditingController, focusNode,
               onFieldSubmitted) {
             controller = textEditingController;
-            if(logic.first) controller.text = text ?? "";
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              logic.first = false;
-            });
+            // if(logic.first) controller.text = text ?? "";
+            // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            //   logic.first = false;
+            // });
               return SizedBox(
                 height: 50,
                 child: TextField(
@@ -64,6 +60,8 @@ class ChooseText extends StatelessWidget {
                     contentPadding: const EdgeInsets.symmetric(vertical: 5),
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                     labelText: title,
+                    hintText: text,
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelStyle: const TextStyle(
                         color: Color(0xff353535),
                         fontWeight: FontWeight.normal,
@@ -104,18 +102,18 @@ class ChooseText extends StatelessWidget {
                     physics: const ClampingScrollPhysics(),
                       itemCount: options.length,
                       itemBuilder: (_, index) =>
-                          GestureDetector(
-                            onTap: () =>
-                                onSelected(options.elementAt(index)),
-                            child: Container(
-                              height: 50,
-                              padding: EdgeInsets.only(left: 10),
-                              alignment: Alignment.centerLeft,
-                              child: Text.rich(formSpan(
-                                options.elementAt(index),
-                                controller.text)),
-                            ),
-                          )),
+                        GestureDetector(
+                          onTap: () =>
+                            onSelected(options.elementAt(index)),
+                          child: Container(
+                            height: 50,
+                            padding: const EdgeInsets.only(left: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Text.rich(formSpan(
+                              options.elementAt(index),
+                              controller.text)),
+                          ),
+                        )),
                 ),
               ),
             ),

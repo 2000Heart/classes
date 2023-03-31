@@ -25,17 +25,12 @@ class Api{
     return null;
   }
 
-  static Future<User?> createUser(String account,String username,String password,String school,String className) async {
-    final data = {
-      'account': account,
-      'userName': username,
-      'password': password,
-      'school': school,
-      'className': className
-    };
+  static Future<User?> createUser(User user) async {
+    final data = user.toJson();
+    data.removeWhere((key, value) => value == null);
     final result = await DioUtils.post('/user/create', params: data);
     if (result.statusCode == 200) {
-      final data = User.fromJson(result.data["d"]);
+      final data = User.fromJson(result.data["d"] ?? {});
       data.t = result.data["t"];
       return data;
     }
