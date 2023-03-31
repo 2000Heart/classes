@@ -11,20 +11,21 @@ import 'dio_utils.dart';
 
 class Api{
 
-  static Future login(String account,String password) async {
+  static Future<User?> login(String account,String password) async {
     final data = {
       'account': account,
       'password': password,
     };
     final result = await DioUtils.post('/user/login', params: data);
     if (result.statusCode == 200) {
-      return User.fromJson(result.data["d"]);
-    }else{
-      return ErrorEntity.fromJson(result.data["d"]);
+      final data = User.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
+    return null;
   }
 
-  static Future createUser(String account,String username,String password,String school,String className) async {
+  static Future<User?> createUser(String account,String username,String password,String school,String className) async {
     final data = {
       'account': account,
       'userName': username,
@@ -34,10 +35,11 @@ class Api{
     };
     final result = await DioUtils.post('/user/create', params: data);
     if (result.statusCode == 200) {
-      return User.fromJson(result.data["d"]);
-    }else{
-      return ErrorEntity.fromJson(result.data["d"]);
+      final data = User.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
+    return null;
   }
 
   static Future<List<School>> getSchoolList() async {
@@ -55,7 +57,9 @@ class Api{
     data.removeWhere((key, value) => value == null);
     final result = await DioUtils.post('/user/update', params: data);
     if (result.statusCode == 200 && result.data['d'] != null) {
-      return User.fromJson(result.data["d"]);
+      final data = User.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
     return null;
   }
@@ -68,7 +72,9 @@ class Api{
     });
     final result = await DioUtils.post('/data/avatar/upload', params: data);
     if (result.statusCode == 200) {
-      return User.fromJson(result.data["d"]);
+      final data = User.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
     return null;
   }

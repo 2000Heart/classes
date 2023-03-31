@@ -9,37 +9,38 @@ import '../utils/sp_utils.dart';
 import 'dio_utils.dart';
 
 class DataAPI{
-  static Future createClassroom(Json room) async {
+  static Future<Classroom?> createClassroom(Json room) async {
     var data = room;
     data.removeWhere((key, value) => value == null);
     final result = await DioUtils.post('/data/classroom/create', params: data,showLoading: true);
     if (result.statusCode == 200) {
-      return Classroom.fromJson(result.data["d"]);
-    } else {
-      return ErrorEntity.fromJson(result.data["d"]);
+      final data = Classroom.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
+    return null;
   }
 
-  static Future getLesson(String lesson) async {
+  static Future<LessonEntity?> getLesson(String lesson) async {
     var data = {"lessonName": lesson};
     final result = await DioUtils.post('/data/lesson/get', params: data,showLoading: true);
     if (result.statusCode == 200) {
-      return LessonEntity.fromJson(result.data["d"]);
-    } else {
-      return ErrorEntity.fromJson(result.data["d"]);
+      final data = LessonEntity.fromJson(result.data["d"]);
+      data.t = result.data["t"];
+      return data;
     }
+    return null;
   }
 
-  static Future getClassroomList() async {
+  static Future<List<Classroom>?> getClassroomList() async {
     final data = {"schoolName": UserState.info?.school};
     final result = await DioUtils.post('/data/classroom/list', params: data);
     if (result.statusCode == 200) {
       List<Classroom> data = result.data['d']
           .map<Classroom>((e) => Classroom.fromJson(e)).toList();
       return data;
-    } else{
-      return ErrorEntity.fromJson(result.data["d"]);
     }
+    return null;
   }
 
   static Future<List<ClassEntity>?> getClassList() async {
@@ -74,7 +75,7 @@ class DataAPI{
   }
 
   static Future<List<School>?> getSchool() async{
-    final result = await DioUtils.post('/data/school/all');
+    final result = await DioUtils.post('/data/school/all',showLog: false);
     if (result.statusCode == 200) {
       List<School> data = result.data['d']
           .map<School>((e) => School.fromJson(e)).toList();

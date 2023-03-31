@@ -1,4 +1,6 @@
-class Check {
+import '../t_mix.dart';
+
+class Check with TMix{
   int? infoId;
   int? lessonId;
   String? lessonName;

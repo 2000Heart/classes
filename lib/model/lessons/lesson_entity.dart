@@ -1,4 +1,6 @@
-class Lesson {
+import '../t_mix.dart';
+
+class Lesson with TMix{
   int? lessonId;
   String? lessonName;
   String? teacherId;

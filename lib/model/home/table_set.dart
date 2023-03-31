@@ -1,4 +1,6 @@
-class TableSet {
+import '../t_mix.dart';
+
+class TableSet with TMix{
   int? tableId;
   int? userId;
   int? currentWeek;

@@ -2,7 +2,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/sign_in/sign_in_logic.dart';
 import 'package:classes/res/colours.dart';
-import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/toast_utils.dart';
 import 'package:classes/widgets/choose_text.dart';
 import 'package:flutter/material.dart';
@@ -20,27 +19,29 @@ class SignInPage extends BasePage {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Material(
-      child: GetBuilder<SignInLogic>(
-        initState: (state){
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-              overlays: SystemUiOverlay.values);
-        },
-        builder: (logic) {
-          return LiquidSwipe(
+    return GetBuilder<SignInLogic>(
+      initState: (state){
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+            overlays: SystemUiOverlay.values);
+      },
+      builder: (logic) {
+        return Material(
+          child: LiquidSwipe(
             enableLoop: false,
-            disableUserGesture: false,
+            disableUserGesture: true,
             liquidController: logic.liquidController,
             waveType: WaveType.liquidReveal,
             pages: [
               chooseToSign(),
-              chooseIdentity(),
-              chooseSchool(),
+              if(!logic.isLogin)...[
+                chooseIdentity(),
+                chooseSchool()
+              ],
               completeAccount()
             ],
-          );
-        }
-      ),
+          ),
+        );
+      }
     );
   }
 
@@ -67,8 +68,7 @@ class SignInPage extends BasePage {
             height: 50,
             onTap: () {
               logic.isLogin = true;
-              logic.liquidController.jumpToPage(page: 3);
-            },
+              logic.index = logic.index+1;},
             text: "登录",
             textStyle: const TextStyle(fontSize: 20)),
           Container(height: 40),
@@ -77,8 +77,7 @@ class SignInPage extends BasePage {
               height: 50,
               onTap: () {
                 logic.isLogin = false;
-                logic.liquidController.animateToPage(page: 1,duration: 700);
-              },
+                logic.index = logic.index+1;},
               text: "注册",
               textStyle: const TextStyle(fontSize: 20)),
         ],
@@ -87,132 +86,165 @@ class SignInPage extends BasePage {
   }
 
   Widget chooseIdentity() {
-    return Container(
-      decoration: BoxDecoration(gradient: LinearGradient(
-        begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.9, 0.7),
-        stops: [0.1, 0.9], colors: [Color(0xFFD3F4FF), Colours.BLUE],
-      )),
-      alignment: Alignment.center,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 66),
-        margin: EdgeInsets.symmetric(horizontal: 30),
-        decoration: BoxDecoration(
-            boxShadow: const [BoxShadow(
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(gradient: LinearGradient(
+            begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.9, 0.7),
+            stops: [0.1, 0.9], colors: [Color(0xFFD3F4FF), Colours.BLUE],
+          )),
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 66),
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            decoration: BoxDecoration(
+              boxShadow: const [BoxShadow(
                 color: Colors.black12,
                 blurRadius: 15,
                 spreadRadius: 0,
                 offset: Offset(0.0, 32.0))],
-            borderRadius: BorderRadius.circular(16.0),
-            gradient: const LinearGradient(
+              borderRadius: BorderRadius.circular(16.0),
+              gradient: const LinearGradient(
                 begin: FractionalOffset(0.0, 0.4),
                 end: FractionalOffset(0.9, 0.7),
                 stops: [0.2, 0.9],
-                colors: [Color(0xffFFC3A0), Color(0xffFFAFBD),])),
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.RED_LIGHT]),
-        //   borderRadius: BorderRadius.circular(15),
-        //   boxShadow: [BoxShadow(
-        //     color: Colors.black38,
-        //     blurRadius: 10,
-        //     offset: Offset(1.0, 9.0),
-        //   ),]
-        // ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("你是", style: TextStyle(fontSize: 40)),
-            Container(height: 40),
-            NormalButton.rect(
-                onTap: () {
-                  logic.userType = 1;
-                  logic.liquidController.animateToPage(page: 2, duration: 700);
-                },
-                text: "教师",
-                width: 160,
-                height: 50,
-                textStyle: TextStyle(fontSize: 28)),
-            Container(height: 10),
-            Text("or", style: TextStyle(fontSize: 30)),
-            Container(height: 10),
-            NormalButton.rect(
-                onTap: () {
-                  logic.userType = 0;
-                  logic.liquidController.animateToPage(page: 2,duration: 700);
-                },
-                text: "学生",
-                width: 160,
-                height: 50,
-                textStyle: TextStyle(fontSize: 28))
-          ],
+                colors: [Color(0xffFFC3A0), Color(0xffFFAFBD)])),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("你是", style: TextStyle(fontSize: 40)),
+                Container(height: 40),
+                NormalButton.rect(
+                    onTap: () {
+                      logic.userType = 1;
+                      logic.index = 2;},
+                    text: "教师",
+                    width: 160,
+                    height: 50,
+                    textStyle: TextStyle(fontSize: 24)),
+                Container(height: 10),
+                Text("or", style: TextStyle(fontSize: 30)),
+                Container(height: 10),
+                NormalButton.rect(
+                    onTap: () {
+                      logic.userType = 0;
+                      logic.index = logic.index+1;
+                      },
+                    text: "学生",
+                    width: 160,
+                    height: 50,
+                    textStyle: TextStyle(fontSize: 24))
+              ],
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          left: 16,
+          top: MediaQuery.of(Get.context!).padding.top+10,
+          child: GestureDetector(
+              onTap: () {
+                logic.index = logic.index - 1;
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_back_ios_new_rounded,color: Colors.black.withOpacity(0.7)),
+                  Text("上一步",style: TextStyle(color: Colors.black.withOpacity(0.7)))
+                ],
+              )),
+        )
+      ],
     );
   }
 
   Widget chooseSchool() {
     return GetBuilder<SignInLogic>(builder: (logic) {
-      return Container(
-        decoration: const BoxDecoration(gradient: LinearGradient(
-          begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.8, 0.7),
-          stops: [0.1, 0.9], colors: [Colours.BLUE_DEEP, Colours.BLUE],
-        )),
-        alignment: Alignment.center,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 220,horizontal: 30),
-          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 16),
-          decoration: BoxDecoration(
-            boxShadow: const [BoxShadow(
-              color: Colors.black12,
-              blurRadius: 15,
-              spreadRadius: 0,
-              offset: Offset(0.0, 32.0))],
-            borderRadius: BorderRadius.circular(16.0),
-            gradient: const LinearGradient(
-              begin: FractionalOffset(0.0, 0.4),
-              end: FractionalOffset(0.9, 0.7),
-              stops: [0.2, 0.9],
-              colors: [Color(0xffFFC3A0), Color(0xffFFAFBD)])),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("完善你的信息", style: TextStyle(fontSize: 32)),
-              Container(height: 40),
-              ChooseText(
-                  horizontal: 50,
-                  title: "姓名",
-                  data: [],
-                  onChanged: (str) => logic.username = str,
-                  onSelected: (selection) => logic.username = selection
+      return Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(gradient: LinearGradient(
+              begin: FractionalOffset(0.0, 0.4), end: FractionalOffset(0.8, 0.7),
+              stops: [0.1, 0.9], colors: [Colours.BLUE_DEEP, Colours.BLUE],
+            )),
+            alignment: Alignment.center,
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 220,horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 16),
+              decoration: BoxDecoration(
+                boxShadow: const [BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 15,
+                  spreadRadius: 0,
+                  offset: Offset(0.0, 32.0))],
+                borderRadius: BorderRadius.circular(16.0),
+                gradient: const LinearGradient(
+                  begin: FractionalOffset(0.0, 0.4),
+                  end: FractionalOffset(0.9, 0.7),
+                  stops: [0.2, 0.9],
+                  colors: [Color(0xffFFC3A0), Color(0xffFFAFBD)])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("完善你的信息", style: TextStyle(fontSize: 32)),
+                  Container(height: 40),
+                  ChooseText(
+                      horizontal: 60,
+                      title: "姓名",
+                      data: [],
+                      text: logic.username,
+                      onChanged: (str) => logic.username = str,
+                      onSelected: (selection) => logic.username = selection
+                  ),
+                  Container(height: 20),
+                  ChooseText(
+                    horizontal: 60,
+                    title: "学校",
+                    text: logic.school,
+                    data: List.generate(logic.schoolList.length, (index) => logic.schoolList[index].schoolName ?? ""),
+                    onChanged: (str) => logic.school = str,
+                      onSelected: (selection) => logic.school = selection
+                  ),
+                  Container(height: 20),
+                  if(logic.userType == 0) ChooseText(
+                    horizontal: 60,
+                    title: "班级",
+                    text: logic.classInfo,
+                    data: List.generate(logic.classList.length, (index) => logic.classList[index].className ?? ""),
+                    onChanged: (str) => logic.classInfo = str,
+                    onSelected: (selection) => logic.classInfo = selection
+                  ),
+                  Container(height: 40),
+                  NormalButton(
+                    width: 130,
+                    text: "确定",
+                    textStyle: const TextStyle(fontSize: 14),
+                    onTap: () {
+                      if(logic.school != "" && logic.classInfo != ""){
+                        logic.index = logic.index + 1;
+                      }else{
+                        ToastUtils.show("请完善信息后再继续");
+                      }
+                    }, //logic.checkLogin(),
+                  )
+                ],
               ),
-              Container(height: 20),
-              ChooseText(
-                horizontal: 50,
-                title: "学校",
-                data: List.generate(logic.schoolList.length, (index) => logic.schoolList[index].schoolName ?? ""),
-                onChanged: (str) => logic.school = str,
-                  onSelected: (selection) => logic.school = selection
-              ),
-              Container(height: 20),
-              ChooseText(
-                horizontal: 50,
-                title: "班级",
-                data: List.generate(logic.classList.length, (index) => logic.classList[index].schoolName ?? ""),
-                onChanged: (str) => logic.classInfo = str,
-                onSelected: (selection) => logic.classInfo = selection
-              ),
-              Container(height: 40),
-              NormalButton(
-                width: 130,
-                text: "确定",
-                textStyle: const TextStyle(fontSize: 20),
-                onTap: () => logic.school != "" && logic.classInfo != ""?
-                logic.liquidController.animateToPage(page: 3,duration: 700):
-                ToastUtils.show("请完善信息后再继续"), //logic.checkLogin(),
-              )
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            left: 16,
+            top: MediaQuery.of(Get.context!).padding.top+10,
+            child: GestureDetector(
+                onTap: () {
+                  logic.index = logic.index - 1;
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.arrow_back_ios_new_rounded,color: Colors.black.withOpacity(0.7)),
+                    Text("上一步",style: TextStyle(color: Colors.black.withOpacity(0.7)))
+                  ],
+                )),
+          )
+        ],
       );
     });
   }
@@ -220,43 +252,61 @@ class SignInPage extends BasePage {
   Widget completeAccount() {
     return GetBuilder<SignInLogic>(
       builder: (logic) {
-        return Container(
-          color: Color(0xffccf7e2),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Form(
-            // key: GlobalKey<FormState>(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(height: 70),
-                fieldColorBox("账号", (str) => logic.account = str, true),
-                Container(height: 40),
-                fieldColorBox("密码",(str) => logic.password = str, false),
-                Container(height: 90),
-                NormalButton(
-                  width: 160,
-                  height: 50,
-                  text: "确定",
-                  textStyle: const TextStyle(fontSize: 14),
-                  onTap: () async{
-                    if(logic.password != "" && logic.account != ""){
-                     logic.isLogin?await logic.checkLogin():await logic.createUser();
-                      Get.offAndToNamed(Routes.navigation);
-                    }else{ToastUtils.show("请输入用户名与密码");}
-                  },
+        return Stack(
+          children: [
+            Container(
+              color: const Color(0xffccf7e2),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Form(
+                // key: GlobalKey<FormState>(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(height: 70),
+                    fieldColorBox("账号", (str) => logic.account = str, true,logic.accountController),
+                    Container(height: 40),
+                    fieldColorBox("密码",(str) => logic.password = str, false,logic.passwordController),
+                    Container(height: 90),
+                    NormalButton(
+                      width: 160,
+                      height: 50,
+                      text: logic.isLogin?"登录":"注册",
+                      textStyle: const TextStyle(fontSize: 14),
+                      onTap: () async{
+                        if(logic.password != "" && logic.account != ""){
+                         logic.isLogin?await logic.checkLogin():await logic.createUser();
+                          Get.offAndToNamed(Routes.navigation);
+                        }else{ToastUtils.show("请输入用户名与密码");}
+                      },
+                    ),
+                    // Text(logic.user.toString())
+                  ],
                 ),
-                // Text(logic.user.toString())
-              ],
+              ),
             ),
-          ),
+            Positioned(
+              left: 16,
+              top: MediaQuery.of(Get.context!).padding.top+10,
+              child: GestureDetector(
+                  onTap: () {
+                    logic.index = logic.index - 1;
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_back_ios_new_rounded,color: Colors.black.withOpacity(0.7)),
+                      Text("上一步",style: TextStyle(color: Colors.black.withOpacity(0.7)))
+                    ],
+                  )),
+            )
+          ],
         );
       }
     );
   }
 
-  Widget fieldColorBox(String title, Function(String)? onChanged, bool showText) {
+  Widget fieldColorBox(String title, Function(String)? onChanged, bool showText,TextEditingController controller) {
     return Container(
       height: 60,
       decoration: BoxDecoration(
@@ -290,6 +340,7 @@ class SignInPage extends BasePage {
             child: Wrap(
               children: <Widget>[
                 TextField(
+                  controller: controller,
                   obscureText: !showText,
                   decoration: InputDecoration(
                       border: InputBorder.none,

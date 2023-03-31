@@ -1,4 +1,6 @@
-class CheckStu {
+import '../t_mix.dart';
+
+class CheckStu with TMix{
   int? id;
   int? checkId;
   int? userId;

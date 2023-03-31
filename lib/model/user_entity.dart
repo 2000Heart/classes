@@ -1,4 +1,6 @@
-class User {
+import 'package:classes/model/t_mix.dart';
+
+class User with TMix{
   int? userId;
   String? userName;
   String? password;

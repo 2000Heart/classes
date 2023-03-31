@@ -1,4 +1,6 @@
-class Classroom {
+import '../t_mix.dart';
+
+class Classroom with TMix{
   int? roomId;
   String? schoolName;
   String? roomName;

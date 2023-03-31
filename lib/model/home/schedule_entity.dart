@@ -1,4 +1,6 @@
-class Schedule {
+import '../t_mix.dart';
+
+class Schedule with TMix{
   int? eventId;
   int? lessonId;
   String? lessonName;

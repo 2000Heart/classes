@@ -1,6 +1,8 @@
 import 'package:classes/model/user_entity.dart';
 
-class ClassEntity {
+import '../t_mix.dart';
+
+class ClassEntity with TMix{
   String? teacherId;
   String? userId;
   String? className;

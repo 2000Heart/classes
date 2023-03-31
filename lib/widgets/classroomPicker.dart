@@ -43,7 +43,7 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
   }
 
   Future requestData() async{
-    _data = await DataAPI.getClassroomList();
+    _data = await DataAPI.getClassroomList() ?? [];
   }
 
   Future getInput(str) async{
@@ -96,7 +96,7 @@ class _ClassroomPickerState extends State<ClassroomPicker> {
                           row: _row.join(","),
                           column: _column.join(",")
                         ).toJson());
-                        _result = classroom.roomName;
+                        _result = classroom?.roomName;
                       }
                       Get.back(result: _result);
                     })

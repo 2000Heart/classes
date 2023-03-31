@@ -7,18 +7,26 @@ import 'package:classes/model/data/class_entity.dart';
 import 'package:classes/model/home/table_set.dart';
 import 'package:classes/model/user_entity.dart';
 import 'package:classes/http/home_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import '../../model/data/school_entity.dart';
 import '../../utils/sp_utils.dart';
 
 class SignInLogic extends BaseLogic{
   final LiquidController liquidController = LiquidController();
-  bool _isLogin = true;
+  final nameController = TextEditingController();
+  final schoolController = TextEditingController();
+  final classController = TextEditingController();
+  final accountController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool _isLogin = false;
+  int _index = 0;
   User? user;
   TableSet? table;
   List<School>? _schoolList;
   List<ClassEntity>? _classList;
 
+  int get index => _index;
   bool get isLogin => _isLogin;
   List<School> get schoolList => _schoolList ?? [];
   List<ClassEntity> get classList => _classList ?? [];
@@ -36,10 +44,15 @@ class SignInLogic extends BaseLogic{
   String get username => _username;
   String get password => _password;
 
+  set index(int value) {
+    _index = value;
+    liquidController.animateToPage(page: _index,duration: 700);
+    update();
+  }
   set school(String value) {
     _school = value;
     bool check = !RegExp(r"\w").hasMatch(_school);
-    if( _school.length >= 4 && check) requestClass();
+    if(_school.length >=4 && check) requestClass();
     update();
   }
   set account(String value) {
@@ -71,6 +84,11 @@ class SignInLogic extends BaseLogic{
     if (!reg.hasMatch(value)) {
       return '请输入10位账号';
     }
+  }
+
+  @override
+  void onReady() {
+    requestSchool();
   }
 
   Future checkLogin() async{

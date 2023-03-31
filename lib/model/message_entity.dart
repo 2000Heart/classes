@@ -1,6 +1,7 @@
+import 'package:classes/model/t_mix.dart';
 import 'package:classes/states/user_state.dart';
 
-class Message {
+class Message with TMix{
   int? messageId;
   int? posterId;
   String? posterName;

@@ -1,4 +1,6 @@
-class CheckHistory {
+import '../t_mix.dart';
+
+class CheckHistory with TMix{
   int? infoId;
   String? lessonName;
   int? teacherId;

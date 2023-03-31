@@ -1,4 +1,6 @@
-class LessonEntity{
+import '../t_mix.dart';
+
+class LessonEntity with TMix{
   int? lessonId;
   String? lessonName;
 
