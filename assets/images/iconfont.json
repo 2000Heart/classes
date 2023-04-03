@@ -1,0 +1,72 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1230",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "f012d",
+      "unicode_decimal": 983341
+    },
+    {
+      "icon_id": "1342",
+      "name": "人像",
+      "font_class": "renxiang",
+      "unicode": "f019d",
+      "unicode_decimal": 983453
+    },
+    {
+      "icon_id": "1149391",
+      "name": "课程表",
+      "font_class": "kechengbiao",
+      "unicode": "e6be",
+      "unicode_decimal": 59070
+    },
+    {
+      "icon_id": "1468274",
+      "name": "个人配置",
+      "font_class": "gerenpeizhi",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "2076270",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e892",
+      "unicode_decimal": 59538
+    },
+    {
+      "icon_id": "6015252",
+      "name": "我的班级",
+      "font_class": "banji",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "6729601",
+      "name": "课程管理",
+      "font_class": "kechengguanli",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "6865357",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "25537533",
+      "name": "历史",
+      "font_class": "lishi",
+      "unicode": "e7ce",
+      "unicode_decimal": 59342
+    }
+  ]
+}

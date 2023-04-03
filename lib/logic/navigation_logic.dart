@@ -2,8 +2,7 @@ import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
 import 'package:classes/http/home_api.dart';
 import 'package:classes/pages/messages/messages_page.dart';
-import 'package:classes/states/user_state.dart';
-import 'package:classes/utils/sp_utils.dart';
+import 'package:classes/res//NavIcons.dart';
 import 'package:classes/widgets/keep_alive.dart';
 import 'package:flutter/material.dart';
 import '../pages/home/home_page.dart';
@@ -24,7 +23,7 @@ class NavigationLogic extends BaseLogic{
     KeepAliveWrapper(child: MessagesPage()),
     KeepAliveWrapper(child: MinePage())
   ];
-  final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.message,Icons.accessibility];
+  final List<IconData> icon = [NavIcons.home,NavIcons.lesson,NavIcons.messages,NavIcons.mine];
   final List<String> labelList = ["课程表","课程","消息","我的"];
 
   set currentIndex(value){

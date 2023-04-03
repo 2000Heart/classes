@@ -44,6 +44,7 @@ class _NavbarButtonState extends State<NavbarButton> with SingleTickerProviderSt
           child: Icon(
             widget.data.icon,
             size: 24,
+            opticalSize: 30,
             color: widget.isSelected ? Colors.white : Color(0xffcccccc),
           ),
         ),
