@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/mine/mine_logic.dart';
+import 'package:classes/res/nav_icons.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/res/styles.dart';
 import 'package:classes/states/user_state.dart';
@@ -84,11 +85,11 @@ class MinePage extends BasePage{
                 Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
                 Container(height: 60),
                 if(UserState.info?.userType == 1)
-                option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
+                option(NavIcons.classes, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
                 // option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
-                option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
-                option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
-                option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))
+                option(NavIcons.history, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
+                option(NavIcons.userSetting, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
+                option(NavIcons.setting, "应用设置").tap(() => Get.toNamed(Routes.setting))
               ],
             ),
           ),
