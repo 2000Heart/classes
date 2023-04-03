@@ -2,7 +2,7 @@ import 'package:classes/base/base_controller.dart';
 import 'package:classes/http/api.dart';
 import 'package:classes/http/home_api.dart';
 import 'package:classes/pages/messages/messages_page.dart';
-import 'package:classes/res//NavIcons.dart';
+import 'package:classes/res//nav_icons.dart';
 import 'package:classes/widgets/keep_alive.dart';
 import 'package:flutter/material.dart';
 import '../pages/home/home_page.dart';
