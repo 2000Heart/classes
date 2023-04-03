@@ -17,6 +17,7 @@ class SignInPage extends BasePage {
 
   final logic = Get.put(SignInLogic());
 
+
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<SignInLogic>(
@@ -277,7 +278,7 @@ class SignInPage extends BasePage {
                       onTap: () async{
                         if(logic.password != "" && logic.account != ""){
                          logic.isLogin?await logic.checkLogin():await logic.createUser();
-                          Get.offAndToNamed(Routes.navigation);
+                          Get.offAllNamed(Routes.navigation,arguments: "sign");
                         }else{ToastUtils.show("请输入用户名与密码");}
                       },
                     ),

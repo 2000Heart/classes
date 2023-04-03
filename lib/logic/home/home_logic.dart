@@ -39,6 +39,7 @@ class HomeLogic extends BaseLogic{
 
   Future requestData() async{
     data = await HomeAPI.getScheduleList();
+    weekSchedule = List.generate(UserState.tableSet?.totalWeek ?? 0,(index) => List.generate(7, (index) => []));
     if(data != null) {
       for (var i = 0; i < (UserState.tableSet?.totalWeek ?? 0); i++) {
         for (var element in data!) {

@@ -83,9 +83,9 @@ class MinePage extends BasePage{
                 Container(height: 6),
                 Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
                 Container(height: 60),
-                // if(UserState.info?.userType == 1)
+                if(UserState.info?.userType == 1)
                 option(Icons.add, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
-                option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
+                // option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
                 option(Icons.access_alarm, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
                 option(Icons.add, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
                 option(Icons.add, "应用设置").tap(() => Get.toNamed(Routes.setting))

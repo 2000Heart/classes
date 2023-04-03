@@ -13,7 +13,7 @@ import '../../utils/sp_utils.dart';
 class HomeAddLogic extends BaseLogic{
   int _timeCount = 1;
   String _lessonName = "";
-  List<List<int>> _duration = [[1,SpUtils.tableSet?.totalWeek ?? 0]];
+  List<List<int>> _duration = [List.generate(UserState.tableSet?.totalWeek ?? 12, (index) => index+1)];
   List<int> _weekTime = [1];
 
   List<List<int>> _unit = [[1,1]];

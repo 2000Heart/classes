@@ -21,7 +21,6 @@ class MessageAPI{
     final result = await DioUtils.post('/message/create', params: data,showLoading: true);
     if (result.statusCode == 200 && result.data['d'] != null) {
       Message data = Message.fromJson(result.data["d"]);
-      data.content = data.toContent();
       return data;
     }
     return null;
@@ -33,9 +32,6 @@ class MessageAPI{
     if (result.statusCode == 200 && result.data['d'] != null) {
       List<Message> data = result.data['d']
           .map<Message>((e) => Message.fromJson(e)).toList();
-      for (var element in data) {
-        element.content = element.toContent();
-      }
       return data;
     }
     return null;

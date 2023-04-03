@@ -81,9 +81,9 @@ class _DatePickerState extends State<DatePicker> {
                     child: CupertinoPicker(
                       itemExtent: 30,
                       onSelectedItemChanged: (position) => setState(() {
-                          minute = position+1;
+                          minute = position;
                         }),
-                      children: List.generate(60, (index) => Center(child: Text(index<9?"0${index+1}分":"${index+1}分")))),
+                      children: List.generate(60, (index) => Center(child: Text(index<=9?"0${index}分":"${index}分")))),
                   ),
                 ),
               ],

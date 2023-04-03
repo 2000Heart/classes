@@ -1,4 +1,6 @@
 import 'package:classes/base/base_page.dart';
+import 'package:classes/pages/navigation_page.dart';
+import 'package:classes/pages/sign_in/sign_in_page.dart';
 import 'package:classes/res/routes.dart';
 import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/utils.dart';
@@ -32,7 +34,8 @@ class Setting extends BasePage{
               [Text("退出登录",style: TextStyle(fontSize: 15)),
                 Icon(Icons.arrow_forward_ios_rounded,size: 18)].formLine().tap((){
                   SpUtils.loginAuth = null;
-                  Get.toNamed(Routes.sign);
+                  SpUtils.tableSet = null;
+                  Get.offUntil(GetPageRoute(page: () => SignInPage()),(route) => (route as GetPageRoute).routeName == null);
               }),
             ],
           )

@@ -30,9 +30,20 @@ class MyApp extends StatelessWidget {
         EasyLoading.instance.userInteractions = false;
         log("current user:${UserState.info?.toJson().toString()}");
       },
+      initialRoute: '/',
       builder: EasyLoading.init(),
       locale: const Locale("zh","CN"),
-      home: SpUtils.loginAuth == null?SignInPage():NavigationPage(),
+      home: RootPage(),
     );
   }
+}
+
+class RootPage extends StatelessWidget{
+  const RootPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SpUtils.loginAuth == null?SignInPage():NavigationPage();
+  }
+
 }

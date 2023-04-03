@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:classes/model/home/schedule_entity.dart';
 import 'package:classes/pages/home/home_detail_page.dart';
 import 'package:classes/res/routes.dart';
+import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/extensions.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +38,14 @@ class ClassSingleDay extends StatelessWidget{
     List<Widget> list = [];
     if(classes.isNotEmpty){
       for(var i = 0;i < classes.length;i++) {
-        if (!classes[i].isUseless) {
+        if (!classes[i].isUseless && (classes[i].startUnit ?? 12) < (UserState.tableSet?.lessonNum ?? 12)) {
+          var end = (classes[i].endUnit ?? 13) > (UserState.tableSet?.lessonNum ?? 12)?(UserState.tableSet?.lessonNum ?? 12):classes[i].endUnit;
           var colorIndex = int.parse(classes[i].userId.toString().substring(classes[i].userId.toString().length-2));
           list.add(
               Container(
                 color: Colors.transparent,
                 height: 50.0 * ((classes[i].startUnit ?? 0) -
-                    (list.isNotEmpty ? (classes[i - 1].endUnit ?? 100) + 1 : 1)),
+                    (list.isNotEmpty ? (classes[i - 1].endUnit ?? -1) + 1 : 1)),
                 alignment: Alignment.center,
               )
           );
@@ -52,7 +54,7 @@ class ClassSingleDay extends StatelessWidget{
                 onTap: () => showDetail(classes[i].weekTime ?? 0, classes[i].startUnit ?? 0),
                 child: Container(
                   height: 50.0 *
-                      ((classes[i].endUnit ?? 0) - (classes[i].startUnit ?? 0) +
+                      ((end ?? 0) - (classes[i].startUnit ?? 0) +
                           1),
                   padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 2),
                   decoration: BoxDecoration(

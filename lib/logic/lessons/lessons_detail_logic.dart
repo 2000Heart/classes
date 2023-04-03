@@ -18,6 +18,15 @@ class LessonsDetailLogic extends BaseLogic{
   final ScrollController scrollController = ScrollController();
   Check? _check;
   Lesson? data = Get.arguments;
+  int _count = 0;
+
+  int get count => _count;
+
+  set count(int value) {
+    _count = value;
+    update();
+  }
+
   List<int> row = [];
   List<int> column = [];
   DateTime timeNow = DateTime.now();
@@ -57,9 +66,9 @@ class LessonsDetailLogic extends BaseLogic{
         if (timeNow.isAfter(start) && timeNow.isBefore(end)) {
           status = 0;
           var time = end.difference(timeNow).inMilliseconds;
-          text = "距离结束：${DateFormat("HH小时mm分钟ss秒").format(
+          text = "距离结束：${DateFormat("hh小时mm分钟ss秒").format(
             DateTime.fromMillisecondsSinceEpoch(time,isUtc: true))}";
-        } else if (timeNow.isBefore(start)) {
+        } else if (timeNow.isBefore(start) && timeNow.difference(start).inDays < 1) {
           status = 1;
           var time = start.difference(timeNow).inMilliseconds;
           text = "距离开始：${DateFormat("HH小时mm分钟ss秒").format(

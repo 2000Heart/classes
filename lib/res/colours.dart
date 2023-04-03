@@ -32,7 +32,7 @@ class Colours{
   static const TEXT_BLACK_LIGHT = Color(0xFF34323D);
 
   static const List<Color> colorList = [
-    YELLOW,BLUE_DEEP,BLUE_LIGHT,BLUE,PURPLE,SIGNUP_LIGHT_RED,SIGNUP_RED,RED,RED_LIGHT
+    YELLOW,GREEN,BLUE_DEEP,BLUE_LIGHT,BLUE,PURPLE,SIGNUP_LIGHT_RED,SIGNUP_RED,RED,RED_LIGHT
   ];
 
   static const List<List<Color>> navigationColors = [

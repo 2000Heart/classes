@@ -46,17 +46,17 @@ class Message with TMix{
   }
 }
 
-extension MessageEx on Message{
-  String? toContent() {
-    var userType = UserState.info?.userType;
-    switch(type){
-      case 0:
-        return userType == 0?
-         '教师$posterName$content':"您$content";
-      case 1:
-        return userType == 0?
-        '教师$posterName$content':'您$content';
-      default:
-        return content;
-    }
-  }}
+// extension MessageEx on Message{
+//   String? toContent() {
+//     var userType = UserState.info?.userType;
+//     switch(type){
+//       case 0:
+//         return userType == 0?
+//          '教师$posterName$content':"您$content";
+//       case 1:
+//         return userType == 0?
+//         '教师$posterName$content':'您$content';
+//       default:
+//         return content;
+//     }
+//   }}

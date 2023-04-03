@@ -8,6 +8,7 @@ import 'package:classes/utils/sp_utils.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/colourful_wrap.dart';
 import 'package:classes/widgets/grid_unit.dart';
+import 'package:classes/widgets/single_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,7 @@ class HomePage extends BasePage {
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<HomeLogic>(
+      initState: (state) => logic.requestData(),
       builder: (logic) {
         return Scaffold(
           appBar: AppBar(
@@ -80,7 +82,7 @@ class HomePage extends BasePage {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: List.generate(
-                          12, (index) => GridUnit(child: Text("${index + 1}")))
+                        UserState.tableSet?.lessonNum ?? 12, (index) => GridUnit(child: Text("${index + 1}")))
                   ),
                 ),
                 Expanded(
@@ -114,19 +116,21 @@ class HomePage extends BasePage {
       ),
       child: BottomSheet(
           elevation: 40,
+          enableDrag: false,
           backgroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(16))
           ),
           constraints: BoxConstraints(
-              maxWidth: Get.width, maxHeight: Get.height * 0.25),
+              maxWidth: Get.width),
           builder: (context) =>
               GetBuilder<HomeLogic>(
                   builder: (logic) {
-                    return Container(
-                      alignment: Alignment.center,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 24,top: 12),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
                             height: 50,
@@ -187,11 +191,23 @@ class HomePage extends BasePage {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("设置节数"),
+                                Text("设置总周数"),
                                 Icon(size: 20, Icons.arrow_forward_ios)
                               ],
                             ),
-                          ),
+                          ).tap(() async{
+                            Map<int,dynamic>? num = await Get.bottomSheet(SinglePicker(list: List.generate(25, (index) => index+1), initIndex: (SpUtils.tableSet?.totalWeek ?? 1)-1));
+                            if(num != null) {
+                              var table = SpUtils.tableSet;
+                              table?.totalWeek = num.values.first;
+                              if((table?.totalWeek ?? 0) < (table?.currentWeek ?? 0)) {
+                                table?.currentWeek = table.totalWeek;
+                                logic.weekIndex = table?.currentWeek ?? 0;
+                              }
+                              SpUtils.tableSet = table;
+                              Future.delayed(Duration(milliseconds: 300)).then((value) => logic.requestData());
+                            }
+                          }),
                           Container(
                             height: 50,
                             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -199,11 +215,19 @@ class HomePage extends BasePage {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("切换课表"),
+                                Text("设置节数"),
                                 Icon(size: 20, Icons.arrow_forward_ios)
                               ],
-                            ),
-                          ),
+                            ).tap(() async{
+                              Map<int,dynamic>? num = await Get.bottomSheet(SinglePicker(list: List.generate(20, (index) => index+1), initIndex: (SpUtils.tableSet?.lessonNum ?? 1)-1));
+                              if(num != null) {
+                                var table = SpUtils.tableSet;
+                                table?.lessonNum = num.values.first;
+                                SpUtils.tableSet = table;
+                                Future.delayed(Duration(milliseconds: 300)).then((value) => logic.requestData());
+                              }
+                            }),
+                          )
                         ],
                       ),
                     );

@@ -83,7 +83,13 @@ class LessonAddCheckLogic extends BaseLogic{
         MessageAPI.createMessage(
             userAll: _schedule?[_choice!].userId ?? "",
             title: _schedule?[_choice!].lessonName ?? "",
-            content: "发布了本课程${_startTime?.day}日的签到，请不要忘记前往上课签到",
+            content: "教师${UserState.info?.userName}发布了本课程${_startTime?.day}日的签到，请不要忘记前往上课签到",
+            type: 1
+        );
+        MessageAPI.createMessage(
+            userAll: UserState.info?.userId.toString() ?? "",
+            title: _schedule?[_choice!].lessonName ?? "",
+            content: "您发布了本课程${_startTime?.day}日的签到",
             type: 1
         );
       }

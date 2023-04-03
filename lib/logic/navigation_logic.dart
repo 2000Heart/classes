@@ -17,7 +17,7 @@ class NavigationLogic extends BaseLogic{
   List<Widget> get pageList => _pageList;
 
   int _currentIndex = 0;
-  final PageController _pageController = PageController();
+  final PageController _pageController = PageController(initialPage: 0);
   final List<Widget> _pageList = [
     KeepAliveWrapper(child: HomePage()),
     KeepAliveWrapper(child: LessonsPage()),
@@ -27,14 +27,8 @@ class NavigationLogic extends BaseLogic{
   final List<IconData> icon = [Icons.add,Icons.ac_unit,Icons.message,Icons.accessibility];
   final List<String> labelList = ["课程表","课程","消息","我的"];
 
-  void setIndex(value){
+  set currentIndex(value){
     _currentIndex = value;
     update();
-  }
-
-  @override
-  void onInit() async{
-    super.onInit();
-    if(UserState.info != null) SpUtils.tableSet = await HomeAPI.getTableSet(UserState.info?.userId);
   }
 }

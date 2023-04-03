@@ -3,6 +3,7 @@ import 'package:classes/logic/lessons/lessons_logic.dart';
 import 'package:classes/model/lessons/lesson_entity.dart';
 import 'package:classes/res/colours.dart';
 import 'package:classes/res/routes.dart';
+import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,11 +17,12 @@ class LessonsPage extends BasePage{
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<LessonsLogic>(
+      initState: (state)=>logic.requestData(),
       builder: (logic) {
         return Scaffold(
           appBar: AppBar(
             actions: [
-              Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
+              if(UserState.info?.userType == 1) const Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
             ],
           ),
           body: Padding(

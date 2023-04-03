@@ -4,16 +4,26 @@ import 'package:classes/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../http/home_api.dart';
 import '../res/colours.dart';
+import '../states/user_state.dart';
+import '../utils/sp_utils.dart';
 
 class NavigationPage extends BasePage {
   NavigationPage({super.key});
 
-  final logic = Get.put(NavigationLogic());
+  late final NavigationLogic logic;
 
   @override
   Widget buildWidget(BuildContext context) {
     return GetBuilder<NavigationLogic>(
+      init: logic = Get.put(NavigationLogic()),
+      initState: (state) async{
+        if(Get.arguments == "sign") {
+          logic.currentIndex = 0;
+        }
+        if(UserState.info != null) SpUtils.tableSet = await HomeAPI.getTableSet(UserState.info?.userId);
+      },
       builder: (logic) {
         return Scaffold(
           bottomNavigationBar: _bottomBar(),
@@ -21,7 +31,7 @@ class NavigationPage extends BasePage {
             physics: const ClampingScrollPhysics(),
             controller: logic.pageController,
             onPageChanged: (value) {
-              logic.setIndex(value);
+              logic.currentIndex = value;
             },
             children: logic.pageList,
           ),

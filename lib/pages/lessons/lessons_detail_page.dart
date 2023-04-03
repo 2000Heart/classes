@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:classes/base/base_page.dart';
 import 'package:classes/res/colours.dart';
 import 'package:classes/res/routes.dart';
@@ -6,6 +8,7 @@ import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../logic/lessons/lessons_detail_logic.dart';
 import '../../widgets/checkDialog.dart';
@@ -20,64 +23,73 @@ class LessonsDetailPage extends BasePage {
     return GetBuilder<LessonsDetailLogic>(
       initState: (state) => logic.getCheck(),
       builder: (logic) {
-        return Scaffold(
-          appBar: AppBar(title: Text(logic.data?.lessonName ?? ''),actions: [
-            Container(
-                padding: const EdgeInsets.only(right: 16),
-                alignment: Alignment.center,
-                child: Text("发布任务",style: TextStyle(color: Colors.black.withOpacity(0.7)))
-            ).tap(() => Get.bottomSheet(addTask()))
-          ],),
-          body: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 18,right: 18,top: 20,bottom: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)),
-                          Container(width: 16),
-                          Text(logic.text)
-                        ],
-                      ),
-                      const Text("发布签到",style: TextStyle(fontSize: 14)).tap(() =>
-                        Get.toNamed(Routes.lessonCheck,arguments: logic.data?.infoId)),
-                    ],
-                  )),
-              ),
-              if(logic.status == 0 || UserState.info?.userType == 1)
-              SliverToBoxAdapter(
-                child: logic.check==null?const Text("暂无签到").center:SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+        return VisibilityDetector(
+          key: Key("detail"),
+          onVisibilityChanged: (VisibilityInfo info) {
+            if(!info.visibleBounds.isEmpty) logic.getCheck();
+          },
+          child: Scaffold(
+            appBar: AppBar(title: Text(logic.data?.lessonName ?? ''),actions: [
+              if(UserState.info?.userType == 1)
+              Container(
+                  padding: const EdgeInsets.only(right: 16),
+                  alignment: Alignment.center,
+                  child: Text("发布任务",style: TextStyle(color: Colors.black.withOpacity(0.7)))
+              ).tap(() => Get.bottomSheet(addTask()))
+            ],),
+            body: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 18,right: 18,top: 20,bottom: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(logic.column.length, (index) => Padding(
-                        padding: EdgeInsets.only(right: (index != logic.column.length -1)?15:0),
-                        child: group(logic.column[index], logic.row[index], index),
-                      )),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            const Text("签到",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)),
+                            Container(width: 16),
+                            Text(logic.text)
+                          ],
+                        ),
+                        if(UserState.info?.userType == 1)
+                        const Text("发布签到",style: TextStyle(fontSize: 14)).tap(() =>
+                          Get.toNamed(Routes.lessonCheck,arguments: logic.data?.infoId)),
+                      ],
+                    )),
+                ),
+                if(logic.check==null) SliverToBoxAdapter(child: const Text("暂无签到").center),
+                if(logic.status == 0 || UserState.info?.userType == 1)
+                SliverToBoxAdapter(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(logic.column.length, (index) => Padding(
+                          padding: EdgeInsets.only(right: (index != logic.column.length -1)?15:0),
+                          child: group(logic.column[index], logic.row[index], index),
+                        )),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Text("课程任务",
-                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 15),
+                    child: Text("课程任务",
+                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500)).paddingSymmetric(horizontal: 16),
+                  ),
                 ),
-              ),
-              logic.data?.lessonTask?.length == 0?SliverToBoxAdapter(child: const Text("暂无任务").center):
-              SliverList(delegate: SliverChildListDelegate(
-                  List.generate(logic.data?.lessonTask?.split(",").length ?? 0, (index) => taskItem(index))
-              ))
-            ],
+                logic.data?.lessonTask.isNullOrEmpty == true?SliverToBoxAdapter(child: const Text("暂无任务").center):
+                SliverList(delegate: SliverChildListDelegate(
+                    List.generate(logic.data?.lessonTask?.split(",").length ?? 0, (index) => taskItem(index))
+                ))
+              ],
+            ),
           ),
         );
       }
@@ -139,7 +151,8 @@ class LessonsDetailPage extends BasePage {
           mainAxisSize: MainAxisSize.max,
           children: List.generate(
             column, (childIndex) {
-            var count = childIndex+num*row*column+index*column;
+              var number = num == 0?0:List.generate(num, (index) => logic.column[index]*logic.row[index]).reduce((value, element) => value+element);
+              var count = childIndex+index*column+number;
               return Padding(
               padding: EdgeInsets.only(right: childIndex != column - 1?5:0),
               child: RawMaterialButton(
@@ -152,31 +165,33 @@ class LessonsDetailPage extends BasePage {
                 ),
                 constraints: const BoxConstraints(minWidth: 40,minHeight: 35,maxWidth: 40,maxHeight: 35),
                 onPressed: () {
-                  var i = logic.checkList.indexWhere((element) =>
-                  element.userName == (UserState.info?.userName ?? ""));
-                  if(logic.signMember[count] == " "){
-                    if(i==-1) {
+                  if(UserState.info?.userType == 0) {
+                    var i = logic.checkList.indexWhere((element) =>
+                    element.userName == (UserState.info?.userName ?? ""));
+                    if (logic.signMember[count] == " ") {
+                      if (i == -1) {
+                        Get.dialog(CheckDialog(
+                            title: "选择这个位置吗？",
+                            doYes: () {
+                              logic.updateCheck(count, null);
+                              Get.back();
+                            }), barrierColor: Colors.grey.withOpacity(0.1));
+                      } else {
+                        Get.dialog(CheckDialog(
+                            title: "您已签到，要更换位置吗？",
+                            doYes: () {
+                              logic.updateCheck(count, i);
+                              Get.back();
+                            }), barrierColor: Colors.grey.withOpacity(0.1));
+                      }
+                    } else if (count == logic.checkList[i].index) {
                       Get.dialog(CheckDialog(
-                        title: "选择这个位置吗？",
-                        doYes: () {
-                          logic.updateCheck(count,null);
-                          Get.back();
-                        }), barrierColor: Colors.grey.withOpacity(0.1));
-                    }else{
-                      Get.dialog(CheckDialog(
-                        title: "您已签到，要更换位置吗？",
-                        doYes: () {
-                          logic.updateCheck(count,i);
-                          Get.back();
-                        }), barrierColor: Colors.grey.withOpacity(0.1));
+                          title: "要移除该位置的签到吗？",
+                          doYes: () {
+                            logic.deleteCheck(i);
+                            Get.back();
+                          }), barrierColor: Colors.grey.withOpacity(0.1));
                     }
-                  }else if(count == logic.checkList[i].index){
-                    Get.dialog(CheckDialog(
-                      title: "要移除该位置的签到吗？",
-                      doYes: () {
-                        logic.deleteCheck(i);
-                        Get.back();
-                      }), barrierColor: Colors.grey.withOpacity(0.1));
                   }
                 },
                 child: FittedBox(

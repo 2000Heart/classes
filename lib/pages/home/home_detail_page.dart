@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:classes/base/base_page.dart';
 import 'package:classes/logic/home/home_detail_logic.dart';
 import 'package:classes/model/home/schedule_entity.dart';
+import 'package:classes/states/user_state.dart';
 import 'package:classes/utils/utils.dart';
 import 'package:classes/widgets/button.dart';
 import 'package:classes/widgets/week_picker.dart';
@@ -81,10 +82,10 @@ class HomeDetailPage extends BasePage {
               text("第${formDuration(entity.duration?.split(",").map((e) => int.parse(e)).toList() ?? [])}周",
                 readOnly: true,
               ).tap(() async{
-                if(logic.read[index]) logic.duration = await Get.bottomSheet(const WeekPicker());
+                if(!logic.read[index]) logic.duration = await Get.bottomSheet(const WeekPicker());
               }),
               text("周${weekZh(entity.weekTime ?? 1)} | 第${entity.startUnit}-${entity.endUnit}节", readOnly: true).tap(() async{
-                  if(logic.read[index]) logic.time = await Get.bottomSheet(const UnitPicker());
+                  if(!logic.read[index]) logic.time = await Get.bottomSheet(const UnitPicker());
               }),
               text(
                 entity.classroom ?? '',
@@ -100,6 +101,7 @@ class HomeDetailPage extends BasePage {
               )
             ],
           ),
+          if(logic.data[index].userId == UserState.info?.userId.toString())
           Positioned(
               right: 0,
               top: 0,
