@@ -21,6 +21,7 @@ class LessonsPage extends BasePage{
       builder: (logic) {
         return Scaffold(
           appBar: AppBar(
+            title: Text("课程"),
             actions: [
               if(UserState.info?.userType == 1) const Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
             ],
