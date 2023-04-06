@@ -86,7 +86,7 @@ class LessonsDetailPage extends BasePage {
                 ),
                 logic.data?.lessonTask.isNullOrEmpty == true?SliverToBoxAdapter(child: const Text("暂无任务").center):
                 SliverList(delegate: SliverChildListDelegate(
-                    List.generate(logic.data?.lessonTask?.split(",").length ?? 0, (index) => taskItem(index))
+                    List.generate(logic.data?.lessonTask?.split("\$").length ?? 0, (index) => taskItem(index))
                 ))
               ],
             ),
@@ -97,10 +97,10 @@ class LessonsDetailPage extends BasePage {
   }
 
   Widget taskItem(int index){
-    String task = logic.data?.lessonTask?.split(",")[index].split("/").join("\n") ?? "";
-    return Container(
+    String task = logic.data?.lessonTask?.split("\$")[index].split(";").join("\n") ?? "";
+    return task == ""?Container():Container(
       margin: const EdgeInsets.only(bottom: 10,top: 10,right: 16),
-      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -225,6 +225,7 @@ class LessonsDetailPage extends BasePage {
             SizedBox(
             width: 100,
             child: TextField(
+              textAlign: TextAlign.end,
               cursorColor: Colors.black,
               expands: true,
               maxLines: null,
@@ -255,6 +256,7 @@ class LessonsDetailPage extends BasePage {
             child: TextField(
               maxLines: 15,
               decoration: InputDecoration(
+                hintText: "每一段请用;间隔",
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none
               ),

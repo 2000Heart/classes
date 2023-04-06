@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: '课程管理',
       getPages: Routes.getPages,
       theme: ThemeConfig.theme(),
