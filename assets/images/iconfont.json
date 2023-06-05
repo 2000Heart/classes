@@ -67,6 +67,13 @@
       "font_class": "lishi",
       "unicode": "e7ce",
       "unicode_decimal": 59342
+    },
+    {
+      "icon_id": "32042564",
+      "name": "宠物脚",
+      "font_class": "qingjing_chongwujiao",
+      "unicode": "e6e8",
+      "unicode_decimal": 59112
     }
   ]
 }

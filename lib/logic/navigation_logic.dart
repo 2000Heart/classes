@@ -23,8 +23,8 @@ class NavigationLogic extends BaseLogic{
     KeepAliveWrapper(child: MessagesPage()),
     KeepAliveWrapper(child: MinePage())
   ];
-  final List<IconData> icon = [NavIcons.home,NavIcons.lesson,NavIcons.messages,NavIcons.mine];
-  final List<String> labelList = ["课程表","课程","消息","我的"];
+  final List<IconData> icon = [NavIcons.home,NavIcons.lesson,NavIcons.pet,NavIcons.mine];
+  final List<String> labelList = ["课程表","课程","宠物","我的"];
 
   set currentIndex(value){
     _currentIndex = value;

@@ -54,4 +54,10 @@ class NavIcons{
       fontFamily: 'NavIcon',
       matchTextDirection: true
   );
+
+  static const IconData pet = IconData(
+      0xe6e8,
+      fontFamily: 'ExIcon',
+      matchTextDirection: true
+  );
 }
