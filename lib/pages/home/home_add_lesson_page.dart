@@ -58,11 +58,6 @@ class HomeAddLessonPage extends BasePage{
                       log("click");
                       logic.timeCount +=1;
                       logic.add();
-                      // logic.data.add(Schedule(
-                      //   lessonName: logic.lessonName,
-                      //   startUnit: logic.duration[logic.timeCount - 1].first,
-                      //   endUnit: logic.duration[logic.timeCount - 1].last
-                      // ));
                       _listKey.currentState?.insertItem(logic.timeCount - 1);
                     }
                   ),
