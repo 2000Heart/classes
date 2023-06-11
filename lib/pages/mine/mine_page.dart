@@ -28,79 +28,86 @@ class MinePage extends BasePage{
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter)),
           padding: EdgeInsets.only(top: 16+MediaQuery.of(context).padding.top),
-          child: Column(
+          child: Stack(
             children: [
-              Row(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset(width: Get.width,Utils.getImgPath("big_cat.png"))),
+              Column(
                 children: [
-                  Expanded(child: Column()),
-                  Container(
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              blurRadius: 5,
-                              offset: const Offset(8, 8)
-                          )
-                        ]
-                    ),
-                    child: CachedNetworkImage(
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                        placeholder: (context, str) => Container(color: Colors.white),
-                        errorWidget: (context,url,error) => CachedNetworkImage(imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
-                        imageUrl: UserState.info?.avatar ?? ""),
-                  ).tap(() => logic.pic = !logic.pic),
-                  Expanded(child: Column(
+                  Row(
                     children: [
-                      if(logic.pic)Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AnimatedTextKit(
-                              onTap: () => Utils.pickPhotoFormGallery(),
-                              totalRepeatCount: 1,
-                              animatedTexts: [
-                                FadeAnimatedText("从相册中选择",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
-                              ],
-                              onFinished: () => logic.pic = !logic.pic,
-                            ),
-                            Container(height: 16),
-                            AnimatedTextKit(
-                              onTap: () => Utils.pickPhotoFormCamera(),
-                              totalRepeatCount: 1,
-                              animatedTexts: [
-                                FadeAnimatedText("手机拍摄",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
-                              ],
-                              onFinished: () => logic.pic = !logic.pic,
-                            )
-                          ],
+                      Expanded(child: Column()),
+                      Container(
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 5,
+                                  offset: const Offset(8, 8)
+                              )
+                            ]
                         ),
-                      )
+                        child: CachedNetworkImage(
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
+                            placeholder: (context, str) => Container(color: Colors.white),
+                            errorWidget: (context,url,error) => CachedNetworkImage(imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1680746191&t=ddb4b41f1676fbe35e1c2546bf472d0b'),
+                            imageUrl: UserState.info?.avatar ?? ""),
+                      ).tap(() => logic.pic = !logic.pic),
+                      Expanded(child: Column(
+                        children: [
+                          if(logic.pic)Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AnimatedTextKit(
+                                  onTap: () => Utils.pickPhotoFormGallery(),
+                                  totalRepeatCount: 1,
+                                  animatedTexts: [
+                                    FadeAnimatedText("从相册中选择",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
+                                  ],
+                                  onFinished: () => logic.pic = !logic.pic,
+                                ),
+                                Container(height: 16),
+                                AnimatedTextKit(
+                                  onTap: () => Utils.pickPhotoFormCamera(),
+                                  totalRepeatCount: 1,
+                                  animatedTexts: [
+                                    FadeAnimatedText("手机拍摄",duration: const Duration(seconds: 10),fadeInEnd: 0.1,fadeOutBegin: 0.9),
+                                  ],
+                                  onFinished: () => logic.pic = !logic.pic,
+                                )
+                              ],
+                            ),
+                          )
 
+                        ],
+                      ))
                     ],
-                  ))
+                  ),
+                  Container(height: 40),
+                  Text(UserState.info?.userName ?? "",style: TextStyle(fontSize: 25)),
+                  Container(height: 6),
+                  Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
+                  Container(height: 60),
+                  if(UserState.info?.userType == 1)
+                  option("我的班级",icon: NavIcons.classes,).tap(() => Get.toNamed(Routes.myClass)),
+                  // option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
+                  option("我的记录",image: "cat_time.png").tap(() => Get.toNamed(Routes.myReview)),
+                  option("用户设置",image: "cat_set.png").tap(() => Get.toNamed(Routes.mySetting)),
+                  option("应用设置",image: "setting.png").tap(() => Get.toNamed(Routes.setting))
                 ],
               ),
-              Container(height: 40),
-              Text(UserState.info?.userName ?? "",style: TextStyle(fontSize: 25)),
-              Container(height: 6),
-              Text(UserState.info?.school ?? "",style: TextStyle(fontSize: 14)),
-              Container(height: 60),
-              if(UserState.info?.userType == 1)
-              option(NavIcons.classes, "我的班级").tap(() => Get.toNamed(Routes.myClass)),
-              // option(Icons.add, "我的课程").tap(() => Get.toNamed(Routes.myReview)),
-              option(NavIcons.history, "我的记录").tap(() => Get.toNamed(Routes.myReview)),
-              option(NavIcons.userSetting, "用户设置").tap(() => Get.toNamed(Routes.mySetting)),
-              option(NavIcons.setting, "应用设置").tap(() => Get.toNamed(Routes.setting))
             ],
           ),
         );
       }
     );
   }
-  Widget option(IconData icon, String title, {void Function()? onTap}) {
+  Widget option(String title, {void Function()? onTap, String? image,IconData? icon}) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -126,7 +133,7 @@ class MinePage extends BasePage{
                         offset: Offset(3, 2)
                     )],
                   ),
-                  child: Icon(size: 25, icon)),
+                  child: image != null?Image.asset(Utils.getImgPath(image)):Icon(size: 25, icon)),
                 const SizedBox(width: 18),
                 Text(title, style: const TextStyle(fontSize: 15)),
                 const Spacer(),

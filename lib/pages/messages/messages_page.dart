@@ -32,10 +32,10 @@ class MessagesPage extends BasePage{
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter)
             ),
-            child: Image.asset(
-            width: Get.width,
-            fit: BoxFit.fitWidth,
-            Utils.getImgPath("cat.jpeg")),
+            // child: Image.asset(
+            // width: Get.width,
+            // fit: BoxFit.fitWidth,
+            // Utils.getImgPath("cat.jpeg")),
           )
           // EasyRefresh.builder(
           //   header: const ClassicHeader(

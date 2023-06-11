@@ -58,34 +58,41 @@ class LessonsPage extends BasePage{
             )
           ],
           borderRadius: BorderRadius.circular(10)),
-        child: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(entity.lessonName ?? "",style: TextStyle(fontSize: 18)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(4)
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
-                  child: Text("进行中",style: TextStyle(fontSize: 10))),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(entity.lessonName ?? "",style: TextStyle(fontSize: 18)),
+                    Container(
+                      width: (entity.lessonName?.length ?? 0) * 18,
+                      height: 2,
+                      margin: EdgeInsets.symmetric(vertical: 2),
+                      decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(
+                          0xFF7AB0E8),
+                        Color(0xFFD6E5F5)])),
+                    ),
+                    Container(height: 4),
+                    Text(entity.teacherName ?? '',style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                Container(width: 6),
+                Image.asset(width: 20,height: 20,Utils.getImgPath("cat_icon.png"))
               ],
             ),
             Container(
-              width: 100,
-              height: 2,
-              margin: EdgeInsets.symmetric(vertical: 2),
-              decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(
-                  0xFF7AB0E8),
-                Color(0xFFD6E5F5)])),
-            ),
-            Container(height: 4),
-            Text(entity.teacherName ?? '',style: TextStyle(fontSize: 16)),
-            // Container(height: 4),
-            // Text("2308",style: TextStyle(fontSize: 14))
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(4)
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+                child: Text("进行中",style: TextStyle(fontSize: 10))),
           ],
         ),
       ),
