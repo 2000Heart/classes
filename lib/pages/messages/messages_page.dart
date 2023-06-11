@@ -22,7 +22,16 @@ class MessagesPage extends BasePage{
       builder: (context) {
         return Scaffold(
           appBar: AppBar(title: Text("宠物")),
-          body: Center(
+          body: Container(
+            width: Get.width,
+            height: Get.height,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFe8ddc2),Color(0xFFC9E8E1)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter)
+            ),
             child: Image.asset(
             width: Get.width,
             fit: BoxFit.fitWidth,

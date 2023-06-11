@@ -26,7 +26,8 @@ class LessonsPage extends BasePage{
               if(UserState.info?.userType == 1) const Icon(Icons.add).tap(() => Get.toNamed(Routes.lessonAdd)),
             ],
           ),
-          body: Padding(
+          body: Container(
+            color: Color(0xFFC9E8E1),
             padding: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
               child: Column(
@@ -50,7 +51,7 @@ class LessonsPage extends BasePage{
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Color(0xFF80A397).withOpacity(0.5),
               blurRadius: 2,
               blurStyle: BlurStyle.solid,
               offset: Offset(5, 5)
@@ -77,7 +78,9 @@ class LessonsPage extends BasePage{
               width: 100,
               height: 2,
               margin: EdgeInsets.symmetric(vertical: 2),
-              decoration: BoxDecoration(gradient: LinearGradient(colors: [Colours.SIGNUP_RED,Colours.PURPLE])),
+              decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(
+                  0xFF7AB0E8),
+                Color(0xFFD6E5F5)])),
             ),
             Container(height: 4),
             Text(entity.teacherName ?? '',style: TextStyle(fontSize: 16)),

@@ -26,7 +26,9 @@ class Colours{
   static const SIGNUP_LIGHT_RED = Color(0xffffc2a1);
   static const SIGNUP_RED = Color(0xffffb1bb);
   static const RED = Color(0xffF2A7B3);
+  static const PINK = Color(0xfff5d3c3);
   static const GREEN = Color(0xffc7e5b4);
+  static const GREEN1 = Color(0xFFACCAC1);
   static const RED_LIGHT = Color(0xffFFC3A0);
   static const TEXT_BLACK = Color(0xFF353535);
   static const TEXT_BLACK_LIGHT = Color(0xFF34323D);

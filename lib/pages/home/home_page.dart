@@ -36,20 +36,28 @@ class HomePage extends BasePage {
               const Icon(Icons.more_vert_rounded).tap(() => Get.bottomSheet(showMore(),barrierColor: Colors.transparent))
             ],
           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  controller: logic.pageController,
-                  onPageChanged: (index) {
-                    logic.currentIndex = index;
-                  },
-                  children: List.generate(logic.weekSchedule.length, (index) {
-                    return weekLessons(logic.weekSchedule[index]);
-                  }),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colours.PINK,Colours.BLUE_LIGHT],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter)
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: logic.pageController,
+                    onPageChanged: (index) {
+                      logic.currentIndex = index;
+                    },
+                    children: List.generate(logic.weekSchedule.length, (index) {
+                      return weekLessons(logic.weekSchedule[index]);
+                    }),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )
         );
     });
@@ -61,7 +69,7 @@ class HomePage extends BasePage {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 20, child: Text("${DateTime.now().month >= 10?DateTime.now().month:" ${DateTime.now().month}"}月")),
+            Container(width: 20, height: 50, alignment: Alignment.center, child: Text("${DateTime.now().month >= 10?DateTime.now().month:" ${DateTime.now().month}"}月")),
             Expanded(child: GridUnit(child: Text("一"))),
             Expanded(child: GridUnit(child: Text("二"))),
             Expanded(child: GridUnit(child: Text("三"))),

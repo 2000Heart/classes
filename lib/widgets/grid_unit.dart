@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import '../res/colours.dart';
 
 class GridUnit extends StatelessWidget{
-  const GridUnit({super.key, required this.child, this.num = 1, this.color = Colors.white});
+  const GridUnit({super.key, required this.child, this.num = 1, this.color = Colors.transparent});
 
   final Widget child;
   final int num;
