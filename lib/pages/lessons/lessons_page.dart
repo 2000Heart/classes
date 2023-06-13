@@ -28,6 +28,7 @@ class LessonsPage extends BasePage{
           ),
           body: Container(
             color: Color(0xFFC9E8E1),
+            height: Get.height,
             padding: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
               child: Column(
